@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.studiomediatech</groupId>
-	<artifactId>spring-boot-content-service</artifactId>
+	<artifactId>contessa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Spring Boot Content Service</name>
+	<name>Contessa - The Content Service</name>
 	<description>Serving and managing web media content.</description>
 
 	<parent>

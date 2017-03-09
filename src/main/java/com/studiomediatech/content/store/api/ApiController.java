@@ -34,7 +34,7 @@ public class ApiController implements Loggable {
         // TODO: Configuration properties for app, builder info pom-info etc.
         Map<String, Object> api = new HashMap<>();
         api.put("version", "v1");
-        api.put("rootUrl", linkHelper.getRootUrl());
+        api.put("self", linkHelper.getRootUrl());
 
         return api;
     }
