@@ -1,7 +1,7 @@
-package com.studiomediatech.content.store.api;
+package com.studiomediatech.contessa.api;
 
-import com.studiomediatech.content.store.Loggable;
-import com.studiomediatech.content.store.web.LinkHelper;
+import com.studiomediatech.contessa.Loggable;
+import com.studiomediatech.contessa.http.LinkHelper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,12 +1,12 @@
-package com.studiomediatech.content.store.web;
-
-import com.studiomediatech.content.store.Loggable;
+package com.studiomediatech.contessa.http;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.studiomediatech.contessa.Loggable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

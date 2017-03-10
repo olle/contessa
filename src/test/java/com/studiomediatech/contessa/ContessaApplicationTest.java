@@ -1,4 +1,4 @@
-package com.studiomediatech;
+package com.studiomediatech.contessa;
 
 import org.junit.Test;
 
@@ -6,15 +6,14 @@ import org.junit.runner.RunWith;
 
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.studiomediatech.content.store.ContentServiceApplication;
-
 
 @RunWith(SpringRunner.class)
-public class ContentServiceApplicationTest {
+public class ContessaApplicationTest {
 
     @Test
     public void contextLoads() {
 
-        ContentServiceApplication.main(new String[] {});
+        // Should just not err!
+        ContessaApplication.main(new String[] {});
     }
 }

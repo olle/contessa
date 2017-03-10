@@ -1,4 +1,4 @@
-package com.studiomediatech.content.store;
+package com.studiomediatech.contessa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

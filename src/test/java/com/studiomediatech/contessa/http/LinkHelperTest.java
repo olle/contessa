@@ -1,4 +1,4 @@
-package com.studiomediatech.content.store.web;
+package com.studiomediatech.contessa.http;
 
 import org.junit.Test;
 
@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.studiomediatech.contessa.http.LinkHelper;
 
 import javax.servlet.http.HttpServletRequest;
 

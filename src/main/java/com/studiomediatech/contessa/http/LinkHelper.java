@@ -1,8 +1,8 @@
-package com.studiomediatech.content.store.web;
-
-import com.studiomediatech.content.store.Loggable;
+package com.studiomediatech.contessa.http;
 
 import org.springframework.stereotype.Component;
+
+import com.studiomediatech.contessa.Loggable;
 
 import java.util.concurrent.ConcurrentHashMap;
 
