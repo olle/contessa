@@ -1,0 +1,6 @@
+##
+## Default properties
+##
+logging:
+  level:
+    com.studiomediatech.contessa: DEBUG

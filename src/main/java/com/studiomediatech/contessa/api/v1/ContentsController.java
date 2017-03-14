@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 
-import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 
 /**
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * <p>Basically fails fast or delegates on to the contents service.</p>
  */
-@Controller
+@RestController
 public class ContentsController implements Loggable {
 
     private final ContentsService contentsService;
@@ -40,5 +42,18 @@ public class ContentsController implements Loggable {
         contentsService.addMediaContent(name, payload);
 
         logger().debug("Done handling content");
+    }
+
+
+    @GetMapping("/api/v1/contents/{id:.+}")
+    public Map<String, Object> getMediaContent(@PathVariable("id") String id) {
+
+        logger().info("Request for {} received", id);
+
+        Map<String, Object> mediaContent = contentsService.getMediaContent(id);
+
+        logger().debug("Done serving content");
+
+        return mediaContent;
     }
 }

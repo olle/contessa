@@ -8,6 +8,8 @@ import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +43,13 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         logger().info("Delegating to storage: {}/{}/{} and {} bytes of data", prefix, suffix, name, payload.length);
 
         contentsBackend.store(prefix, suffix, name, payload);
+    }
+
+
+    @Override
+    public Map<String, Object> getMediaContent(java.lang.String id) {
+
+        return Collections.emptyMap();
     }
 
 
