@@ -2,11 +2,8 @@ package com.studiomediatech.contessa;
 
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.contents.ContentsServiceImpl;
-import com.studiomediatech.contessa.http.RequestUrlInterceptor;
 import com.studiomediatech.contessa.storage.ContentsBackend;
 import com.studiomediatech.contessa.storage.ContentsBackendNullImpl;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +11,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
 /**
@@ -28,22 +22,6 @@ public class ContessaApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(ContessaApplication.class, args);
-    }
-
-    /**
-     * Custom web MVC configuration.
-     */
-    @Configuration
-    public static class WebConfig extends WebMvcConfigurerAdapter {
-
-        @Autowired
-        private RequestUrlInterceptor requestUrlInterceptor;
-
-        @Override
-        public void addInterceptors(InterceptorRegistry registry) {
-
-            registry.addInterceptor(requestUrlInterceptor).addPathPatterns("/**");
-        }
     }
 
     @Configuration

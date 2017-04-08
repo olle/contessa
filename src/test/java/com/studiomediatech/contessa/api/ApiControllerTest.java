@@ -1,7 +1,5 @@
 package com.studiomediatech.contessa.api;
 
-import com.studiomediatech.contessa.http.LinkHelper;
-
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -19,9 +17,6 @@ public class ApiControllerTest {
     @Test
     public void ensureHandlesSlashRequest() throws Exception {
 
-        MockMvcBuilders.standaloneSetup(new ApiController(new LinkHelper()))
-            .build()
-            .perform(get("/"))
-            .andExpect(status().isOk());
+        MockMvcBuilders.standaloneSetup(new ApiController()).build().perform(get("/")).andExpect(status().isOk());
     }
 }

@@ -17,4 +17,9 @@ for that content.
 This way we can ensure that caching is always configured to the highest most
 benefit of clients.
 
+## Plug-In Backends ##
+
+Our aim is to ensure an easy and _pluggable_ structure in the project. The
+storage backend will be an easy
+
 Happy hacking!
