@@ -11,15 +11,20 @@ Design &amp; Idea
 -----------------
 
 The main intent is to have a simple content service, with a strict and minimal
-API surface. Users should be able to POST content files. Receive a unique URI
-for that content.
+API surface. Users should be able to POST content files, and receive a unique
+URI for that content.
 
-This way we can ensure that caching is always configured to the highest most
-benefit of clients.
+Contessa will provide hash-based caching, and any unique content will be
+delivered with appropriate headers.
 
-## Plug-In Backends ##
+Plug-In Backends
+----------------
 
-Our aim is to ensure an easy and _pluggable_ structure in the project. The
-storage backend will be an easy
+Our aim is to ensure an easy and _pluggable_ moduler structure in the project.
+This is _easy_ as we're using [Spring Boot][2]. We want to provide several
+options out-of-the-box, with the added capability of users extending on their
+own.
+
+  [2]: http://projects.spring.io/spring-boot/
 
 Happy hacking!
