@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ import java.util.Map;
 
 
 /**
- * Provides endpoints for handling contents.
+ * Provides end-points for handling contents.
  *
  * <p>Basically fails fast or delegates on to the contents service.</p>
  */
@@ -38,22 +39,20 @@ public class ContentsController implements Loggable {
     public void addMediaContent(@PathVariable("name") String name, @RequestBody byte[] payload) {
 
         logger().info("Received contents file '{}' with payload of {} bytes", name, payload.length);
-
         contentsService.addMediaContent(name, payload);
-
         logger().debug("Done handling content");
     }
 
 
     @GetMapping("/api/v1/contents/{id:.+}")
-    public Map<String, Object> getMediaContent(@PathVariable("id") String id) {
+    @ResponseBody
+    public byte[] getMediaContent(@PathVariable("id") String id) {
 
         logger().info("Request for {} received", id);
 
         Map<String, Object> mediaContent = contentsService.getMediaContent(id);
-
         logger().debug("Done serving content");
 
-        return mediaContent;
+        return (byte[]) mediaContent.get("image");
     }
 }

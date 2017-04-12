@@ -1,71 +1,62 @@
 package com.studiomediatech.contessa.contents;
 
+import com.studiomediatech.contessa.storage.ContentsBackend;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.Mock;
+
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ContentsServiceImplTest {
 
-    @Test
-    public void ensureDifferentNameSamePayloadAreDifferentPrefix() {
+    @Mock
+    ContentsBackend backend;
 
-        ContentsServiceImpl c = new ContentsServiceImpl(null);
+    ContentsServiceImpl service;
 
-        String p1 = c.getPrefix("foo", new byte[] { 1, 2, 3 });
-        String p2 = c.getPrefix("bar", new byte[] { 1, 2, 3 });
+    @Before
+    public void setup() {
 
-        assertNotNull("Must not be null", p1);
-        assertNotNull("Must not be null", p2);
-
-        assertNotEquals("Must not be equal", p1, p2);
+        service = new ContentsServiceImpl(backend);
     }
 
 
     @Test
-    public void ensureDifferntPayloadSameNameAreDifferentPrefix() throws Exception {
+    public void ensureDelegatesToStoreGivenContents() throws Exception {
 
-        ContentsServiceImpl c = new ContentsServiceImpl(null);
+        byte[] fixture = new byte[0];
+        service.addMediaContent("foobar.gif", fixture);
 
-        String p1 = c.getPrefix("hello", new byte[] { 1, 2, 3 });
-        String p2 = c.getPrefix("hello", new byte[] { 3, 2, 1 });
-
-        assertNotNull("Must not be null", p1);
-        assertNotNull("Must not be null", p2);
-
-        assertNotEquals("Must not be equal", p1, p2);
+        verify(backend).store(anyString(), eq("gif"), eq("foobar.gif"), eq(fixture));
     }
 
 
     @Test
-    public void ensureFindsSimpleSuffixFromNameWithKnownMediaFormats() throws Exception {
+    public void ensureFetchesFromBackend() throws Exception {
 
-        ContentsServiceImpl c = new ContentsServiceImpl(null);
+        byte[] fixture = new byte[0];
+        when(backend.load(anyString())).thenReturn(fixture);
 
-        assertEquals("Wrong suffix", "png", c.getSuffix("foo.png"));
-        assertEquals("Wrong suffix", "svg", c.getSuffix("foo.svg"));
-        assertEquals("Wrong suffix", "jpg", c.getSuffix("foo.jpg"));
-        assertEquals("Wrong suffix", "gif", c.getSuffix("foo.gif"));
-        assertEquals("Wrong suffix", "ico", c.getSuffix("foo.ico"));
-        assertEquals("Wrong suffix", "css", c.getSuffix("foo.css"));
-        assertEquals("Wrong suffix", "js", c.getSuffix("foo.js"));
-        assertEquals("Wrong suffix", "woff", c.getSuffix("foo.woff"));
-        assertEquals("Wrong suffix", "txt", c.getSuffix("foo.txt"));
-        assertEquals("Wrong suffix", "html", c.getSuffix("foo.html"));
-        assertEquals("Wrong suffix", "pdf", c.getSuffix("foo.pdf"));
-    }
+        Map<String, Object> results = service.getMediaContent("code.jpg");
 
+        verify(backend).load("code");
 
-    @Test(expected = UnsupportedMediaTypeException.class)
-    public void ensureThrowsForUnknownSuffix() throws Exception {
-
-        new ContentsServiceImpl(null).getSuffix("foo.bar");
+        assertEquals("Wrong data", fixture, (byte[]) results.get("image"));
     }
 }

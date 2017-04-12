@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.contents;
+package com.studiomediatech.contessa.contents.media;
 
 /**
  * Thrown when handling of a content entry could not be completed. For example when receiving a content entry that
@@ -12,6 +12,4 @@ public class UnsupportedMediaTypeException extends RuntimeException {
 
         super(message);
     }
-
-    // OK
 }
