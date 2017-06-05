@@ -63,4 +63,6 @@ as starting the project using the shortcut in the `Makefile`:
 
     > make start
 
+There will be more documentation evolving inside the `docs/` folder.
+
 Happy hacking!

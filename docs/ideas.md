@@ -1,0 +1,62 @@
+Ideas
+=====
+
+In order to establish a strong design, this document tries to capture some
+ideas, probe them for validity and line them up next to each other and check
+how they harmonize together.
+
+Security
+--------
+
+By nature of the solution, a media content service/server, it may not be trivial
+to apply more fine grained authorization structures (ACL). Also, the broader
+goal of providing easy access to media content assets, will rather benefit from
+a tuned-down approach: authenticated users may access any assets they have
+knowledge about.
+
+In this sense, the business model of Contessa, also implements a type of
+security. Each media content asset is only accessible by it's identifier. These
+identifiers are created as hard-to-guess keys, which means that unless a client
+have a reference to some asset, it cannot access it.
+
+Arbitrary listings of assets are not provided to normal clients of the media
+content service. Only admins may access lists of content assets.
+
+To this extent, there's a type of security built-in by the business rules of
+the media service.
+
+Storage
+-------
+
+Data for media content, and our primitive unit in the solution is the byte-
+array. The storage abstraction should really only need to handle that type.
+Other information that pertains to each media entry, may be separately kept.
+
+The act of mapping any stored data to the media content, and other meta-data,
+will at some point require the knowledge of the initial media- or mime type.
+
+_An example of this is, if we want to provide an HTTP response back, the
+content negotiation requires that we at the very minimum, provide the web
+browser with the original file suffix. The majority of browsers will correctly
+map such a response to a proper mime-type, displaying an image, playing a song
+or showing a movie._
+
+So this leaves us with the minimal requirements for our storage module: saving
+byte arrays of media content data, and the original file type suffix, linked in
+some way to the media data.
+
+### Storage implementations
+
+* SQL-DB - storing byte arrays and a the file suffix separately, and having
+  a mapping between the two - NO PROBLEMS.
+
+* NoSQL - sort of the same, but rather than mappings here we're more document
+  oriented, meaning we need to define the structural benefit and design of the
+  document type.
+
+* Files - very few options for adding meta-data or a mapping to the original
+  content name/suffix - other than... storing the byte array with the given
+  suffix or using a file-name that can be mapped to some other information
+  store with meta-data.
+
+* Other... ?
