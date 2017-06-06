@@ -7,12 +7,11 @@ how they harmonize together.
 
 Security
 --------
-
-By nature of the solution, a media content service/server, it may not be trivial
-to apply more fine grained authorization structures (ACL). Also, the broader
-goal of providing easy access to media content assets, will rather benefit from
-a tuned-down approach: authenticated users may access any assets they have
-knowledge about.
+Due to the nature of the solution, a media content service/server, it may not
+be trivial to apply more fine grained authorization structures (ACL). Also, the
+broader goal of providing easy access to media content assets, will rather
+benefit from a tuned-down approach: authenticated users may access any assets
+they have knowledge about.
 
 In this sense, the business model of Contessa, also implements a type of
 security. Each media content asset is only accessible by it's identifier. These
@@ -60,3 +59,34 @@ some way to the media data.
   store with meta-data.
 
 * Other... ?
+
+### A programming model
+
+As a developer, writing storage implementations, it would be a optimal to have
+an API that harmonizes with most work that needs to be done. Below is a pseudo
+code implementation, trying out some designs:
+
+* Local file system storage
+
+    public void store(Entry e) {
+
+      String id = e.getId();
+      String suffix = e.getSuffix();
+      String name = String.format("%s.%s", id, suffix);
+
+      File f = new File(name);
+      FileOutputStream fout = ...
+      fout.write(e.getData());
+
+    }
+
+* Database storage
+
+    public void store(Entry e) {
+
+        DbEntry en = new DbEntry();
+        en.setId(e.getId());
+        en.setSuffix(e.getSuffix());
+
+        repo.save(en);
+    }

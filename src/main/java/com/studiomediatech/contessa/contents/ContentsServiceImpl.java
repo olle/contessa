@@ -1,9 +1,10 @@
 package com.studiomediatech.contessa.contents;
 
-import com.studiomediatech.contessa.Loggable;
 import com.studiomediatech.contessa.contents.media.HashCodePrefixGenerator;
 import com.studiomediatech.contessa.contents.media.RegExSuffixParser;
-import com.studiomediatech.contessa.storage.ContentsBackend;
+import com.studiomediatech.contessa.domain.Entry;
+import com.studiomediatech.contessa.logging.Loggable;
+import com.studiomediatech.contessa.storage.Storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,16 +17,16 @@ import java.util.Map;
  */
 public class ContentsServiceImpl implements ContentsService, Loggable {
 
-    private final ContentsBackend contentsBackend;
-    private final RegExSuffixParser suffixParser;
+    private final RegExSuffixParser parser;
     private final HashCodePrefixGenerator prefixGenerator;
+    private final Storage storage;
 
     @Autowired
-    public ContentsServiceImpl(ContentsBackend contentsBackend) {
+    public ContentsServiceImpl(Storage storage) {
 
-        this.contentsBackend = contentsBackend;
+        this.storage = storage;
         this.prefixGenerator = new HashCodePrefixGenerator();
-        this.suffixParser = new RegExSuffixParser();
+        this.parser = new RegExSuffixParser();
     }
 
     @Override
@@ -36,23 +37,29 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         }
 
         String prefix = prefixGenerator.getPrefix(name, payload);
-        String suffix = suffixParser.getSuffix(name);
+        String suffix = parser.parseSuffix(name);
 
         logger().info("Delegating to storage: {}, {}, {} and {} bytes of data", prefix, suffix, name, payload.length);
 
-        contentsBackend.store(prefix, suffix, name, payload);
+        Entry e = new Entry();
+
+        e.setId(prefix);
+        e.setSuffix(suffix);
+        e.setData(payload);
+
+        storage.store(e);
     }
 
 
     @Override
     public Map<String, Object> getMediaContent(String id) {
 
-        String code = suffixParser.getPrefix(id);
-
-        byte[] load = contentsBackend.load(code);
+        String prefix = parser.parsePrefix(id);
+        String suffix = parser.parseSuffix(id);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("image", load);
+
+        storage.retrieve(prefix, suffix).ifPresent(e -> map.put("image", e.getData()));
 
         return map;
     }

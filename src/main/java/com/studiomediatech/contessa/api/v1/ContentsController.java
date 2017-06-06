@@ -1,7 +1,7 @@
 package com.studiomediatech.contessa.api.v1;
 
-import com.studiomediatech.contessa.Loggable;
 import com.studiomediatech.contessa.contents.ContentsService;
+import com.studiomediatech.contessa.logging.Loggable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -23,7 +22,6 @@ import java.util.Map;
  *
  * <p>Basically fails fast or delegates on to the contents service.</p>
  */
-@RestController
 public class ContentsController implements Loggable {
 
     private final ContentsService contentsService;

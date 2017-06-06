@@ -23,7 +23,7 @@ public final class RegExSuffixParser {
      *
      * @throws  UnsupportedMediaTypeException  in case no match could be found
      */
-    public String getSuffix(String source) {
+    public String parseSuffix(String source) {
 
         Matcher matcher = SUFFIXES.matcher(source);
 
@@ -44,8 +44,8 @@ public final class RegExSuffixParser {
      *
      * @throws  UnsupportedMediaTypeException  in case of a bad media type (suffix) type
      */
-    public String getPrefix(String source) {
+    public String parsePrefix(String source) {
 
-        return source.replace("." + getSuffix(source), "");
+        return source.replace("." + parseSuffix(source), "");
     }
 }

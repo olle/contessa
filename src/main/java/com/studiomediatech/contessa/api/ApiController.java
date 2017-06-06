@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.api;
 
-import com.studiomediatech.contessa.Loggable;
+import com.studiomediatech.contessa.logging.Loggable;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

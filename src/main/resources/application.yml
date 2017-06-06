@@ -1,6 +1,9 @@
 ##
 ## Default properties
 ##
+contessa:
+  storage:
+    type: NONE
 logging:
   level:
     com.studiomediatech.contessa: DEBUG

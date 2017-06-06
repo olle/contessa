@@ -1,8 +1,8 @@
 package com.studiomediatech.contessa.contents.media;
 
-import com.studiomediatech.contessa.Loggable;
-
 import org.apache.tomcat.util.codec.binary.StringUtils;
+
+import com.studiomediatech.contessa.logging.Loggable;
 
 import java.util.Arrays;
 
