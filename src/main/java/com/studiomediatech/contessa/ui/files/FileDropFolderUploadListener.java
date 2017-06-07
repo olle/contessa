@@ -4,8 +4,6 @@ import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.Data;
 import com.studiomediatech.contessa.ui.Service;
 
-import org.assertj.core.util.Files;
-
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.File;

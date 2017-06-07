@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.storage.local;
 
-import com.studiomediatech.contessa.config.ContessaStorageConfiguration;
+import com.studiomediatech.contessa.app.config.ContessaStorageConfiguration;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.storage.Storage;

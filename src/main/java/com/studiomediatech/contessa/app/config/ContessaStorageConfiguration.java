@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.config;
+package com.studiomediatech.contessa.app.config;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

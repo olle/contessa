@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa;
+package com.studiomediatech.contessa.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
