@@ -12,25 +12,30 @@ contessa:
     rest.enabled: true
     #amqp.enabled: true
     #file.enabled: true
-management:
-  context-path: /management
-  security.enabled: false
-endpoints:
-  auditevents.enabled: true
-  autoconfig.enabled: true
-  configprops.enabled: true
-  docs.enabled: true
-  dump.enabled: true
-  env.enabled: true
-  health.enabled: true
-  heapdump.enabled: true
-  info.enabled: true
-  logfile.enabled: true
-  loggers.enabled: true
-  mappings.enabled: true
-  metrics.enabled: true
-  shutdown.enabled: true
-  trace.enabled: true
+### ---------------------------------------------
+### Enables full management features, best used during
+### development, in order to view and audit anything
+### in the runtime application context.
+### ---------------------------------------------
+#management:
+#  context-path: /management
+#  security.enabled: false
+#endpoints:
+#  auditevents.enabled: true
+#  autoconfig.enabled: true
+#  configprops.enabled: true
+#  docs.enabled: true
+#  dump.enabled: true
+#  env.enabled: true
+#  health.enabled: true
+#  heapdump.enabled: true
+#  info.enabled: true
+#  logfile.enabled: true
+#  loggers.enabled: true
+#  mappings.enabled: true
+#  metrics.enabled: true
+#  shutdown.enabled: true
+#  trace.enabled: true
 logging:
   level:
     #root: ERROR

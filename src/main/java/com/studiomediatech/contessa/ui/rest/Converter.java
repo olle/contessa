@@ -7,7 +7,11 @@ public class Converter {
 
     public Data convertToUploadData(String filename, byte[] payload) {
 
-        // TODO Auto-generated method stub
-        return null;
+        Data data = new Data();
+
+        data.setFilename(filename);
+        data.setPayload(payload);
+
+        return data;
     }
 }
