@@ -90,3 +90,25 @@ code implementation, trying out some designs:
 
         repo.save(en);
     }
+
+User Interface
+--------------
+
+Access to the media assets is provided by one of several implementations. This
+extends the capabilities of Contessa beyond simply being an HTTP or REST
+service.
+
+The user interface supports a small amount of actions - the ability to send or
+upload an asset and receive the resulting, encoded, identifer. The idea behind
+this is that the client doing the upload shall receive and store the unique
+identifier for later access.
+
+This requires, even for asynchronous channels, that we can map an upload to a
+response. Only some types of transports, HTTP or open socket communication, can
+provide a more stable RPC or direct response. Because of this, we want to build
+a minimal session protocol (micro-session that is), so that regardless of
+transport, we can maintain the upload-response semantics.
+
+The main concern with the UI layer will be to manage the implementation, or
+transport, specifics, for getting a media asset file into an entry, and
+returning the entry identifier to the client.
