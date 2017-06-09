@@ -19,14 +19,12 @@ import java.util.Map;
 public class ContentUploadController implements Loggable {
 
     private Converter converter;
-    private Validator validator;
     private Service service;
     private Builder builder;
 
-    public ContentUploadController(Converter converter, Validator validator, Service service, Builder builder) {
+    public ContentUploadController(Converter converter, Service service, Builder builder) {
 
         this.converter = converter;
-        this.validator = validator;
         this.service = service;
         this.builder = builder;
     }
@@ -34,12 +32,6 @@ public class ContentUploadController implements Loggable {
     @PostMapping(path = "/api/v1/contents/{name:.+}")
     public Object handleContentUpload(@PathVariable("name") String filename, @RequestBody byte[] payload) {
 
-        Data data = converter.convertToUploadData(filename, payload);
-        validator.validateUploadData(data);
-
-        String identifier = service.handleUploadData(data);
-        Map<String, Object> result = builder.buildUploadResult(identifier, data);
-
-        return result;
+        return builder.buildUploadResult(service.handleUploadData(converter.convertToUploadData(filename, payload)));
     }
 }

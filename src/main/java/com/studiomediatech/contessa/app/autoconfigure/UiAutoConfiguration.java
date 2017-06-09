@@ -5,7 +5,6 @@ import com.studiomediatech.contessa.ui.Service;
 import com.studiomediatech.contessa.ui.rest.Builder;
 import com.studiomediatech.contessa.ui.rest.ContentUploadController;
 import com.studiomediatech.contessa.ui.rest.Converter;
-import com.studiomediatech.contessa.ui.rest.Validator;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -38,14 +37,6 @@ public class UiAutoConfiguration implements Loggable {
         public Converter restConverter() {
 
             return new Converter();
-        }
-
-
-        @Bean
-        @ConditionalOnMissingBean
-        public Validator restValidator() {
-
-            return new Validator();
         }
 
 
