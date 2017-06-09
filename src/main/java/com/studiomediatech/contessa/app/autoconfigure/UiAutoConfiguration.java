@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.app.autoconfigure;
 
+import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.Service;
 import com.studiomediatech.contessa.ui.rest.Builder;
@@ -26,9 +27,9 @@ public class UiAutoConfiguration implements Loggable {
 
         @Bean
         @ConditionalOnMissingBean
-        public Service service() {
+        public Service service(ContentsService contentsService) {
 
-            return new Service();
+            return new Service(contentsService);
         }
 
 

@@ -6,7 +6,7 @@ spring:
     name: contessa
 contessa:
   storage:
-    # NONE,FILE,SQL,NOSQL
+    # NONE,LOCAL,SQL,NOSQL
     type: NONE
   ui:
     rest.enabled: true
