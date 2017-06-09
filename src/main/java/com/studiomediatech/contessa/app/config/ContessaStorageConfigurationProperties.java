@@ -6,13 +6,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotNull;
+
 
 /**
  * The storage configuration to use for the Contessa service.
  */
 @Validated
 @ConfigurationProperties(prefix = "contessa.storage")
-public class ContessaStorageConfiguration {
+public class ContessaStorageConfigurationProperties {
 
     public enum StorageType {
 
@@ -25,7 +27,7 @@ public class ContessaStorageConfiguration {
     /**
      * The storage type to use, may not be empty.
      */
-    @NotEmpty
+    @NotNull
     private StorageType type;
 
     /**

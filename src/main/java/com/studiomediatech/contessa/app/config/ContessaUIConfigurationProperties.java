@@ -10,7 +10,7 @@ import java.util.List;
  * Configuration properties for the Contessa UI modules.
  */
 @ConfigurationProperties(prefix = "contessa.ui")
-public class ContessaUIConfiguration {
+public class ContessaUIConfigurationProperties {
 
     @ConfigurationProperties(prefix = "contessa.ui.rest")
     public static class RestUiConfiguration {
