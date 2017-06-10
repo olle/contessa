@@ -6,9 +6,12 @@ import com.studiomediatech.contessa.storage.Storage;
 
 import org.springframework.core.convert.converter.Converter;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Optional;
 
 
+@Component
 public class DbStorageImpl implements Storage, Loggable {
 
     private final Converter<Entry, DbEntry> encoder;

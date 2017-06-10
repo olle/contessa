@@ -1,25 +1,64 @@
-###
-### Default properties
-###
+### ---------------------------------------------
+### Default Contessa configuration properties.
+### ---------------------------------------------
+contessa:
+  storage:
+    ### -----------------------------------------
+    ### The storage type to use. Supports a small
+    ### set of types:
+    ###
+    ### `SQL`   - (default) storing assets into
+    ###           an SQL database.
+    ###
+    ### `NOSQL` - storing assets into a NoSQL
+    ###           database.
+    ###
+    ### `LOCAL` - file based storage type, saving
+    ###           content assets to a local file
+    ###           system.
+    ###
+    ### `NONE`  - disables the storage; used only
+    ###           for testing and development.
+    ### -----------------------------------------
+    type: SQL
+  ui:
+    ### -----------------------------------------
+    ### Enables the REST-ful interface, allowing
+    ### simple HTTP upload and download of
+    ### assets.
+    ### -----------------------------------------
+    #rest.enabled: true
+    ### -----------------------------------------
+    ### Enables the RabbitMQ interface, providing
+    ### query/response based access to assets.
+    ### -----------------------------------------
+    #amqp.enabled: true
+    ### -----------------------------------------
+    ### Enables file based, drop-folder, access
+    ### to assets.
+    ### -----------------------------------------
+    #file.enabled: true
+### ---------------------------------------------
+### Customized configuration properties for the
+### Contessa application.
+### ---------------------------------------------
 spring:
   application:
     name: contessa
-contessa:
-  storage:
-    # NONE,LOCAL,SQL,NOSQL
-    type: NONE
-  ui:
-    rest.enabled: true
-    #amqp.enabled: true
-    #file.enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
 ### ---------------------------------------------
 ### Enables full management features, best used during
 ### development, in order to view and audit anything
 ### in the runtime application context.
 ### ---------------------------------------------
-#management:
-#  context-path: /management
-#  security.enabled: false
+management:
+  context-path: /management
+  security.enabled: false
+  health:
+    rabbit.enabled: false
+    db.enabled: false
 #endpoints:
 #  auditevents.enabled: true
 #  autoconfig.enabled: true
