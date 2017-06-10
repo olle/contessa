@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.storage.db;
+package com.studiomediatech.contessa.storage.sql;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;

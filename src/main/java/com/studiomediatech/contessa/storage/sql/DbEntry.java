@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.storage.db;
+package com.studiomediatech.contessa.storage.sql;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
