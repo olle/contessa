@@ -68,6 +68,7 @@ code implementation, trying out some designs:
 
 * Local file system storage
 
+```java
     public void store(Entry e) {
 
       String id = e.getId();
@@ -79,9 +80,11 @@ code implementation, trying out some designs:
       fout.write(e.getData());
 
     }
+```
 
 * Database storage
 
+```java
     public void store(Entry e) {
 
         DbEntry en = new DbEntry();
@@ -90,6 +93,7 @@ code implementation, trying out some designs:
 
         repo.save(en);
     }
+```
 
 User Interface
 --------------
