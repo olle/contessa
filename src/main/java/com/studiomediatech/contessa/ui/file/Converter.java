@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.ui.files;
+package com.studiomediatech.contessa.ui.file;
 
 import com.studiomediatech.contessa.ui.Data;
 

@@ -1,6 +1,7 @@
 package com.studiomediatech.contessa.ui.amqp;
 
 import com.studiomediatech.contessa.ui.Data;
+import com.studiomediatech.contessa.ui.Query;
 
 
 public class Validator {

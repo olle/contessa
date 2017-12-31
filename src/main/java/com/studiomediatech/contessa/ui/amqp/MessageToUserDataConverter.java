@@ -14,9 +14,9 @@ public class MessageToUserDataConverter implements Converter<Message, Data> {
 
         Data userData = new Data();
 
-        userData.setFilename((String) source.getMessageProperties().getHeaders().get("filename"));
-        userData.setPayload(source.getBody());
-        userData.setCorrelation(source.getMessageProperties().getReplyTo());
+        userData.filename = (String) source.getMessageProperties().getHeaders().get("filename");
+        userData.payload = source.getBody();
+        userData.correlation = source.getMessageProperties().getReplyTo();
 
         return userData;
     }

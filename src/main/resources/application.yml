@@ -57,9 +57,9 @@ management:
   context-path: /management
   security.enabled: false
   health:
+#endpoints:
     rabbit.enabled: false
     db.enabled: false
-#endpoints:
 #  auditevents.enabled: true
 #  autoconfig.enabled: true
 #  configprops.enabled: true

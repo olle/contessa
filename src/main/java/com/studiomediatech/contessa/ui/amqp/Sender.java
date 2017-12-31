@@ -1,5 +1,7 @@
 package com.studiomediatech.contessa.ui.amqp;
 
+import com.studiomediatech.contessa.ui.Reply;
+
 public class Sender {
 
     public void sendUploadReply(Reply reply) {

@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.ui.amqp;
+package com.studiomediatech.contessa.ui;
 
 public class Query {
 

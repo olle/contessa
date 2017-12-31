@@ -9,7 +9,8 @@ import com.studiomediatech.contessa.storage.Storage;
 import com.studiomediatech.contessa.storage.local.LocalStorageImpl;
 import com.studiomediatech.contessa.storage.none.NoneStorageImpl;
 import com.studiomediatech.contessa.storage.sql.DbStorageImpl;
-import com.studiomediatech.contessa.ui.Service;
+import com.studiomediatech.contessa.ui.Handler;
+import com.studiomediatech.contessa.ui.HandlerImpl;
 import com.studiomediatech.contessa.ui.rest.Builder;
 import com.studiomediatech.contessa.ui.rest.ContentUploadController;
 import com.studiomediatech.contessa.ui.rest.Converter;
@@ -73,9 +74,9 @@ public class ContessaAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public Service service(ContentsService contentsService) {
+        public Handler service(ContentsService contentsService) {
 
-            return new Service(contentsService);
+            return new HandlerImpl(contentsService);
         }
 
 

@@ -2,11 +2,12 @@ package com.studiomediatech.contessa.ui.amqp;
 
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.Data;
-import com.studiomediatech.contessa.ui.Service;
+import com.studiomediatech.contessa.ui.Handler;
+import com.studiomediatech.contessa.ui.Query;
+import com.studiomediatech.contessa.ui.Reply;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 
 /**
@@ -16,11 +17,11 @@ public class ContentUploadListener implements Loggable {
 
     private final Converter converter;
     private final Validator validator;
-    private final Service service;
+    private final Handler service;
     private final MessageBuilder builder;
     private final Sender sender;
 
-    public ContentUploadListener(Converter converter, Validator validator, Service service, MessageBuilder builder,
+    public ContentUploadListener(Converter converter, Validator validator, Handler service, MessageBuilder builder,
         Sender sender) {
 
         this.converter = converter;

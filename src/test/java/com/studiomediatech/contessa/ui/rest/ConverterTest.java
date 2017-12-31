@@ -4,7 +4,8 @@ import com.studiomediatech.contessa.ui.Data;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class ConverterTest {
@@ -16,7 +17,7 @@ public class ConverterTest {
         Data data = new Converter().convertToUploadData("some-filename", payload);
 
         assertNotNull("Missing data", data);
-        assertEquals("Wrong filename", "some-filename", data.getFilename());
-        assertEquals("Wrong payload", payload, data.getPayload());
+        assertEquals("Wrong filename", "some-filename", data.filename);
+        assertEquals("Wrong payload", payload, data.payload);
     }
 }

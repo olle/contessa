@@ -9,8 +9,8 @@ public class Converter {
 
         Data data = new Data();
 
-        data.setFilename(filename);
-        data.setPayload(payload);
+        data.filename = filename;
+        data.payload = payload;
 
         return data;
     }
