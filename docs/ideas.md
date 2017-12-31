@@ -116,3 +116,22 @@ transport, we can maintain the upload-response semantics.
 The main concern with the UI layer will be to manage the implementation, or
 transport, specifics, for getting a media asset file into an entry, and
 returning the entry identifier to the client.
+
+### Handling chain
+
+For content upload the typical handling chain should be easy to reason about,
+and create in a structured way.
+
+  1. Validate input
+  2. Convert to intermediary format
+  3. Extend with meta-data
+  4. Delegate for processing
+  5. Await results
+  6. Return a response
+
+This list of steps must be locally implemented for each user interface that is
+provided in Contessa.
+
+### Processing
+
+
