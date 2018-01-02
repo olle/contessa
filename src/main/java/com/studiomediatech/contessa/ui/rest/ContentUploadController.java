@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.ui.Data;
 import com.studiomediatech.contessa.ui.Handler;
+import com.studiomediatech.contessa.ui.Response;
+import com.studiomediatech.contessa.ui.Upload;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,12 @@ import java.util.Map;
 @RestController
 public class ContentUploadController implements Loggable {
 
-    private Validator validator;
+    private ValidatorImpl validator;
     private Converter converter;
     private Handler service;
     private Builder builder;
 
-    public ContentUploadController(Validator validator, Converter converter, Handler handler, Builder builder) {
+    public ContentUploadController(ValidatorImpl validator, Converter converter, Handler handler, Builder builder) {
 
         this.validator = validator;
         this.converter = converter;
@@ -43,9 +44,11 @@ public class ContentUploadController implements Loggable {
 
         validator.validate(filename, payload);
 
-        Data data = converter.convertToUploadData(filename, payload);
+        Upload data = converter.convertToUpload(filename, payload);
         String identifier = service.handleUploadData(data);
+
         Map<String, Object> result = builder.buildUploadResult(identifier);
+        Response response = builder.buildUploadResponse(identifier);
 
         return toJsonResponse(result);
     }

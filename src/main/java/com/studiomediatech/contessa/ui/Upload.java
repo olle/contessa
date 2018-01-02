@@ -3,7 +3,7 @@ package com.studiomediatech.contessa.ui;
 /**
  * A data structure type, representing some media being uploaded.
  */
-public final class Data {
+public final class Upload {
 
     public String filename;
     public byte[] payload;

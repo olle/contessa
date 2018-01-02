@@ -1,7 +1,7 @@
 package com.studiomediatech.contessa.ui.amqp;
 
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.ui.Data;
+import com.studiomediatech.contessa.ui.Upload;
 import com.studiomediatech.contessa.ui.Handler;
 import com.studiomediatech.contessa.ui.Query;
 import com.studiomediatech.contessa.ui.Reply;
@@ -34,7 +34,7 @@ public class ContentUploadListener implements Loggable {
     @RabbitListener(queues = "#{@contentUploadQueue}")
     public void handleContentUpload(Message message) {
 
-        Data data = converter.convertUploadMessage(message);
+        Upload data = converter.convertUploadMessage(message);
         validator.validateUploadData(data);
 
         String identifier = service.handleUploadData(data);
@@ -49,7 +49,7 @@ public class ContentUploadListener implements Loggable {
         Query query = converter.convertContentQueryMessage(message);
         validator.validateContentQuery(query);
 
-        Data data = service.handleContentQuery(query);
+        Upload data = service.handleContentQuery(query);
         Reply reply = builder.buildContentQueryReply(data, query);
         sender.sendContentQueryReply(reply);
     }

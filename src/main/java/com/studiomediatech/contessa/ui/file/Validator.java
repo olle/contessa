@@ -1,11 +1,11 @@
 package com.studiomediatech.contessa.ui.file;
 
-import com.studiomediatech.contessa.ui.Data;
+import com.studiomediatech.contessa.ui.Upload;
 
 
 public class Validator {
 
-    public void validateUploadData(Data data) {
+    public void validateUploadData(Upload data) {
 
         // TODO Auto-generated method stub
     }

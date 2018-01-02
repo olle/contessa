@@ -4,7 +4,7 @@ import com.studiomediatech.contessa.validation.MissingFilenameSuffixValidationEr
 import com.studiomediatech.contessa.validation.PayloadTooSmallValidationError;
 
 
-public class Validator {
+public class ValidatorImpl {
 
     public void validate(String filename, byte[] payload) {
 

@@ -1,18 +1,18 @@
 package com.studiomediatech.contessa.ui.amqp;
 
-import com.studiomediatech.contessa.ui.Data;
+import com.studiomediatech.contessa.ui.Upload;
 
 import org.springframework.amqp.core.Message;
 
 import org.springframework.core.convert.converter.Converter;
 
 
-public class MessageToUserDataConverter implements Converter<Message, Data> {
+public class MessageToUserDataConverter implements Converter<Message, Upload> {
 
     @Override
-    public Data convert(Message source) {
+    public Upload convert(Message source) {
 
-        Data userData = new Data();
+        Upload userData = new Upload();
 
         userData.filename = (String) source.getMessageProperties().getHeaders().get("filename");
         userData.payload = source.getBody();

@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.ui.rest;
 
-import com.studiomediatech.contessa.ui.Data;
+import com.studiomediatech.contessa.ui.Upload;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class ConverterTest {
     public void ensureConverts() {
 
         byte[] payload = new byte[] { 1, 2, 3 };
-        Data data = new Converter().convertToUploadData("some-filename", payload);
+        Upload data = new Converter().convertToUpload("some-filename", payload);
 
         assertNotNull("Missing data", data);
         assertEquals("Wrong filename", "some-filename", data.filename);

@@ -13,14 +13,14 @@ public class HandlerImpl implements Handler {
     }
 
     @Override
-	public String handleUploadData(Data data) {
+	public String handleUploadData(Upload data) {
 
         return null;
     }
 
 
     @Override
-	public Data handleContentQuery(Query query) {
+	public Upload handleContentQuery(Query query) {
 
         return null;
     }

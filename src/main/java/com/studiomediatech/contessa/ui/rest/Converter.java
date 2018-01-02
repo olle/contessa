@@ -1,13 +1,13 @@
 package com.studiomediatech.contessa.ui.rest;
 
-import com.studiomediatech.contessa.ui.Data;
+import com.studiomediatech.contessa.ui.Upload;
 
 
 public class Converter {
 
-    public Data convertToUploadData(String filename, byte[] payload) {
+    public Upload convertToUpload(String filename, byte[] payload) {
 
-        Data data = new Data();
+        Upload data = new Upload();
 
         data.filename = filename;
         data.payload = payload;

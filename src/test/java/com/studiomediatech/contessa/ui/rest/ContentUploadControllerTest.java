@@ -26,7 +26,7 @@ public class ContentUploadControllerTest {
     @Before
     public void setup() {
 
-        Validator validator = new Validator();
+        ValidatorImpl validator = new ValidatorImpl();
         Converter converter = new Converter();
         TestHandler handler = new TestHandler();
         Builder builder = new Builder();

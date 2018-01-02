@@ -5,8 +5,8 @@ package com.studiomediatech.contessa.ui;
  */
 public interface Handler {
 
-    Data handleContentQuery(Query query);
+    Upload handleContentQuery(Query query);
 
 
-    String handleUploadData(Data data);
+    String handleUploadData(Upload data);
 }

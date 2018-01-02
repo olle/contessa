@@ -8,6 +8,7 @@ import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.storage.Storage;
 import com.studiomediatech.contessa.storage.local.LocalStorageImpl;
 import com.studiomediatech.contessa.storage.none.NoneStorageImpl;
+import com.studiomediatech.contessa.storage.nosql.NoSqlStorageImpl;
 import com.studiomediatech.contessa.storage.sql.DbStorageImpl;
 import com.studiomediatech.contessa.ui.Handler;
 import com.studiomediatech.contessa.ui.HandlerImpl;
@@ -15,28 +16,39 @@ import com.studiomediatech.contessa.ui.rest.Builder;
 import com.studiomediatech.contessa.ui.rest.ContentUploadController;
 import com.studiomediatech.contessa.ui.rest.Converter;
 
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @Configuration
 @EnableConfigurationProperties(
-    { ContessaStorageConfigurationProperties.class, ContessaUIConfigurationProperties.class }
+    {
+        ContessaStorageConfigurationProperties.class, // NOSONAR
+        ContessaUIConfigurationProperties.class // NOSONAR
+    }
 )
 public class ContessaAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(Storage.class)
-    public ContentsService contentsService(Storage storage) {
+    @ConditionalOnMissingBean
+    public ContentsService contessaContentsService(Storage storage) {
 
         return new ContentsServiceImpl(storage);
     }
@@ -52,7 +64,21 @@ public class ContessaAutoConfiguration {
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "LOCAL")
     @ComponentScan(basePackageClasses = LocalStorageImpl.class)
-    public static class LocalStorageAutoConfiguraiton {
+    public static class LocalStorageAutoConfiguration {
+
+        // OK
+    }
+
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "NOSQL")
+    @ComponentScan(basePackageClasses = NoSqlStorageImpl.class)
+    @Import(
+        {
+            MongoAutoConfiguration.class, // NOSONAR
+            MongoDataAutoConfiguration.class // NOSONAR
+        }
+    )
+    public static class NoSqlStorageAutoConfiguration {
 
         // OK
     }
@@ -62,7 +88,14 @@ public class ContessaAutoConfiguration {
     @ComponentScan(basePackageClasses = DbStorageImpl.class)
     @EnableJpaRepositories(basePackageClasses = DbStorageImpl.class)
     @EntityScan(basePackageClasses = DbStorageImpl.class)
-    public static class SqlStorageAutoConfiguraiton {
+    @Import(
+        {
+            DataSourceAutoConfiguration.class, // NOSONAR
+            DataSourceTransactionManagerAutoConfiguration.class, // NOSONAR
+            HibernateJpaAutoConfiguration.class // NOSONAR
+        }
+    )
+    public static class SqlStorageAutoConfiguration {
 
         // OK
     }
@@ -98,6 +131,7 @@ public class ContessaAutoConfiguration {
 
     @Configuration
     @ConditionalOnProperty("contessa.ui.amqp.enabled")
+    @Import(RabbitAutoConfiguration.class)
     public static class AmqpUiAutoConfiguration implements Loggable {
 
         // TODO
