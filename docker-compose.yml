@@ -2,6 +2,12 @@ version: '2'
 services:
   'mongodb':
     image: mongo:latest
+    ports:
+        - 27017:27017
+    environment:
+        - MONGODB_USERNAME=user
+        - MONGODB_PASSWORD=pass
+        - MONGODB_DATABASE=test        
   'rabbitmq':
     image: rabbitmq:3-management
     ports:

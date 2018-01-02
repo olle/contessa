@@ -57,9 +57,11 @@ management:
   context-path: /management
   security.enabled: false
   health:
+    ## None of the health-endpoints works by default, since we are
+    ## custom enabling/disabling the modules.
+    #rabbit.enabled: false
+    #mongo.enabled: false
 #endpoints:
-    rabbit.enabled: false
-    db.enabled: false
 #  auditevents.enabled: true
 #  autoconfig.enabled: true
 #  configprops.enabled: true

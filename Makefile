@@ -1,7 +1,7 @@
 .PHONY: test start
 
 test:
-	@./mvnw clean verify
+	@mvn clean verify
 
 start:
-	@./mvnw clean spring-boot:run
+	@mvn clean spring-boot:run
