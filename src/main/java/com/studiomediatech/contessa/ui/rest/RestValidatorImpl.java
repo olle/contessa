@@ -1,8 +1,10 @@
 package com.studiomediatech.contessa.ui.rest;
 
+import org.springframework.stereotype.Component;
+
 import com.studiomediatech.contessa.validation.ValidationService;
 
-
+@Component
 public final class RestValidatorImpl implements RestValidator {
 
     private final ValidationService validationService;

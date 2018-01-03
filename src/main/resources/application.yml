@@ -27,12 +27,12 @@ contessa:
     ### simple HTTP upload and download of
     ### assets.
     ### -----------------------------------------
-    #rest.enabled: true
+    rest.enabled: true
     ### -----------------------------------------
     ### Enables the RabbitMQ interface, providing
     ### query/response based access to assets.
     ### -----------------------------------------
-    #amqp.enabled: true
+    amqp.enabled: true
     ### -----------------------------------------
     ### Enables file based, drop-folder, access
     ### to assets.
@@ -45,9 +45,19 @@ contessa:
 spring:
   application:
     name: contessa
+  datasource:
+    ## Default is an embedded database
+    url: jdbc:h2:mem:contessa;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE    
   jpa:
     hibernate:
       ddl-auto: create
+  h2:
+    console:
+      enabled: true      
+  rabbitmq:
+    ## Common defaults for RabbitMQ docker
+    username: guest
+    password: guest      
 ### ---------------------------------------------
 ### Enables full management features, best used during
 ### development, in order to view and audit anything

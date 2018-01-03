@@ -1,17 +1,23 @@
 package com.studiomediatech.contessa.storage.sql;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
-public class DbEntry extends AbstractPersistable<Long> {
+@Table(name = "contents")
+public class DbEntry {
 
-    private static final long serialVersionUID = 1L;
-
+    @Id
     private String identifier;
+
+    @Column(name = "suffix")
     private String suffix;
+
+    @Column(name = "data")
+    private byte[] data;
 
     public String getIdentifier() {
 

@@ -1,0 +1,11 @@
+## 
+## Changelogs naming schema: `${nn}-${version}-${label}.yaml`, where ${nn} is
+## the changelog ordered number 00-99, ${version} is the artifact version it
+## applies to and ${label} is a short text describing the change.
+##
+## For example: 03-v0.3.2-add-size-column.yaml
+##
+databaseChangeLog:
+  - include:
+    - file: db/changelog/01-v0.0.3-initial-schema.yaml
+    

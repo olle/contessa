@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
+import org.springframework.scheduling.annotation.EnableAsync;
+
 
 /**
  * Application starter.
@@ -23,6 +25,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
         HibernateJpaAutoConfiguration.class // NOSONAR
     }
 )
+@EnableAsync
 public class ContessaApplication {
 
     public static void main(String[] args) {

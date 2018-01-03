@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: initial-schema
+      author: olle
+      changes:
+        - createTable:
+            tableName: contents
+            columns:
+              - column:
+                  name: identifier
+                  type: VARCHAR(64)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: suffix
+                  type: VARCHAR(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data
+                  type: CLOB

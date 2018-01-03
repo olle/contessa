@@ -6,6 +6,9 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
+
+import org.springframework.scheduling.annotation.Async;
 
 
 /**
@@ -24,13 +27,30 @@ public class ContentUploadListener implements Loggable {
         this.publisher = publisher;
     }
 
-    @RabbitListener(queues = "#{@contentUploadQueue}")
+    @RabbitListener(queues = "#{@contessaContentUploadQueue}")
     public void handleContentUpload(Message message) {
 
+        log_message(message);
         validator.validateUpload(message);
 
         UploadEvent event = converter.convertToUploadEvent(message);
         publisher.publishEvent(event);
+    }
+
+
+    @Async
+    @EventListener
+    public void on(UploadEvent event) {
+
+        // TODO: Handle, and publish results.
+    }
+
+
+    @Async
+    @EventListener
+    public void on(UploadResponseEvent event) {
+
+        // TODO: Send AMQP response in event
     }
 
 //    @RabbitListener(queues = "#{@contentQueryQueue}")

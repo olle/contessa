@@ -13,8 +13,17 @@ import com.studiomediatech.contessa.storage.sql.DbStorageImpl;
 import com.studiomediatech.contessa.ui.Handler;
 import com.studiomediatech.contessa.ui.HandlerImpl;
 import com.studiomediatech.contessa.ui.rest.Builder;
-import com.studiomediatech.contessa.ui.rest.ContentUploadController;
+import com.studiomediatech.contessa.ui.rest.ContessaRest;
 import com.studiomediatech.contessa.ui.rest.Converter;
+import com.studiomediatech.contessa.validation.ValidationService;
+import com.studiomediatech.contessa.validation.ValidationServiceImpl;
+
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.amqp.core.TopicExchange;
 
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -51,6 +60,14 @@ public class ContessaAutoConfiguration implements Loggable {
     public ContentsService contessaContentsService(Storage storage) {
 
         return log_created(new ContentsServiceImpl(storage));
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ValidationService validationService() {
+
+        return log_created(new ValidationServiceImpl());
     }
 
     @Configuration
@@ -105,8 +122,8 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty("contessa.ui.rest.enabled")
-    @ComponentScan(basePackageClasses = ContentUploadController.class)
+    @ConditionalOnProperty(name = "contessa.ui.rest.enabled", havingValue = "true")
+    @ComponentScan(basePackageClasses = ContessaRest.class)
     public static class RestUiAutoConfiguration implements Loggable {
 
         @Bean
@@ -134,15 +151,35 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty("contessa.ui.amqp.enabled")
+    @ConditionalOnProperty(name = "contessa.ui.amqp.enabled", havingValue = "true")
     @Import(RabbitAutoConfiguration.class)
     public static class AmqpUiAutoConfiguration implements Loggable {
 
-        // TODO
+        @Bean
+        TopicExchange contessaExchange() {
+
+            return log_created((TopicExchange) ExchangeBuilder.topicExchange("contessa").durable(true).build());
+        }
+
+
+        @Bean
+        public Queue contessaContentUploadQueue() {
+
+            return log_created(QueueBuilder.durable("upload").build());
+        }
+
+
+        @Bean
+        Binding contessageContentUploadQueueBinding() {
+
+            return log_created(BindingBuilder.bind(contessaContentUploadQueue())
+                    .to(contessaExchange())
+                    .with("upload"));
+        }
     }
 
     @Configuration
-    @ConditionalOnProperty("contessa.ui.file.enabled")
+    @ConditionalOnProperty(name = "contessa.ui.file.enabled", havingValue = "true")
     public static class FileUiAutoConfiguration implements Loggable {
 
         // TODO
