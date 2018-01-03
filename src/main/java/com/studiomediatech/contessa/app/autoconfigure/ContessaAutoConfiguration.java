@@ -43,22 +43,26 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         ContessaUIConfigurationProperties.class // NOSONAR
     }
 )
-public class ContessaAutoConfiguration {
+public class ContessaAutoConfiguration implements Loggable {
 
     @Bean
     @ConditionalOnBean(Storage.class)
     @ConditionalOnMissingBean
     public ContentsService contessaContentsService(Storage storage) {
 
-        return new ContentsServiceImpl(storage);
+        return log_created(new ContentsServiceImpl(storage));
     }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "NONE")
     @ComponentScan(basePackageClasses = NoneStorageImpl.class)
-    public static class NoneStorageAutoConfiguration {
+    public static class NoneStorageAutoConfiguration implements Loggable {
 
-        // OK
+        @Bean
+        public Storage contessaNoneStorage() {
+
+            return log_created(new NoneStorageImpl());
+        }
     }
 
     @Configuration
@@ -109,7 +113,7 @@ public class ContessaAutoConfiguration {
         @ConditionalOnMissingBean
         public Handler service(ContentsService contentsService) {
 
-            return new HandlerImpl(contentsService);
+            return log_created(new HandlerImpl(contentsService));
         }
 
 
@@ -117,7 +121,7 @@ public class ContessaAutoConfiguration {
         @ConditionalOnMissingBean
         public Converter restConverter() {
 
-            return new Converter();
+            return log_created(new Converter());
         }
 
 
@@ -125,7 +129,7 @@ public class ContessaAutoConfiguration {
         @ConditionalOnMissingBean
         public Builder restBuilder() {
 
-            return new Builder();
+            return log_created(new Builder());
         }
     }
 

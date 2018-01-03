@@ -14,4 +14,12 @@ public interface Loggable {
 
         return LoggerFactory.getLogger(this.getClass());
     }
+
+
+    default <T> T log_created(T obj) {
+
+        logger().info("// Created {}", obj);
+
+        return obj;
+    }
 }
