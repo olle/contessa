@@ -15,4 +15,7 @@ public interface ValidationService {
 
 
     void validFilename(Message message);
+
+
+    void validIdentifier(String identifier);
 }

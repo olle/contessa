@@ -4,6 +4,8 @@ import com.studiomediatech.contessa.logging.Loggable;
 
 import org.springframework.amqp.core.Message;
 
+import org.springframework.util.StringUtils;
+
 import java.util.Objects;
 
 
@@ -41,6 +43,15 @@ public class ValidationServiceImpl implements ValidationService, Loggable {
 
         if (Objects.isNull(message.getMessageProperties().getHeaders().get("filename"))) {
             throw new MissingFilenameHeaderValidationError("No filename header in upload message.");
+        }
+    }
+
+
+    @Override
+    public void validIdentifier(String identifier) {
+
+        if (!StringUtils.hasText(identifier)) {
+            throw new InvalidIdentifierValidationError("Identifier cannot be empty");
         }
     }
 }

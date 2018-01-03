@@ -1,24 +1,48 @@
 package com.studiomediatech.contessa.ui.rest;
 
+import com.studiomediatech.contessa.logging.Loggable;
+
+
 final class RestConverterImpl implements RestConverter {
 
     @Override
     public UploadCommand convertToUploadCommand(String filename, byte[] payload) {
 
-        UploadCommand data = new UploadCommand();
+        UploadCommand target = new UploadCommand();
 
-        data.filename = filename;
-        data.payload = payload;
+        target.filename = filename;
+        target.payload = payload;
 
-        return data;
+        return target;
+    }
+
+
+    @Override
+    public ContentRequestCommand convertToContentRequestCommand(String identifier) {
+
+        ContentRequestCommand target = new ContentRequestCommand();
+
+        target.identifier = identifier;
+
+        return target;
     }
 }
 
-interface RestConverter {
+interface RestConverter extends Loggable {
 
 
     default UploadCommand convertToUploadCommand(String filename, byte[] payload) {
 
-        return new UploadCommand();
+        logger().warn("Not converting {} and {}", filename, payload);
+
+        return null;
+    }
+
+
+    default ContentRequestCommand convertToContentRequestCommand(String identifier) {
+
+        logger().warn("Not converting {}", identifier);
+
+        return null;
     }
 }

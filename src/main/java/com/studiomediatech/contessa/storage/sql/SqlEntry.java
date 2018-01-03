@@ -16,6 +16,9 @@ public class SqlEntry {
     @Column(name = "suffix")
     private String suffix;
 
+    @Column(name = "mime_type")
+    private String type;
+
     @Column(name = "data")
     private byte[] data;
 
@@ -40,6 +43,18 @@ public class SqlEntry {
     public void setSuffix(String suffix) {
 
         this.suffix = suffix;
+    }
+
+
+    public String getType() {
+
+        return type;
+    }
+
+
+    public void setType(String type) {
+
+        this.type = type;
     }
 
 

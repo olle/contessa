@@ -19,5 +19,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: mime_type
+                  type: VARCHAR(32)
+              - column:
                   name: data
                   type: CLOB

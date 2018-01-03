@@ -17,6 +17,7 @@ public class EntryToDbEntryConverter implements Converter<Entry, SqlEntry> {
 
         target.setIdentifier(source.getId());
         target.setSuffix(source.getSuffix());
+        target.setType(source.getType());
         target.setData(source.getData());
 
         return target;

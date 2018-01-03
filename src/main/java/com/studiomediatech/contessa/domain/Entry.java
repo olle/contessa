@@ -4,6 +4,7 @@ public class Entry {
 
     private String id;
     private String suffix;
+    private String type;
 
     private byte[] data;
 
@@ -28,6 +29,18 @@ public class Entry {
     public void setSuffix(String suffix) {
 
         this.suffix = suffix;
+    }
+
+
+    public String getType() {
+
+        return type;
+    }
+
+
+    public void setType(String type) {
+
+        this.type = type;
     }
 
 

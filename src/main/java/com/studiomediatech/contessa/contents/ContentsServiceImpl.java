@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.contents;
 
+import com.studiomediatech.contessa.contents.media.ByteArrayMimeTypeParser;
 import com.studiomediatech.contessa.contents.media.HashCodePrefixGenerator;
 import com.studiomediatech.contessa.contents.media.RegExSuffixParser;
 import com.studiomediatech.contessa.domain.Entry;
@@ -20,6 +21,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
     private final RegExSuffixParser parser;
     private final HashCodePrefixGenerator prefixGenerator;
     private final Storage storage;
+    private final ByteArrayMimeTypeParser mimeTypeParser;
 
     @Autowired
     public ContentsServiceImpl(Storage storage) {
@@ -27,6 +29,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         this.storage = storage;
         this.prefixGenerator = new HashCodePrefixGenerator();
         this.parser = new RegExSuffixParser();
+        this.mimeTypeParser = new ByteArrayMimeTypeParser();
     }
 
     @Override
@@ -38,13 +41,16 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
 
         String prefix = prefixGenerator.getPrefix(name, payload);
         String suffix = parser.parseSuffix(name);
+        String mimeType = mimeTypeParser.parseMimeType(payload);
 
-        logger().info("Delegating to storage: {}, {}, {} and {} bytes of data", prefix, suffix, name, payload.length);
+        logger().info("Delegating to storage: {}, {}, {}, {} and {} bytes of data", prefix, suffix, mimeType, name,
+            payload.length);
 
         Entry e = new Entry();
 
         e.setId(prefix);
         e.setSuffix(suffix);
+        e.setType(mimeType);
         e.setData(payload);
 
         storage.store(e);
@@ -54,10 +60,10 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
 
 
     @Override
-    public Map<String, Object> getMediaContent(String id) {
+    public Map<String, Object> getMediaContent(String identifier) {
 
-        String prefix = parser.parsePrefix(id);
-        String suffix = parser.parseSuffix(id);
+        String prefix = parser.parsePrefix(identifier);
+        String suffix = parser.parseSuffix(identifier);
 
         Map<String, Object> map = new HashMap<>();
 

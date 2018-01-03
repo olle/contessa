@@ -36,4 +36,18 @@ public class ValidationServiceImplTest {
         Message message = MessageBuilder.withBody("nop".getBytes()).setReplyTo("here/here").build();
         new ValidationServiceImpl().validFilename(message);
     }
+
+
+    @Test(expected = InvalidIdentifierValidationError.class)
+    public void ensureValidatesNullIdentifier() throws Exception {
+
+        new ValidationServiceImpl().validIdentifier(null);
+    }
+
+
+    @Test(expected = InvalidIdentifierValidationError.class)
+    public void ensureValidatesEmptyIdentifier() throws Exception {
+
+        new ValidationServiceImpl().validIdentifier("   ");
+    }
 }

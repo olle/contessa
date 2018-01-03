@@ -19,6 +19,13 @@ final class RestValidatorImpl implements RestValidator {
         validationService.validFilename(filename);
         validationService.validPayload(payload);
     }
+
+
+    @Override
+    public void validateRequest(String identifier) {
+
+        validationService.validIdentifier(identifier);
+    }
 }
 
 interface RestValidator extends Loggable {
@@ -27,5 +34,11 @@ interface RestValidator extends Loggable {
     default void validateUpload(String filename, byte[] payload) {
 
         logger().warn("Not validating any of {} or {}", filename, payload);
+    }
+
+
+    default void validateRequest(String identifier) {
+
+        logger().warn("Not validating request for {}", identifier);
     }
 }
