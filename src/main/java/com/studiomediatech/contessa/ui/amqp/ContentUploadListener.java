@@ -1,7 +1,10 @@
 package com.studiomediatech.contessa.ui.amqp;
 
 import com.studiomediatech.contessa.logging.Loggable;
+import com.studiomediatech.contessa.ui.UiHandler;
 
+import org.springframework.amqp.core.Address;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
@@ -16,21 +19,26 @@ import org.springframework.scheduling.annotation.Async;
  */
 public class ContentUploadListener implements Loggable {
 
-    private final ValidatorImpl validator;
-    private final Converter converter;
+    private final AmqpValidator validator;
+    private final AmqpConverter converter;
     private final ApplicationEventPublisher publisher;
+    private final UiHandler handler;
+    private AmqpTemplate template;
 
-    public ContentUploadListener(ValidatorImpl validator, Converter converter, ApplicationEventPublisher publisher) {
+    public ContentUploadListener(AmqpValidator validator, AmqpConverter converter, ApplicationEventPublisher publisher,
+        UiHandler handler, AmqpTemplate template) {
 
         this.validator = validator;
         this.converter = converter;
         this.publisher = publisher;
+        this.handler = handler;
+        this.template = template;
     }
 
     @RabbitListener(queues = "#{@contessaContentUploadQueue}")
     public void handleContentUpload(Message message) {
 
-        log_message(message);
+        log_received(message);
         validator.validateUpload(message);
 
         UploadEvent event = converter.convertToUploadEvent(message);
@@ -42,25 +50,10 @@ public class ContentUploadListener implements Loggable {
     @EventListener
     public void on(UploadEvent event) {
 
-        // TODO: Handle, and publish results.
+        String identifier = handler.handleUploadEvent(event);
+        Message message = converter.convertToUploadResponse(event, identifier);
+        Address address = new Address(event.replyTo);
+        template.sendAndReceive(address.getExchangeName(), address.getRoutingKey(), message);
+        log_sent(address, message);
     }
-
-
-    @Async
-    @EventListener
-    public void on(UploadResponseEvent event) {
-
-        // TODO: Send AMQP response in event
-    }
-
-//    @RabbitListener(queues = "#{@contentQueryQueue}")
-//    public void handleContentQuery(Message message) {
-//
-//        Query query = converter.convertContentQueryMessage(message);
-//        validator.validateContentQuery(query);
-//
-//        Upload data = service.handleContentQuery(query);
-//        Reply reply = builder.buildContentQueryReply(data, query);
-//        sender.sendContentQueryReply(reply);
-//    }
 }

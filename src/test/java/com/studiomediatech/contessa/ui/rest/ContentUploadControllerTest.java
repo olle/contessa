@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.ui.rest;
 
-import com.studiomediatech.contessa.ui.TestHandler;
+import com.studiomediatech.contessa.ui.UiHandler;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
@@ -25,11 +25,18 @@ public class ContentUploadControllerTest {
         RestValidator validator = new RestValidator() {
         };
 
-        Converter converter = new Converter();
-        TestHandler handler = new TestHandler();
-        Builder builder = new Builder();
+        RestConverter converter = new RestConverterImpl();
 
-        ContentUploadController sut = new ContentUploadController(validator, converter, handler, builder);
+        UiHandler handler = new UiHandler() {
+
+            @Override
+            public String handleUploadCommand(UploadCommand command) {
+
+                return "some-identifier";
+            }
+        };
+
+        ContentUploadController sut = new ContentUploadController(validator, converter, handler);
 
         mockMvc = MockMvcBuilders.standaloneSetup(sut).build();
     }
@@ -42,6 +49,6 @@ public class ContentUploadControllerTest {
 
         mockMvc.perform(post("/api/v1/tiny.gif").content(payload))
             .andExpect(status().isOk())
-            .andExpect(content().json("{identifier: 'test-tiny.gif'}"));
+            .andExpect(content().json("{identifier: 'some-identifier'}"));
     }
 }

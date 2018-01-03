@@ -13,8 +13,10 @@ public interface ContentsService {
      *
      * @param  name  of the contents file to add
      * @param  payload  byte array to add
+     *
+     * @return  the unique content identifier
      */
-    void addMediaContent(String name, byte[] payload);
+    String addMediaContent(String name, byte[] payload);
 
 
     /**

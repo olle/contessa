@@ -30,7 +30,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
     }
 
     @Override
-    public void addMediaContent(String name, byte[] payload) {
+    public String addMediaContent(String name, byte[] payload) {
 
         if (logger().isDebugEnabled()) {
             logPayloadExcerpt(payload);
@@ -48,6 +48,8 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         e.setData(payload);
 
         storage.store(e);
+
+        return e.getId();
     }
 
 

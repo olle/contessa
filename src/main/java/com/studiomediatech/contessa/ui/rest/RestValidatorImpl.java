@@ -1,11 +1,10 @@
 package com.studiomediatech.contessa.ui.rest;
 
-import org.springframework.stereotype.Component;
-
+import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.validation.ValidationService;
 
-@Component
-public final class RestValidatorImpl implements RestValidator {
+
+final class RestValidatorImpl implements RestValidator {
 
     private final ValidationService validationService;
 
@@ -22,11 +21,11 @@ public final class RestValidatorImpl implements RestValidator {
     }
 }
 
-interface RestValidator {
+interface RestValidator extends Loggable {
 
 
     default void validateUpload(String filename, byte[] payload) {
 
-        // OK
+        logger().warn("Not validating any of {} or {}", filename, payload);
     }
 }

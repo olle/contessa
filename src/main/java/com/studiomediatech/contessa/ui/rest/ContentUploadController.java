@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.ui.Handler;
-import com.studiomediatech.contessa.ui.Response;
-import com.studiomediatech.contessa.ui.Upload;
+import com.studiomediatech.contessa.ui.UiHandler;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -26,17 +25,14 @@ import java.util.Map;
 public class ContentUploadController implements Loggable {
 
     private final RestValidator validator;
+    private final RestConverter converter;
+    private final UiHandler service;
 
-    private Converter converter;
-    private Handler service;
-    private Builder builder;
-
-    public ContentUploadController(RestValidator validator, Converter converter, Handler handler, Builder builder) {
+    public ContentUploadController(RestValidator validator, RestConverter converter, UiHandler handler) {
 
         this.validator = validator;
         this.converter = converter;
         this.service = handler;
-        this.builder = builder;
     }
 
     @PostMapping(path = "/api/v1/{name:.+}")
@@ -45,11 +41,11 @@ public class ContentUploadController implements Loggable {
 
         validator.validateUpload(filename, payload);
 
-        Upload data = converter.convertToUpload(filename, payload);
-        String identifier = service.handleUploadData(data);
+        UploadCommand command = converter.convertToUploadCommand(filename, payload);
+        String identifier = service.handleUploadCommand(command);
 
-        Map<String, Object> result = builder.buildUploadResult(identifier);
-        Response response = builder.buildUploadResponse(identifier);
+        Map<String, Object> result = new HashMap<>();
+        result.put("identifier", identifier);
 
         return toJsonResponse(result);
     }

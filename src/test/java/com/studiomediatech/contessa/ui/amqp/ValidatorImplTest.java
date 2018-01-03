@@ -24,7 +24,7 @@ public class ValidatorImplTest {
     ValidationService validationService;
 
     @InjectMocks
-    ValidatorImpl sut;
+    AmqpValidatorImpl sut;
 
     @Test
     public void ensureCallsValidationForAmqpMessage() throws Exception {

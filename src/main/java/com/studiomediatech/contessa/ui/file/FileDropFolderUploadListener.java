@@ -1,8 +1,8 @@
 package com.studiomediatech.contessa.ui.file;
 
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.ui.Upload;
-import com.studiomediatech.contessa.ui.Handler;
+import com.studiomediatech.contessa.ui.UiHandler;
+import com.studiomediatech.contessa.ui.rest.UploadCommand;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -15,12 +15,12 @@ import java.io.File;
  */
 public class FileDropFolderUploadListener implements Loggable {
 
-    private Handler service;
+    private UiHandler service;
     private Converter converter;
     private Validator validator;
     private Builder builder;
 
-    public FileDropFolderUploadListener(Converter converter, Validator validator, Handler service, Builder builder) {
+    public FileDropFolderUploadListener(Converter converter, Validator validator, UiHandler service, Builder builder) {
 
         this.converter = converter;
         this.validator = validator;
@@ -38,11 +38,11 @@ public class FileDropFolderUploadListener implements Loggable {
 
     private void handleUploadedFile(File file) {
 
-        Upload data = converter.convertUploadedFile(file);
+        UploadCommand data = converter.convertUploadedFile(file);
         validator.validateUploadData(data);
         removeUploadedFile(file);
 
-        String identifier = service.handleUploadData(data);
+        String identifier = service.handleUploadCommand(data);
         File result = builder.buildResultFile(identifier, data);
         writeResultFile(result);
     }

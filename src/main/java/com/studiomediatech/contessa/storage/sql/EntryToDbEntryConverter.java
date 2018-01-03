@@ -13,6 +13,12 @@ public class EntryToDbEntryConverter implements Converter<Entry, SqlEntry> {
     @Override
     public SqlEntry convert(Entry source) {
 
-        return new SqlEntry();
+        SqlEntry target = new SqlEntry();
+
+        target.setIdentifier(source.getId());
+        target.setSuffix(source.getSuffix());
+        target.setData(source.getData());
+
+        return target;
     }
 }

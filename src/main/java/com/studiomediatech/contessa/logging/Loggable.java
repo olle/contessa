@@ -3,6 +3,7 @@ package com.studiomediatech.contessa.logging;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.amqp.core.Address;
 import org.springframework.amqp.core.Message;
 
 
@@ -26,8 +27,22 @@ public interface Loggable {
     }
 
 
-    default void log_message(Message message) {
+    default String log_returns(String returns) {
+
+        logger().info("Returns {}", returns);
+
+        return returns;
+    }
+
+
+    default void log_received(Message message) {
 
         logger().info("|--> Received {}", message);
+    }
+
+
+    default void log_sent(Address address, Message message) {
+
+        logger().info("|<-- Sent {} to {}", message, address);
     }
 }

@@ -2,8 +2,9 @@ package com.studiomediatech.contessa.ui.rest;
 
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.ui.Handler;
-import com.studiomediatech.contessa.ui.HandlerImpl;
+import com.studiomediatech.contessa.ui.UiHandler;
+import com.studiomediatech.contessa.ui.UiHandlerImpl;
+import com.studiomediatech.contessa.validation.ValidationService;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
@@ -16,24 +17,24 @@ public class Config implements Loggable {
 
     @Bean
     @ConditionalOnMissingBean
-    public Handler service(ContentsService contentsService) {
+    public RestValidator restValidator(ValidationService validationService) {
 
-        return log_created(new HandlerImpl(contentsService));
+        return log_created(new RestValidatorImpl(validationService));
     }
 
 
     @Bean
     @ConditionalOnMissingBean
-    public Converter restConverter() {
+    public RestConverter restConverter() {
 
-        return log_created(new Converter());
+        return log_created(new RestConverterImpl());
     }
 
 
     @Bean
     @ConditionalOnMissingBean
-    public Builder restBuilder() {
+    public UiHandler service(ContentsService contentsService) {
 
-        return log_created(new Builder());
+        return log_created(new UiHandlerImpl(contentsService));
     }
 }
