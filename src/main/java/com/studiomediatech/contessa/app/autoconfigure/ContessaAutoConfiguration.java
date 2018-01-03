@@ -25,6 +25,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 
+/**
+ * Auto-configuration for Contessa, establishes the configurable nature of the application - to be able to choose a
+ * storage backend as well as toggling user interfaces on/off.
+ *
+ * <p>The basic structure here is that the conditionals will enable component scanning in the module-packages, and
+ * activate each of the more specific configurations. Just follow the marker types.</p>
+ */
 @Configuration
 @EnableConfigurationProperties(
     {
