@@ -32,7 +32,7 @@ contessa:
     ### Enables the RabbitMQ interface, providing
     ### query/response based access to assets.
     ### -----------------------------------------
-    amqp.enabled: true
+    #amqp.enabled: true
     ### -----------------------------------------
     ### Enables file based, drop-folder, access
     ### to assets.

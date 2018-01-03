@@ -12,14 +12,14 @@ import java.util.Optional;
 
 
 @Component
-public class DbStorageImpl implements Storage, Loggable {
+public class SqlStorageImpl implements Storage, Loggable {
 
-    private final Converter<Entry, DbEntry> encoder;
-    private final Converter<DbEntry, Entry> decoder;
-    private final DbEntryRepository repo;
+    private final Converter<Entry, SqlEntry> encoder;
+    private final Converter<SqlEntry, Entry> decoder;
+    private final SqlEntryRepository repo;
 
-    public DbStorageImpl(Converter<DbEntry, Entry> decoder, Converter<Entry, DbEntry> encoder,
-        DbEntryRepository repo) {
+    public SqlStorageImpl(Converter<SqlEntry, Entry> decoder, Converter<Entry, SqlEntry> encoder,
+        SqlEntryRepository repo) {
 
         this.decoder = decoder;
         this.encoder = encoder;
@@ -36,6 +36,6 @@ public class DbStorageImpl implements Storage, Loggable {
     @Override
     public Optional<Entry> retrieve(String id, String suffix) {
 
-        return repo.findOneByIdentifierAndSuffix(id, suffix).map(decoder::convert);
+        return repo.findOneByIdentifier(id).map(decoder::convert);
     }
 }

@@ -6,10 +6,11 @@ import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.storage.Storage;
-import com.studiomediatech.contessa.storage.local.LocalStorageImpl;
+import com.studiomediatech.contessa.storage.local.ContessaLocal;
+import com.studiomediatech.contessa.storage.none.ContessaNone;
 import com.studiomediatech.contessa.storage.none.NoneStorageImpl;
-import com.studiomediatech.contessa.storage.nosql.NoSqlStorageImpl;
-import com.studiomediatech.contessa.storage.sql.DbStorageImpl;
+import com.studiomediatech.contessa.storage.nosql.ContessaNoSql;
+import com.studiomediatech.contessa.storage.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.Handler;
 import com.studiomediatech.contessa.ui.HandlerImpl;
 import com.studiomediatech.contessa.ui.rest.Builder;
@@ -29,11 +30,9 @@ import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
@@ -72,7 +71,7 @@ public class ContessaAutoConfiguration implements Loggable {
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "NONE")
-    @ComponentScan(basePackageClasses = NoneStorageImpl.class)
+    @ComponentScan(basePackageClasses = ContessaNone.class)
     public static class NoneStorageAutoConfiguration implements Loggable {
 
         @Bean
@@ -84,7 +83,7 @@ public class ContessaAutoConfiguration implements Loggable {
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "LOCAL")
-    @ComponentScan(basePackageClasses = LocalStorageImpl.class)
+    @ComponentScan(basePackageClasses = ContessaLocal.class)
     public static class LocalStorageAutoConfiguration {
 
         // OK
@@ -92,13 +91,7 @@ public class ContessaAutoConfiguration implements Loggable {
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "NOSQL")
-    @ComponentScan(basePackageClasses = NoSqlStorageImpl.class)
-    @Import(
-        {
-            MongoAutoConfiguration.class, // NOSONAR
-            MongoDataAutoConfiguration.class // NOSONAR
-        }
-    )
+    @ComponentScan(basePackageClasses = ContessaNoSql.class)
     public static class NoSqlStorageAutoConfiguration {
 
         // OK
@@ -106,9 +99,9 @@ public class ContessaAutoConfiguration implements Loggable {
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "SQL")
-    @ComponentScan(basePackageClasses = DbStorageImpl.class)
-    @EnableJpaRepositories(basePackageClasses = DbStorageImpl.class)
-    @EntityScan(basePackageClasses = DbStorageImpl.class)
+    @ComponentScan(basePackageClasses = ContessaSql.class)
+    @EnableJpaRepositories(basePackageClasses = ContessaSql.class)
+    @EntityScan(basePackageClasses = ContessaSql.class)
     @Import(
         {
             DataSourceAutoConfiguration.class, // NOSONAR

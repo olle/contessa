@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contents")
-public class DbEntry {
+public class SqlEntry {
 
     @Id
     private String identifier;
@@ -40,5 +40,17 @@ public class DbEntry {
     public void setSuffix(String suffix) {
 
         this.suffix = suffix;
+    }
+
+
+    public byte[] getData() {
+
+        return data;
+    }
+
+
+    public void setData(byte[] data) {
+
+        this.data = data;
     }
 }

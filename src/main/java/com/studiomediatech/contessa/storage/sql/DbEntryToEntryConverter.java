@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class DbEntryToEntryConverter implements Converter<DbEntry, Entry> {
+public class DbEntryToEntryConverter implements Converter<SqlEntry, Entry> {
 
     @Override
-    public Entry convert(DbEntry source) {
+    public Entry convert(SqlEntry source) {
 
         return null;
     }
