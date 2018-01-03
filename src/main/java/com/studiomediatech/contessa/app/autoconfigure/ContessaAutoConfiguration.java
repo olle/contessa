@@ -8,40 +8,21 @@ import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.storage.Storage;
 import com.studiomediatech.contessa.storage.local.ContessaLocal;
 import com.studiomediatech.contessa.storage.none.ContessaNone;
-import com.studiomediatech.contessa.storage.none.NoneStorageImpl;
 import com.studiomediatech.contessa.storage.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.storage.sql.ContessaSql;
-import com.studiomediatech.contessa.ui.Handler;
-import com.studiomediatech.contessa.ui.HandlerImpl;
-import com.studiomediatech.contessa.ui.rest.Builder;
+import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
-import com.studiomediatech.contessa.ui.rest.Converter;
 import com.studiomediatech.contessa.validation.ValidationService;
 import com.studiomediatech.contessa.validation.ValidationServiceImpl;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.ExchangeBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.QueueBuilder;
-import org.springframework.amqp.core.TopicExchange;
-
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @Configuration
@@ -74,11 +55,7 @@ public class ContessaAutoConfiguration implements Loggable {
     @ComponentScan(basePackageClasses = ContessaNone.class)
     public static class NoneStorageAutoConfiguration implements Loggable {
 
-        @Bean
-        public Storage contessaNoneStorage() {
-
-            return log_created(new NoneStorageImpl());
-        }
+        // OK
     }
 
     @Configuration
@@ -100,15 +77,6 @@ public class ContessaAutoConfiguration implements Loggable {
     @Configuration
     @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "SQL")
     @ComponentScan(basePackageClasses = ContessaSql.class)
-    @EnableJpaRepositories(basePackageClasses = ContessaSql.class)
-    @EntityScan(basePackageClasses = ContessaSql.class)
-    @Import(
-        {
-            DataSourceAutoConfiguration.class, // NOSONAR
-            DataSourceTransactionManagerAutoConfiguration.class, // NOSONAR
-            HibernateJpaAutoConfiguration.class // NOSONAR
-        }
-    )
     public static class SqlStorageAutoConfiguration {
 
         // OK
@@ -119,56 +87,15 @@ public class ContessaAutoConfiguration implements Loggable {
     @ComponentScan(basePackageClasses = ContessaRest.class)
     public static class RestUiAutoConfiguration implements Loggable {
 
-        @Bean
-        @ConditionalOnMissingBean
-        public Handler service(ContentsService contentsService) {
-
-            return log_created(new HandlerImpl(contentsService));
-        }
-
-
-        @Bean
-        @ConditionalOnMissingBean
-        public Converter restConverter() {
-
-            return log_created(new Converter());
-        }
-
-
-        @Bean
-        @ConditionalOnMissingBean
-        public Builder restBuilder() {
-
-            return log_created(new Builder());
-        }
+        // OK
     }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.ui.amqp.enabled", havingValue = "true")
-    @Import(RabbitAutoConfiguration.class)
+    @ComponentScan(basePackageClasses = ContessaAmqp.class)
     public static class AmqpUiAutoConfiguration implements Loggable {
 
-        @Bean
-        TopicExchange contessaExchange() {
-
-            return log_created((TopicExchange) ExchangeBuilder.topicExchange("contessa").durable(true).build());
-        }
-
-
-        @Bean
-        public Queue contessaContentUploadQueue() {
-
-            return log_created(QueueBuilder.durable("upload").build());
-        }
-
-
-        @Bean
-        Binding contessageContentUploadQueueBinding() {
-
-            return log_created(BindingBuilder.bind(contessaContentUploadQueue())
-                    .to(contessaExchange())
-                    .with("upload"));
-        }
+        // OK
     }
 
     @Configuration
