@@ -1,23 +1,18 @@
 package com.studiomediatech.contessa.ui.amqp;
 
-import com.studiomediatech.contessa.ui.Upload;
-import com.studiomediatech.contessa.ui.Query;
-
 import org.springframework.amqp.core.Message;
 
 
 public class Converter {
 
-    public Upload convertUploadMessage(Message message) {
+    public UploadEvent convertToUploadEvent(Message message) {
 
-        // TODO Auto-generated method stub
-        return null;
-    }
+        UploadEvent event = new UploadEvent();
 
+        event.payload = message.getBody();
+        event.filename = (String) message.getMessageProperties().getHeaders().get("filename");
+        event.replyTo = message.getMessageProperties().getReplyTo();
 
-    public Query convertContentQueryMessage(Message message) {
-
-        // TODO Auto-generated method stub
-        return null;
+        return event;
     }
 }

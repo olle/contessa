@@ -1,18 +1,24 @@
 package com.studiomediatech.contessa.ui.amqp;
 
-import com.studiomediatech.contessa.validation.MissingReplyToValidationError;
+import com.studiomediatech.contessa.validation.ValidationService;
 
 import org.springframework.amqp.core.Message;
-
-import java.util.Objects;
 
 
 public class ValidatorImpl {
 
+    private final ValidationService validationService;
+
+    public ValidatorImpl(ValidationService validationService) {
+
+        this.validationService = validationService;
+    }
+
     public void validateUpload(Message message) {
 
-        if (Objects.isNull(message.getMessageProperties().getReplyTo())) {
-            throw new MissingReplyToValidationError("No reply-to set on the upload message.");
-        }
+        validationService.validReplyTo(message);
+        validationService.validFilename(message);
+        validationService.validFilename((String) message.getMessageProperties().getHeaders().get("filename"));
+        validationService.validPayload(message.getBody());
     }
 }

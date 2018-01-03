@@ -5,6 +5,8 @@ import com.studiomediatech.contessa.logging.Loggable;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
+import org.springframework.context.ApplicationEventPublisher;
+
 
 /**
  * Listener component that handles content upload messages.
@@ -12,16 +14,23 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 public class ContentUploadListener implements Loggable {
 
     private final ValidatorImpl validator;
+    private final Converter converter;
+    private final ApplicationEventPublisher publisher;
 
-    public ContentUploadListener(ValidatorImpl validator) {
+    public ContentUploadListener(ValidatorImpl validator, Converter converter, ApplicationEventPublisher publisher) {
 
         this.validator = validator;
+        this.converter = converter;
+        this.publisher = publisher;
     }
 
     @RabbitListener(queues = "#{@contentUploadQueue}")
     public void handleContentUpload(Message message) {
 
         validator.validateUpload(message);
+
+        UploadEvent event = converter.convertToUploadEvent(message);
+        publisher.publishEvent(event);
     }
 
 //    @RabbitListener(queues = "#{@contentQueryQueue}")

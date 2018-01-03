@@ -25,12 +25,13 @@ import java.util.Map;
 @RestController
 public class ContentUploadController implements Loggable {
 
-    private ValidatorImpl validator;
+    private final RestValidator validator;
+
     private Converter converter;
     private Handler service;
     private Builder builder;
 
-    public ContentUploadController(ValidatorImpl validator, Converter converter, Handler handler, Builder builder) {
+    public ContentUploadController(RestValidator validator, Converter converter, Handler handler, Builder builder) {
 
         this.validator = validator;
         this.converter = converter;
