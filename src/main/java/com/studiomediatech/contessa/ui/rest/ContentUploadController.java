@@ -42,7 +42,7 @@ public class ContentUploadController implements Loggable {
     public ResponseEntity<String> handleContentUpload(@PathVariable("name") String filename,
         @RequestBody byte[] payload) {
 
-        validator.validate(filename, payload);
+        validator.validateUpload(filename, payload);
 
         Upload data = converter.convertToUpload(filename, payload);
         String identifier = service.handleUploadData(data);

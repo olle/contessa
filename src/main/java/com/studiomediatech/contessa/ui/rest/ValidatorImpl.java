@@ -6,7 +6,7 @@ import com.studiomediatech.contessa.validation.PayloadTooSmallValidationError;
 
 public class ValidatorImpl {
 
-    public void validate(String filename, byte[] payload) {
+    public void validateUpload(String filename, byte[] payload) {
 
         if (filename.indexOf('.') == -1) {
             throw new MissingFilenameSuffixValidationError(filename);
