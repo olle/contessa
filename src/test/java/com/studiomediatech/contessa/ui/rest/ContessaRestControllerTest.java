@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.ui.rest;
 
+import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.UiHandler;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class ContentUploadControllerTest {
+public class ContessaRestControllerTest {
 
     @Mock
     RestValidator validator;
@@ -40,7 +41,7 @@ public class ContentUploadControllerTest {
     UiHandler handler;
 
     @InjectMocks
-    ContentUploadController sut;
+    ContessaRestController sut;
 
     private MockMvc mockMvc;
 
@@ -67,8 +68,10 @@ public class ContentUploadControllerTest {
     @Test
     public void ensureHandlesContentRequest() throws Exception {
 
+        when(handler.handleContentRequestCommand(any(ContentRequestCommand.class))).thenReturn(new Entry());
+
         mockMvc.perform(get("/api/v1/some-identifier"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.IMAGE_GIF));
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 }

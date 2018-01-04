@@ -21,10 +21,15 @@ contessa:
     ###           for testing and development.
     ### -----------------------------------------
     type: SQL
-  ui:
+  ui:    
+    ### -----------------------------------------
+    ### Enables the simple web interface, allowing
+    ### HTTP upload and access to assets.
+    ### -----------------------------------------
+    web.enabled: true
     ### -----------------------------------------
     ### Enables the REST-ful interface, allowing
-    ### simple HTTP upload and download of
+    ### simple HTTP upload and download of 
     ### assets.
     ### -----------------------------------------
     rest.enabled: true

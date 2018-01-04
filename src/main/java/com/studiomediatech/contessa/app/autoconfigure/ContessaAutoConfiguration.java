@@ -12,6 +12,7 @@ import com.studiomediatech.contessa.storage.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.storage.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
+import com.studiomediatech.contessa.ui.web.ContessaWeb;
 import com.studiomediatech.contessa.validation.ValidationService;
 import com.studiomediatech.contessa.validation.ValidationServiceImpl;
 
@@ -92,7 +93,15 @@ public class ContessaAutoConfiguration implements Loggable {
     @Configuration
     @ConditionalOnProperty(name = "contessa.ui.rest.enabled", havingValue = "true")
     @ComponentScan(basePackageClasses = ContessaRest.class)
-    public static class RestUiAutoConfiguration implements Loggable {
+    public static class RestUiAutoConfiguration {
+
+        // OK
+    }
+
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.ui.web.enabled", havingValue = "true")
+    @ComponentScan(basePackageClasses = ContessaWeb.class)
+    public static class WebUiAutoConfiguration {
 
         // OK
     }

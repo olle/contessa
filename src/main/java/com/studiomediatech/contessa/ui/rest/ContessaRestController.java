@@ -20,17 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * REST-ful controller that handles content upload requests.
- */
 @RestController
-public class ContentUploadController implements Loggable {
+public class ContessaRestController implements Loggable {
 
     private final RestValidator validator;
     private final RestConverter converter;
     private final UiHandler handler;
 
-    public ContentUploadController(RestValidator validator, RestConverter converter, UiHandler handler) {
+    public ContessaRestController(RestValidator validator, RestConverter converter, UiHandler handler) {
 
         this.validator = validator;
         this.converter = converter;
@@ -54,14 +51,21 @@ public class ContentUploadController implements Loggable {
 
 
     @GetMapping(path = "/api/v1/{identifier}")
-    public ResponseEntity<byte[]> handleContentRequest(@PathVariable("identifier") String identifier) {
+    public Map<String, Object> handleContentRequest(@PathVariable("identifier") String identifier) {
 
         validator.validateRequest(identifier);
 
         ContentRequestCommand command = converter.convertToContentRequestCommand(identifier);
         Entry content = handler.handleContentRequestCommand(command);
 
-        return ResponseEntity.ok().header("Content-Type", "image").body(content.getData());
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("identifier", content.getId());
+        result.put("type", content.getType());
+        result.put("suffix", content.getSuffix());
+        result.put("data", content.getData());
+
+        return result;
     }
 
 
