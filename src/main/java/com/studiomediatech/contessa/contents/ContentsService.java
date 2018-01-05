@@ -1,6 +1,8 @@
 package com.studiomediatech.contessa.contents;
 
-import java.util.Map;
+import com.studiomediatech.contessa.domain.Entry;
+
+import java.util.Optional;
 
 
 /**
@@ -14,17 +16,17 @@ public interface ContentsService {
      * @param  name  of the contents file to add
      * @param  payload  byte array to add
      *
-     * @return  the unique content identifier
+     * @return  the added media content entry
      */
-    String addMediaContent(String name, byte[] payload);
+    Entry addMediaContent(String name, byte[] payload);
 
 
     /**
      * Fetch the media content data for the given identifier.
      *
-     * @param  id  predicate, used to resolve the media content to fetch
+     * @param  identifier  predicate, used to resolve the media content to fetch
      *
-     * @return  the media object found, never {@code null}
+     * @return  the media entry object found, may be empty but never {@code null}
      */
-    Map<String, Object> getMediaContent(String id);
+    Optional<Entry> getMediaContentForIdentifier(String identifier);
 }

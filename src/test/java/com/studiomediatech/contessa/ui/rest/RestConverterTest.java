@@ -2,6 +2,8 @@ package com.studiomediatech.contessa.ui.rest;
 
 import org.junit.Test;
 
+import com.studiomediatech.contessa.ui.UploadCommand;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

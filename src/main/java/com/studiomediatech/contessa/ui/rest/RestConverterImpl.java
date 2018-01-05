@@ -1,6 +1,7 @@
 package com.studiomediatech.contessa.ui.rest;
 
 import com.studiomediatech.contessa.logging.Loggable;
+import com.studiomediatech.contessa.ui.UploadCommand;
 
 
 final class RestConverterImpl implements RestConverter {

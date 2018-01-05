@@ -27,11 +27,11 @@ public interface Loggable {
     }
 
 
-    default String log_returns(String returns) {
+    default <T> T log_returns(T obj) {
 
-        logger().info("Returns {}", returns);
+        logger().info("Returns {}", obj);
 
-        return returns;
+        return obj;
     }
 
 

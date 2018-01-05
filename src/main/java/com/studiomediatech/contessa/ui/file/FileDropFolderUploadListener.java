@@ -2,7 +2,7 @@ package com.studiomediatech.contessa.ui.file;
 
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.UiHandler;
-import com.studiomediatech.contessa.ui.rest.UploadCommand;
+import com.studiomediatech.contessa.ui.UploadCommand;
 
 import org.springframework.scheduling.annotation.Scheduled;
 

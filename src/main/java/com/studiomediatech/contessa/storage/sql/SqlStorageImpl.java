@@ -34,8 +34,8 @@ public class SqlStorageImpl implements Storage, Loggable {
 
 
     @Override
-    public Optional<Entry> retrieve(String id, String suffix) {
+    public Optional<Entry> retrieve(String identifier) {
 
-        return repo.findOneByIdentifier(id).map(decoder::convert);
+        return repo.findOneByIdentifier(identifier).map(decoder::convert);
     }
 }

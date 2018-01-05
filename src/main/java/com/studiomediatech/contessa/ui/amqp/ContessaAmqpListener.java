@@ -13,19 +13,22 @@ import org.springframework.context.event.EventListener;
 
 import org.springframework.scheduling.annotation.Async;
 
+import org.springframework.stereotype.Component;
+
 
 /**
  * Listener component that handles content upload messages.
  */
-public class ContentUploadListener implements Loggable {
+@Component
+public class ContessaAmqpListener implements Loggable {
 
     private final AmqpValidator validator;
     private final AmqpConverter converter;
     private final ApplicationEventPublisher publisher;
     private final UiHandler handler;
-    private AmqpTemplate template;
+    private final AmqpTemplate template;
 
-    public ContentUploadListener(AmqpValidator validator, AmqpConverter converter, ApplicationEventPublisher publisher,
+    public ContessaAmqpListener(AmqpValidator validator, AmqpConverter converter, ApplicationEventPublisher publisher,
         UiHandler handler, AmqpTemplate template) {
 
         this.validator = validator;

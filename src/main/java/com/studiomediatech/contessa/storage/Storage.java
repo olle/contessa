@@ -1,6 +1,7 @@
 package com.studiomediatech.contessa.storage;
 
 import com.studiomediatech.contessa.domain.Entry;
+import com.studiomediatech.contessa.logging.Loggable;
 
 import java.util.Optional;
 
@@ -8,7 +9,7 @@ import java.util.Optional;
 /**
  * Declares the API for storing and retrieving content data assets.
  */
-public interface Storage {
+public interface Storage extends Loggable {
 
     /**
      * Store the given entry, persisting it in a way that ensures that it can later be retrieved.
@@ -19,12 +20,16 @@ public interface Storage {
 
 
     /**
-     * Retrieves the entry, identified by the given string identifier.
+     * Retrieves the entry for the given identifier.
      *
-     * @param  id  that identifies the entry to retrieve
-     * @param  suffix  of the entry to find
+     * @param  identifier  of the entry to retrieve
      *
-     * @return  the entry that was found, may be empty but never {@code null}
+     * @return  the entry, may be empty but never {@code null}
      */
-    Optional<Entry> retrieve(String id, String suffix);
+    default Optional<Entry> retrieve(String identifier) {
+
+        logger().warn("Not retrieving anything for {}", identifier);
+
+        return Optional.empty();
+    }
 }

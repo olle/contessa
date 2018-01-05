@@ -18,4 +18,7 @@ public interface ValidationService {
 
 
     void validIdentifier(String identifier);
+
+
+    void validName(String name);
 }

@@ -9,8 +9,7 @@ import com.studiomediatech.contessa.storage.Storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 
 /**
@@ -33,7 +32,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
     }
 
     @Override
-    public String addMediaContent(String name, byte[] payload) {
+    public Entry addMediaContent(String name, byte[] payload) {
 
         if (logger().isDebugEnabled()) {
             logPayloadExcerpt(payload);
@@ -46,30 +45,23 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         logger().info("Delegating to storage: {}, {}, {}, {} and {} bytes of data", prefix, suffix, mimeType, name,
             payload.length);
 
-        Entry e = new Entry();
+        Entry entry = new Entry();
 
-        e.setId(prefix);
-        e.setSuffix(suffix);
-        e.setType(mimeType);
-        e.setData(payload);
+        entry.setId(prefix);
+        entry.setSuffix(suffix);
+        entry.setType(mimeType);
+        entry.setData(payload);
 
-        storage.store(e);
+        storage.store(entry);
 
-        return e.getId();
+        return entry;
     }
 
 
     @Override
-    public Map<String, Object> getMediaContent(String identifier) {
+    public Optional<Entry> getMediaContentForIdentifier(String identifier) {
 
-        String prefix = parser.parsePrefix(identifier);
-        String suffix = parser.parseSuffix(identifier);
-
-        Map<String, Object> map = new HashMap<>();
-
-        storage.retrieve(prefix, suffix).ifPresent(e -> map.put("image", e.getData()));
-
-        return map;
+        return storage.retrieve(identifier);
     }
 
 

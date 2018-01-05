@@ -54,4 +54,12 @@ public class ValidationServiceImpl implements ValidationService, Loggable {
             throw new InvalidIdentifierValidationError("Identifier cannot be empty");
         }
     }
+
+
+    @Override
+    public void validName(String name) {
+
+        validIdentifier(name);
+        validFilename(name);
+    }
 }

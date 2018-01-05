@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.UiHandler;
+import com.studiomediatech.contessa.ui.UploadCommand;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +42,11 @@ public class ContessaRestController implements Loggable {
         validator.validateUpload(filename, payload);
 
         UploadCommand command = converter.convertToUploadCommand(filename, payload);
-        String identifier = handler.handleUploadCommand(command);
+        Entry content = handler.handle(command);
+        Map<String, Object> result = toMap(content);
+        ResponseEntity<String> response = toJsonResponse(result);
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("identifier", identifier);
-
-        return toJsonResponse(result);
+        return response;
     }
 
 
@@ -56,14 +56,17 @@ public class ContessaRestController implements Loggable {
         validator.validateRequest(identifier);
 
         ContentRequestCommand command = converter.convertToContentRequestCommand(identifier);
-        Entry content = handler.handleContentRequestCommand(command);
+
+        return handler.handle(command).map(this::toMap).orElseThrow(() -> new UnknownContentEntryException());
+    }
+
+
+    private Map<String, Object> toMap(Entry content) {
 
         Map<String, Object> result = new HashMap<>();
-
         result.put("identifier", content.getId());
         result.put("type", content.getType());
         result.put("suffix", content.getSuffix());
-        result.put("data", content.getData());
 
         return result;
     }

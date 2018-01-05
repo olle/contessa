@@ -3,6 +3,7 @@ package com.studiomediatech.contessa.storage.sql;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 
@@ -19,6 +20,7 @@ public class SqlEntry {
     @Column(name = "mime_type")
     private String type;
 
+    @Lob
     @Column(name = "data")
     private byte[] data;
 

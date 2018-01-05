@@ -4,7 +4,8 @@ import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.amqp.UploadEvent;
 import com.studiomediatech.contessa.ui.rest.ContentRequestCommand;
-import com.studiomediatech.contessa.ui.rest.UploadCommand;
+
+import java.util.Optional;
 
 
 /**
@@ -30,6 +31,22 @@ public interface UiHandler extends Loggable {
 
 
     default Entry handleContentRequestCommand(ContentRequestCommand command) {
+
+        logger().warn("Not handling command {}", command);
+
+        return null;
+    }
+
+
+    default Entry handle(UploadCommand command) {
+
+        logger().warn("Not handling command {}", command);
+
+        return null;
+    }
+
+
+    default Optional<Entry> handle(ContentRequestCommand command) {
 
         logger().warn("Not handling command {}", command);
 

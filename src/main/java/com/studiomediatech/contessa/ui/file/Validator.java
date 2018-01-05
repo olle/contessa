@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.ui.file;
 
-import com.studiomediatech.contessa.ui.rest.UploadCommand;
+import com.studiomediatech.contessa.ui.UploadCommand;
 
 
 public class Validator {

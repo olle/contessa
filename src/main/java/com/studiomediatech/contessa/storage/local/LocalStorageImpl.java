@@ -9,8 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import java.util.Optional;
-
 
 public class LocalStorageImpl implements Storage, Loggable {
 
@@ -38,29 +36,6 @@ public class LocalStorageImpl implements Storage, Loggable {
             Files.write(p, entry.getData());
         } catch (Throwable e) {
             logger().error("Could not store entry", e);
-        }
-    }
-
-
-    @Override
-    public Optional<Entry> retrieve(String id, String suffix) {
-
-        String path = config.getBaseDir();
-        String name = getFileName(id, suffix);
-
-        try {
-            Path p = Paths.get(path, name);
-            Entry e = new Entry();
-
-            e.setData(Files.readAllBytes(p));
-            e.setId(id);
-            e.setSuffix(suffix);
-
-            return Optional.of(e);
-        } catch (Throwable e) {
-            logger().error("Unable to read entry", e);
-
-            return Optional.empty();
         }
     }
 }

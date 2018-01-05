@@ -2,6 +2,7 @@ package com.studiomediatech.contessa.ui.rest;
 
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.UiHandler;
+import com.studiomediatech.contessa.ui.UploadCommand;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
@@ -19,6 +20,8 @@ import org.springframework.http.MediaType;
 
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Optional;
 
 import static org.mockito.Matchers.any;
 
@@ -55,7 +58,10 @@ public class ContessaRestControllerTest {
     @Test
     public void ensureHandlesUpload() throws Exception {
 
-        when(handler.handleUploadCommand(any(UploadCommand.class))).thenReturn("some-identifier");
+        Entry entry = new Entry();
+        entry.setId("some-identifier");
+
+        when(handler.handle(any(UploadCommand.class))).thenReturn(entry);
 
         byte[] payload = Base64.decodeBase64("R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=");
 
@@ -68,7 +74,7 @@ public class ContessaRestControllerTest {
     @Test
     public void ensureHandlesContentRequest() throws Exception {
 
-        when(handler.handleContentRequestCommand(any(ContentRequestCommand.class))).thenReturn(new Entry());
+        when(handler.handle(any(ContentRequestCommand.class))).thenReturn(Optional.of(new Entry()));
 
         mockMvc.perform(get("/api/v1/some-identifier"))
             .andExpect(status().isOk())
