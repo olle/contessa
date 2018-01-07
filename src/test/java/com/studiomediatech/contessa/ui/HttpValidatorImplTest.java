@@ -1,5 +1,6 @@
-package com.studiomediatech.contessa.ui.rest;
+package com.studiomediatech.contessa.ui;
 
+import com.studiomediatech.contessa.ui.HttpValidatorImpl;
 import com.studiomediatech.contessa.validation.ValidationService;
 
 import org.junit.Test;
@@ -15,13 +16,13 @@ import static org.mockito.Mockito.verify;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class ValidatorImplTest {
+public class HttpValidatorImplTest {
 
     @Mock
     ValidationService validationService;
 
     @InjectMocks
-    RestValidatorImpl sut;
+    HttpValidatorImpl sut;
 
     @Test
     public void ensureValidatesFilenameAndPayload() {
@@ -29,7 +30,7 @@ public class ValidatorImplTest {
         byte[] payload = "payload".getBytes();
         String filename = "filename";
 
-        sut.validateUpload(filename, payload);
+        sut.validateForUpload(filename, payload);
 
         verify(validationService).validFilename(filename);
         verify(validationService).validPayload(payload);

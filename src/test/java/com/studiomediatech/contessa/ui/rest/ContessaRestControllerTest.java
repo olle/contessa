@@ -1,8 +1,10 @@
 package com.studiomediatech.contessa.ui.rest;
 
 import com.studiomediatech.contessa.domain.Entry;
+import com.studiomediatech.contessa.ui.ContentRequest;
+import com.studiomediatech.contessa.ui.HttpValidator;
 import com.studiomediatech.contessa.ui.UiHandler;
-import com.studiomediatech.contessa.ui.UploadCommand;
+import com.studiomediatech.contessa.ui.UploadRequest;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
@@ -37,9 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ContessaRestControllerTest {
 
     @Mock
-    RestValidator validator;
-    @Mock
-    RestConverter converter;
+    HttpValidator validator;
     @Mock
     UiHandler handler;
 
@@ -61,7 +61,7 @@ public class ContessaRestControllerTest {
         Entry entry = new Entry();
         entry.setId("some-identifier");
 
-        when(handler.handle(any(UploadCommand.class))).thenReturn(entry);
+        when(handler.handle(any(UploadRequest.class))).thenReturn(entry);
 
         byte[] payload = Base64.decodeBase64("R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=");
 
@@ -74,7 +74,7 @@ public class ContessaRestControllerTest {
     @Test
     public void ensureHandlesContentRequest() throws Exception {
 
-        when(handler.handle(any(ContentRequestCommand.class))).thenReturn(Optional.of(new Entry()));
+        when(handler.handle(any(ContentRequest.class))).thenReturn(Optional.of(new Entry()));
 
         mockMvc.perform(get("/api/v1/some-identifier"))
             .andExpect(status().isOk())

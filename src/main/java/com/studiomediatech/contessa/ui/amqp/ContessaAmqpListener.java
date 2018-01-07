@@ -1,9 +1,8 @@
 package com.studiomediatech.contessa.ui.amqp;
 
-import com.studiomediatech.contessa.logging.Loggable;
+import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.UiHandler;
 
-import org.springframework.amqp.core.Address;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -20,19 +19,17 @@ import org.springframework.stereotype.Component;
  * Listener component that handles content upload messages.
  */
 @Component
-public class ContessaAmqpListener implements Loggable {
+public class ContessaAmqpListener implements AmqpLoggable {
 
     private final AmqpValidator validator;
-    private final AmqpConverter converter;
     private final ApplicationEventPublisher publisher;
     private final UiHandler handler;
     private final AmqpTemplate template;
 
-    public ContessaAmqpListener(AmqpValidator validator, AmqpConverter converter, ApplicationEventPublisher publisher,
-        UiHandler handler, AmqpTemplate template) {
+    public ContessaAmqpListener(AmqpValidator validator, ApplicationEventPublisher publisher, UiHandler handler,
+        AmqpTemplate template) {
 
         this.validator = validator;
-        this.converter = converter;
         this.publisher = publisher;
         this.handler = handler;
         this.template = template;
@@ -44,7 +41,7 @@ public class ContessaAmqpListener implements Loggable {
         log_received(message);
         validator.validateUpload(message);
 
-        UploadEvent event = converter.convertToUploadEvent(message);
+        UploadEvent event = UploadEvent.valueOf(message);
         publisher.publishEvent(event);
     }
 
@@ -53,10 +50,10 @@ public class ContessaAmqpListener implements Loggable {
     @EventListener
     public void on(UploadEvent event) {
 
-        String identifier = handler.handle(event).getId();
-        Message message = converter.convertToUploadResponse(event, identifier);
-        Address address = new Address(event.replyTo);
-        template.sendAndReceive(address.getExchangeName(), address.getRoutingKey(), message);
-        log_sent(address, message);
+        Entry entry = handler.handle(event);
+        UploadResponse response = UploadResponse.valueOf(event, entry);
+
+        template.send(response.address.getExchangeName(), response.address.getRoutingKey(), response.message);
+        log_sent(response);
     }
 }

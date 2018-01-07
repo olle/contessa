@@ -3,7 +3,6 @@ package com.studiomediatech.contessa.ui;
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.amqp.UploadEvent;
-import com.studiomediatech.contessa.ui.rest.ContentRequestCommand;
 
 import org.springframework.util.StringUtils;
 
@@ -27,14 +26,14 @@ public class UiHandlerImpl implements UiHandler {
 
 
     @Override
-    public Entry handle(UploadCommand command) {
+    public Entry handle(UploadRequest command) {
 
         return log_returns(contentsService.addMediaContent(command.filename, command.payload));
     }
 
 
     @Override
-    public Optional<Entry> handle(ContentRequestCommand command) {
+    public Optional<Entry> handle(ContentRequest command) {
 
         Optional<Entry> entry = Optional.empty();
 

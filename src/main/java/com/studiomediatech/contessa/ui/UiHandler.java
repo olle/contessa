@@ -3,7 +3,6 @@ package com.studiomediatech.contessa.ui;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.amqp.UploadEvent;
-import com.studiomediatech.contessa.ui.rest.ContentRequestCommand;
 
 import java.util.Optional;
 
@@ -16,8 +15,8 @@ public interface UiHandler extends Loggable {
     Entry handle(UploadEvent event);
 
 
-    Entry handle(UploadCommand command);
+    Entry handle(UploadRequest command);
 
 
-    Optional<Entry> handle(ContentRequestCommand command);
+    Optional<Entry> handle(ContentRequest command);
 }

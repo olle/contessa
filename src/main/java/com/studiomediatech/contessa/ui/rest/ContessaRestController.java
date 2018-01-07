@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
+import com.studiomediatech.contessa.ui.HttpValidator;
+import com.studiomediatech.contessa.ui.ContentRequest;
 import com.studiomediatech.contessa.ui.UiHandler;
 import com.studiomediatech.contessa.ui.UnknownContentEntryException;
-import com.studiomediatech.contessa.ui.UploadCommand;
+import com.studiomediatech.contessa.ui.UploadRequest;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +27,13 @@ import java.util.Map;
 @RestController
 public class ContessaRestController implements Loggable {
 
-    private final RestValidator validator;
-    private final RestConverter converter;
+    private final HttpValidator validator;
+
     private final UiHandler handler;
 
-    public ContessaRestController(RestValidator validator, RestConverter converter, UiHandler handler) {
+    public ContessaRestController(HttpValidator validator, UiHandler handler) {
 
         this.validator = validator;
-        this.converter = converter;
         this.handler = handler;
     }
 
@@ -40,10 +41,10 @@ public class ContessaRestController implements Loggable {
     public ResponseEntity<String> handleContentUploadOctetStream(@PathVariable("name") String filename,
         @RequestBody byte[] payload) {
 
-        validator.validateUpload(filename, payload);
+        validator.validateForUpload(filename, payload);
 
-        UploadCommand command = converter.convertToUploadCommand(filename, payload);
-        Entry content = handler.handle(command);
+        Entry content = handler.handle(UploadRequest.valueOf(filename, payload));
+
         Map<String, Object> result = toMap(content);
         ResponseEntity<String> response = toJsonResponse(result);
 
@@ -54,11 +55,10 @@ public class ContessaRestController implements Loggable {
     @GetMapping(path = "/api/v1/{identifier}")
     public Map<String, Object> handleContentRequest(@PathVariable("identifier") String identifier) {
 
-        validator.validateRequest(identifier);
+        validator.validateRequestedIdentifier(identifier);
 
-        ContentRequestCommand command = converter.convertToContentRequestCommand(identifier);
-
-        return handler.handle(command).map(this::toMap).orElseThrow(() -> new UnknownContentEntryException());
+        return handler.handle(ContentRequest.forIdentifer(identifier)).map(this::toMap).orElseThrow(() ->
+                    new UnknownContentEntryException());
     }
 
 

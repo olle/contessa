@@ -23,12 +23,3 @@ public class AmqpValidatorImpl implements AmqpValidator {
         validationService.validPayload(message.getBody());
     }
 }
-
-interface AmqpValidator {
-
-
-    default void validateUpload(Message message) {
-
-        // OK
-    }
-}
