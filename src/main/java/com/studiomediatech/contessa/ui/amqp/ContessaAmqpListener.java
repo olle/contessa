@@ -53,7 +53,7 @@ public class ContessaAmqpListener implements Loggable {
     @EventListener
     public void on(UploadEvent event) {
 
-        String identifier = handler.handleUploadEvent(event);
+        String identifier = handler.handle(event).getId();
         Message message = converter.convertToUploadResponse(event, identifier);
         Address address = new Address(event.replyTo);
         template.sendAndReceive(address.getExchangeName(), address.getRoutingKey(), message);

@@ -65,6 +65,13 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
     }
 
 
+    @Override
+    public Optional<Entry> getMediaContentForName(String name) {
+
+        return storage.retrieve(parser.parsePrefix(name));
+    }
+
+
     private void logPayloadExcerpt(byte[] payload) {
 
         int len = Math.min(8, payload.length);

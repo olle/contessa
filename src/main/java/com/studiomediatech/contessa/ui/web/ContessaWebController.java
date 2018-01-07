@@ -1,6 +1,9 @@
 package com.studiomediatech.contessa.ui.web;
 
+import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.UiHandler;
+import com.studiomediatech.contessa.ui.UnknownContentEntryException;
+import com.studiomediatech.contessa.ui.rest.ContentRequestCommand;
 
 import org.springframework.http.ResponseEntity;
 
@@ -29,6 +32,9 @@ public class ContessaWebController {
 
         validator.validateContentRequest(name);
 
-        return null;
+        ContentRequestCommand command = converter.convertToContentRequestCommand(name);
+        Entry entry = handler.handle(command).orElseThrow(() -> new UnknownContentEntryException());
+
+        return ResponseEntity.ok().header("Content-Type", entry.getType()).body(entry.getData());
     }
 }

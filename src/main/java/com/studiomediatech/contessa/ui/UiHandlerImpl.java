@@ -5,6 +5,8 @@ import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.amqp.UploadEvent;
 import com.studiomediatech.contessa.ui.rest.ContentRequestCommand;
 
+import org.springframework.util.StringUtils;
+
 import java.util.Optional;
 
 
@@ -18,16 +20,9 @@ public class UiHandlerImpl implements UiHandler {
     }
 
     @Override
-    public String handleUploadCommand(UploadCommand data) {
+    public Entry handle(UploadEvent event) {
 
-        return log_returns(contentsService.addMediaContent(data.filename, data.payload).getId());
-    }
-
-
-    @Override
-    public String handleUploadEvent(UploadEvent event) {
-
-        return log_returns(contentsService.addMediaContent(event.filename, event.payload).getId());
+        return log_returns(contentsService.addMediaContent(event.filename, event.payload));
     }
 
 
@@ -41,6 +36,16 @@ public class UiHandlerImpl implements UiHandler {
     @Override
     public Optional<Entry> handle(ContentRequestCommand command) {
 
-        return log_returns(contentsService.getMediaContentForIdentifier(command.identifier));
+        Optional<Entry> entry = Optional.empty();
+
+        if (StringUtils.hasText(command.name)) {
+            entry = contentsService.getMediaContentForName(command.name);
+        }
+
+        if (StringUtils.hasText(command.identifier)) {
+            entry = contentsService.getMediaContentForIdentifier(command.identifier);
+        }
+
+        return log_returns(entry);
     }
 }

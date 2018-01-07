@@ -42,7 +42,7 @@ public class FileDropFolderUploadListener implements Loggable {
         validator.validateUploadData(data);
         removeUploadedFile(file);
 
-        String identifier = service.handleUploadCommand(data);
+        String identifier = service.handle(data).getId();
         File result = builder.buildResultFile(identifier, data);
         writeResultFile(result);
     }

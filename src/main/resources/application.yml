@@ -96,3 +96,6 @@ logging:
   level:
     #root: ERROR
     com.studiomediatech.contessa: DEBUG
+    ## Enable lines below for Hibernate/Query logs
+    #org.hibernate.SQL: DEBUG
+    #org.hibernate.type.descriptor.sql.BasicBinder: TRACE

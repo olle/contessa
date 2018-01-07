@@ -13,43 +13,11 @@ import java.util.Optional;
  */
 public interface UiHandler extends Loggable {
 
-
-    default String handleUploadCommand(UploadCommand command) {
-
-        logger().warn("Not handling command {}", command);
-
-        return null;
-    }
+    Entry handle(UploadEvent event);
 
 
-    default String handleUploadEvent(UploadEvent event) {
-
-        logger().warn("Not handling event {}", event);
-
-        return null;
-    }
+    Entry handle(UploadCommand command);
 
 
-    default Entry handleContentRequestCommand(ContentRequestCommand command) {
-
-        logger().warn("Not handling command {}", command);
-
-        return null;
-    }
-
-
-    default Entry handle(UploadCommand command) {
-
-        logger().warn("Not handling command {}", command);
-
-        return null;
-    }
-
-
-    default Optional<Entry> handle(ContentRequestCommand command) {
-
-        logger().warn("Not handling command {}", command);
-
-        return null;
-    }
+    Optional<Entry> handle(ContentRequestCommand command);
 }

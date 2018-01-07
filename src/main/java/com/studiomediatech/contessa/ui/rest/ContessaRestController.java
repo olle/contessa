@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.UiHandler;
+import com.studiomediatech.contessa.ui.UnknownContentEntryException;
 import com.studiomediatech.contessa.ui.UploadCommand;
 
 import org.springframework.http.MediaType;
@@ -35,8 +36,8 @@ public class ContessaRestController implements Loggable {
         this.handler = handler;
     }
 
-    @PostMapping(path = "/api/v1/{name:.+}")
-    public ResponseEntity<String> handleContentUpload(@PathVariable("name") String filename,
+    @PostMapping(path = "/api/v1/{name:.+}", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<String> handleContentUploadOctetStream(@PathVariable("name") String filename,
         @RequestBody byte[] payload) {
 
         validator.validateUpload(filename, payload);

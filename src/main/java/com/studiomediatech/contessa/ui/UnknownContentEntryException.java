@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.ui.rest;
+package com.studiomediatech.contessa.ui;
 
 import org.springframework.http.HttpStatus;
 

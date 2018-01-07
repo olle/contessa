@@ -29,4 +29,14 @@ public interface ContentsService {
      * @return  the media entry object found, may be empty but never {@code null}
      */
     Optional<Entry> getMediaContentForIdentifier(String identifier);
+
+
+    /**
+     * Fetch the media content data for the given name - an identifier and suffix.
+     *
+     * @param  name  predicate, used to resolve the media content entry by identifier and suffix
+     *
+     * @return  the media entry object found, may be empty but never {@code null}
+     */
+    Optional<Entry> getMediaContentForName(String name);
 }

@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.Optional;
+
 
 public class LocalStorageImpl implements Storage, Loggable {
 
@@ -37,5 +39,14 @@ public class LocalStorageImpl implements Storage, Loggable {
         } catch (Throwable e) {
             logger().error("Could not store entry", e);
         }
+    }
+
+
+    @Override
+    public Optional<Entry> retrieve(String identifier) {
+
+        logger().warn("Not retrieving anything!");
+
+        return Optional.empty();
     }
 }
