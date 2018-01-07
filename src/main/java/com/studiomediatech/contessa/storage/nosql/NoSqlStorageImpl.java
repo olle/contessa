@@ -12,18 +12,27 @@ import java.util.Optional;
 @Component
 public class NoSqlStorageImpl implements Storage, Loggable {
 
+    private final NoSqlEntryRepository repo;
+
+    public NoSqlStorageImpl(NoSqlEntryRepository repo) {
+
+        this.repo = repo;
+    }
+
     @Override
     public void store(Entry entry) {
 
-        logger().warn("Not storing anything!");
+        NoSqlEntry stored = repo.save(NoSqlEntry.valueOf(entry));
+        logger().debug("Saved {}", stored);
     }
 
 
     @Override
     public Optional<Entry> retrieve(String identifier) {
 
-        logger().warn("Not retrieving anything!");
+        Optional<NoSqlEntry> entry = repo.findOneByIdentifier(identifier);
+        logger().debug("Retrieved {} for identifier: {}", entry, identifier);
 
-        return Optional.empty();
+        return entry.map(NoSqlEntry::asEntry);
     }
 }
