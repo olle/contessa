@@ -62,7 +62,11 @@ spring:
   rabbitmq:
     ## Common defaults for RabbitMQ docker
     username: guest
-    password: guest      
+    password: guest   
+  mvc:
+    favicon.enabled: false
+  resources:
+    add-mappings: false    
 ### ---------------------------------------------
 ### Enables full management features, best used during
 ### development, in order to view and audit anything
@@ -76,7 +80,7 @@ management:
     ## custom enabling/disabling the modules.
     #rabbit.enabled: false
     #mongo.enabled: false
-#endpoints:
+endpoints:
 #  auditevents.enabled: true
 #  autoconfig.enabled: true
 #  configprops.enabled: true
@@ -86,6 +90,7 @@ management:
 #  health.enabled: true
 #  heapdump.enabled: true
 #  info.enabled: true
+   liquibase.enabled: true
 #  logfile.enabled: true
 #  loggers.enabled: true
 #  mappings.enabled: true
