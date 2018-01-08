@@ -2,7 +2,7 @@
 ### Default Contessa configuration properties.
 ### ---------------------------------------------
 contessa:
-  ### -----------------------------------------
+  ### =========================================
   ### The storage type to use. Supports a small
   ### set of types:
   ###
@@ -19,28 +19,39 @@ contessa:
   ### `NONE`  - disables the storage; used only
   ###           for testing and development.
   ### -----------------------------------------
-  store: SQL
-  ### -----------------------------------------
-  ### Enables the simple web interface, allowing
-  ### HTTP upload and access to assets.
+  store: SQL  
+  ### =========================================
+  ### Toggles the enabled UIs on/off, allowing
+  ### different types of access to media content
+  ### upload and download.
+  ###
+  ### `web`  - simple GET/POST for upload and
+  ###          direct media access.
+  ### 
+  ### `rest` - with support for application/json
+  ###          responses.
+  ###
+  ### `amqp` - message broker based upload and
+  ###          query/response support for
+  ###          content.
+  ###
+  ### `file` - file based drop-folder or polling
+  ###          interface.
   ### -----------------------------------------
   web.enabled: true
-  ### -----------------------------------------
-  ### Enables the REST-ful interface, allowing
-  ### simple HTTP upload and download of 
-  ### assets.
-  ### -----------------------------------------
   rest.enabled: true
-  ### -----------------------------------------
-  ### Enables the RabbitMQ interface, providing
-  ### query/response based access to assets.
-  ### -----------------------------------------
   #amqp.enabled: true
-  ### -----------------------------------------
-  ### Enables file based, drop-folder, access
-  ### to assets.
-  ### -----------------------------------------
   #file.enabled: true
+  ### =========================================
+  ### 
+  ### An optional list of cookie names, that are
+  ### required to be set at all for any request.
+  ###
+  #required-cookies:
+  #  - required.cookie.foo
+  #  - required.cookie.bar
+  ### -----------------------------------------
+  
 ### ---------------------------------------------
 ### Customized configuration properties for the
 ### Contessa application.

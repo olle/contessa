@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.ui;
 
+import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.validation.ValidationService;
@@ -17,9 +18,9 @@ public class UiConfig implements Loggable {
 
     @Bean
     @ConditionalOnMissingBean
-    public HttpValidator httpValidator(ValidationService validationService) {
+    public HttpValidator httpValidator(ValidationService validationService, ContessaProperties contessaProperties) {
 
-        return new HttpValidatorImpl(validationService);
+        return new HttpValidatorImpl(validationService, contessaProperties);
     }
 
 

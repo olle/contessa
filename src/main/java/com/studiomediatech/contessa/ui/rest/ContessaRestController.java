@@ -25,12 +25,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 public class ContessaRestController implements Loggable {
 
     private final HttpValidator validator;
-
     private final UiHandler handler;
 
     public ContessaRestController(HttpValidator validator, UiHandler handler) {
@@ -40,7 +41,9 @@ public class ContessaRestController implements Loggable {
     }
 
     @GetMapping(path = "/api/v1")
-    public Map<String, Object> info() {
+    public Map<String, Object> handleInfo(HttpServletRequest request) {
+
+        validator.validateCookies(request);
 
         return handler.handle(InfoRequest.createNew());
     }
@@ -48,8 +51,9 @@ public class ContessaRestController implements Loggable {
 
     @PostMapping(path = "/api/v1/{name:.+}", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<String> handleContentUploadOctetStream(@PathVariable("name") String filename,
-        @RequestBody byte[] payload) {
+        @RequestBody byte[] payload, HttpServletRequest request) {
 
+        validator.validateCookies(request);
         validator.validateForUpload(filename, payload);
 
         Entry content = handler.handle(UploadRequest.valueOf(filename, payload));
@@ -59,8 +63,10 @@ public class ContessaRestController implements Loggable {
 
 
     @GetMapping(path = "/api/v1/{identifier}")
-    public Map<String, Object> handleContentRequest(@PathVariable("identifier") String identifier) {
+    public Map<String, Object> handleContentRequest(@PathVariable("identifier") String identifier,
+        HttpServletRequest request) {
 
+        validator.validateCookies(request);
         validator.validateRequestedIdentifier(identifier);
 
         return handler.handle(ContentRequest.forIdentifer(identifier)).map(this::toMap).orElseThrow(() ->

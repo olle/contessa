@@ -1,5 +1,8 @@
 package com.studiomediatech.contessa.ui;
 
+import javax.servlet.http.HttpServletRequest;
+
+
 public interface HttpValidator {
 
     void validateForUpload(String filename, byte[] payload);
@@ -9,4 +12,7 @@ public interface HttpValidator {
 
 
     void validateRequestedIdentifier(String identifier);
+
+
+    void validateCookies(HttpServletRequest request);
 }

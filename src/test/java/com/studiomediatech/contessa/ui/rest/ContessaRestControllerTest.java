@@ -60,6 +60,7 @@ public class ContessaRestControllerTest {
 
         Entry entry = new Entry();
         entry.setId("some-identifier");
+        entry.setData("nop".getBytes());
 
         when(handler.handle(any(UploadRequest.class))).thenReturn(entry);
 
@@ -67,14 +68,20 @@ public class ContessaRestControllerTest {
 
         mockMvc.perform(post("/api/v1/tiny.gif").content(payload))
             .andExpect(status().isOk())
-            .andExpect(content().json("{identifier: 'some-identifier'}"));
+            .andExpect(content().json("{"
+                    + "identifier: 'some-identifier',"
+                    + "length: 3"
+                    + "}"));
     }
 
 
     @Test
     public void ensureHandlesContentRequest() throws Exception {
 
-        when(handler.handle(any(ContentRequest.class))).thenReturn(Optional.of(new Entry()));
+        Entry entry = new Entry();
+        entry.setData("nop".getBytes());
+
+        when(handler.handle(any(ContentRequest.class))).thenReturn(Optional.of(entry));
 
         mockMvc.perform(get("/api/v1/some-identifier"))
             .andExpect(status().isOk())

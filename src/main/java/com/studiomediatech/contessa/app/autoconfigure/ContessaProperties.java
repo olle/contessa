@@ -4,6 +4,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 
@@ -30,6 +33,11 @@ public class ContessaProperties {
      */
     private String baseDir;
 
+    /**
+     * Optional list of cookies (names) that are required in any request.
+     */
+    private List<String> requiredCookies = new ArrayList<>();
+
     public StorageType getStore() {
 
         return store;
@@ -51,5 +59,17 @@ public class ContessaProperties {
     public void setBaseDir(String baseDir) {
 
         this.baseDir = baseDir;
+    }
+
+
+    public List<String> getRequiredCookies() {
+
+        return requiredCookies;
+    }
+
+
+    public void setRequiredCookies(List<String> requiredCookies) {
+
+        this.requiredCookies = requiredCookies;
     }
 }

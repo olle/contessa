@@ -24,6 +24,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class ContessaWebController {
@@ -38,7 +40,9 @@ public class ContessaWebController {
     }
 
     @GetMapping(path = "/")
-    public ResponseEntity<String> info() {
+    public ResponseEntity<String> handleInfo(HttpServletRequest request) {
+
+        validator.validateCookies(request);
 
         Map<String, Object> map = handler.handle(InfoRequest.createNew());
 
@@ -55,8 +59,9 @@ public class ContessaWebController {
 
     @PostMapping(path = "/{name:.+}", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<String> handleContentUploadOctetStream(@PathVariable("name") String filename,
-        @RequestBody byte[] payload) {
+        @RequestBody byte[] payload, HttpServletRequest request) {
 
+        validator.validateCookies(request);
         validator.validateForUpload(filename, payload);
 
         Entry content = handler.handle(UploadRequest.valueOf(filename, payload));
@@ -71,8 +76,9 @@ public class ContessaWebController {
 
 
     @GetMapping(path = "/{name:.+}")
-    public ResponseEntity<byte[]> getContent(@PathVariable("name") String name) {
+    public ResponseEntity<byte[]> handleContentRequest(@PathVariable("name") String name, HttpServletRequest request) {
 
+        validator.validateCookies(request);
         validator.validateRequestedName(name);
 
         Entry entry = handler
