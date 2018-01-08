@@ -1,16 +1,29 @@
-package com.studiomediatech.contessa.storage.nosql;
+package com.studiomediatech.contessa.store.sql;
 
 import com.studiomediatech.contessa.domain.Entry;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 
-public class NoSqlEntry {
+@Entity
+@Table(name = "contents")
+public class SqlEntry {
 
     @Id
     private String identifier;
+
+    @Column(name = "suffix")
     private String suffix;
+
+    @Column(name = "mime_type")
     private String type;
+
+    @Lob
+    @Column(name = "data")
     private byte[] data;
 
     public String getIdentifier() {
@@ -61,14 +74,14 @@ public class NoSqlEntry {
     }
 
 
-    public static NoSqlEntry valueOf(Entry entry) {
+    public static SqlEntry valueOf(Entry source) {
 
-        NoSqlEntry target = new NoSqlEntry();
+        SqlEntry target = new SqlEntry();
 
-        target.setIdentifier(entry.getId());
-        target.setSuffix(entry.getSuffix());
-        target.setType(entry.getType());
-        target.setData(entry.getData());
+        target.setIdentifier(source.getId());
+        target.setSuffix(source.getSuffix());
+        target.setType(source.getType());
+        target.setData(source.getData());
 
         return target;
     }

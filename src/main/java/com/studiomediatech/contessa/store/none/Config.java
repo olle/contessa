@@ -1,7 +1,7 @@
-package com.studiomediatech.contessa.storage.none;
+package com.studiomediatech.contessa.store.none;
 
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.storage.Storage;
+import com.studiomediatech.contessa.store.Storage;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

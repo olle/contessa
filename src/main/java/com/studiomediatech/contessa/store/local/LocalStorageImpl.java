@@ -1,9 +1,9 @@
-package com.studiomediatech.contessa.storage.local;
+package com.studiomediatech.contessa.store.local;
 
 import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.storage.Storage;
+import com.studiomediatech.contessa.store.Storage;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

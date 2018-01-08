@@ -3,11 +3,11 @@ package com.studiomediatech.contessa.app.autoconfigure;
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.storage.Storage;
-import com.studiomediatech.contessa.storage.local.ContessaLocal;
-import com.studiomediatech.contessa.storage.none.ContessaNone;
-import com.studiomediatech.contessa.storage.nosql.ContessaNoSql;
-import com.studiomediatech.contessa.storage.sql.ContessaSql;
+import com.studiomediatech.contessa.store.Storage;
+import com.studiomediatech.contessa.store.local.ContessaLocal;
+import com.studiomediatech.contessa.store.none.ContessaNone;
+import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
+import com.studiomediatech.contessa.store.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
 import com.studiomediatech.contessa.ui.web.ContessaWeb;
@@ -84,7 +84,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.ui.rest.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "contessa.rest.enabled", havingValue = "true")
     @ComponentScan(basePackageClasses = ContessaRest.class)
     public static class RestUiAutoConfiguration {
 
@@ -92,7 +92,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.ui.web.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "contessa.web.enabled", havingValue = "true")
     @ComponentScan(basePackageClasses = ContessaWeb.class)
     public static class WebUiAutoConfiguration {
 
@@ -100,7 +100,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.ui.amqp.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "contessa.amqp.enabled", havingValue = "true")
     @ComponentScan(basePackageClasses = ContessaAmqp.class)
     public static class AmqpUiAutoConfiguration implements Loggable {
 
@@ -108,7 +108,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.ui.file.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "contessa.file.enabled", havingValue = "true")
     public static class FileUiAutoConfiguration implements Loggable {
 
         // TODO

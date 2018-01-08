@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.storage.sql;
+package com.studiomediatech.contessa.store.sql;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

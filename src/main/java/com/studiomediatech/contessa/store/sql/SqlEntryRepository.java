@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.storage.sql;
+package com.studiomediatech.contessa.store.sql;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

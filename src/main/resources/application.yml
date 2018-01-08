@@ -20,28 +20,27 @@ contessa:
   ###           for testing and development.
   ### -----------------------------------------
   store: SQL
-  ui:    
-    ### -----------------------------------------
-    ### Enables the simple web interface, allowing
-    ### HTTP upload and access to assets.
-    ### -----------------------------------------
-    web.enabled: true
-    ### -----------------------------------------
-    ### Enables the REST-ful interface, allowing
-    ### simple HTTP upload and download of 
-    ### assets.
-    ### -----------------------------------------
-    rest.enabled: true
-    ### -----------------------------------------
-    ### Enables the RabbitMQ interface, providing
-    ### query/response based access to assets.
-    ### -----------------------------------------
-    #amqp.enabled: true
-    ### -----------------------------------------
-    ### Enables file based, drop-folder, access
-    ### to assets.
-    ### -----------------------------------------
-    #file.enabled: true
+  ### -----------------------------------------
+  ### Enables the simple web interface, allowing
+  ### HTTP upload and access to assets.
+  ### -----------------------------------------
+  web.enabled: true
+  ### -----------------------------------------
+  ### Enables the REST-ful interface, allowing
+  ### simple HTTP upload and download of 
+  ### assets.
+  ### -----------------------------------------
+  rest.enabled: true
+  ### -----------------------------------------
+  ### Enables the RabbitMQ interface, providing
+  ### query/response based access to assets.
+  ### -----------------------------------------
+  #amqp.enabled: true
+  ### -----------------------------------------
+  ### Enables file based, drop-folder, access
+  ### to assets.
+  ### -----------------------------------------
+  #file.enabled: true
 ### ---------------------------------------------
 ### Customized configuration properties for the
 ### Contessa application.

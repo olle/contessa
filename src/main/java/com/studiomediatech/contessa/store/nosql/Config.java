@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.storage.nosql;
+package com.studiomediatech.contessa.store.nosql;
 
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;

@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.storage;
+package com.studiomediatech.contessa.store;
 
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
