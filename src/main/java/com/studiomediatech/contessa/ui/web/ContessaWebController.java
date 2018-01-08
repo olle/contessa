@@ -1,8 +1,8 @@
 package com.studiomediatech.contessa.ui.web;
 
 import com.studiomediatech.contessa.domain.Entry;
-import com.studiomediatech.contessa.ui.HttpValidator;
 import com.studiomediatech.contessa.ui.ContentRequest;
+import com.studiomediatech.contessa.ui.HttpValidator;
 import com.studiomediatech.contessa.ui.UiHandler;
 import com.studiomediatech.contessa.ui.UnknownContentEntryException;
 import com.studiomediatech.contessa.ui.UploadRequest;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @Controller
@@ -30,6 +31,13 @@ public class ContessaWebController {
         this.handler = handler;
     }
 
+    @GetMapping(path = "/")
+    public String info() {
+
+        return "info";
+    }
+
+
     @PostMapping(path = "/{name:.+}", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<String> handleContentUploadOctetStream(@PathVariable("name") String filename,
         @RequestBody byte[] payload) {
@@ -38,7 +46,12 @@ public class ContessaWebController {
 
         Entry content = handler.handle(UploadRequest.valueOf(filename, payload));
 
-        return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(content.getId());
+        String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(String.format("%s.%s", content.getId(), content.getSuffix()))
+                .build()
+                .toUriString() + System.lineSeparator();
+
+        return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(uri);
     }
 
 
@@ -47,8 +60,15 @@ public class ContessaWebController {
 
         validator.validateRequestedName(name);
 
-        Entry entry = handler.handle(ContentRequest.forName(name)).orElseThrow(() -> new UnknownContentEntryException());
+        Entry entry = handler
+                .handle(ContentRequest.forName(name)).orElseThrow(() -> new UnknownContentEntryException());
 
-        return ResponseEntity.ok().header("Content-Type", entry.getType()).body(entry.getData());
+        return ResponseEntity.ok()
+            .contentType(MediaType.valueOf(entry.getType()))
+            .contentLength(entry.getData().length)
+            .eTag(entry.getId())
+            .lastModified(42L)
+            .header("Cache-Control", "max-age=8640000, public, immutable")
+            .body(entry.getData());
     }
 }
