@@ -3,6 +3,7 @@ package com.studiomediatech.contessa.ui.web;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.ContentRequest;
 import com.studiomediatech.contessa.ui.HttpValidator;
+import com.studiomediatech.contessa.ui.InfoRequest;
 import com.studiomediatech.contessa.ui.UiHandler;
 import com.studiomediatech.contessa.ui.UnknownContentEntryException;
 import com.studiomediatech.contessa.ui.UploadRequest;
@@ -12,11 +13,16 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
 
+import org.springframework.util.StringUtils;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -32,9 +38,18 @@ public class ContessaWebController {
     }
 
     @GetMapping(path = "/")
-    public String info() {
+    public ResponseEntity<String> info() {
 
-        return "info";
+        Map<String, Object> map = handler.handle(InfoRequest.createNew());
+
+        int len = map.keySet().stream().mapToInt(String::length).max().orElse(10) + 1;
+
+        String info = map.entrySet()
+                .stream()
+                .map(e -> String.format("%-" + len + "s %s", StringUtils.capitalize(e.getKey() + ":"), e.getValue()))
+                .collect(Collectors.joining(System.lineSeparator()));
+
+        return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(info);
     }
 
 

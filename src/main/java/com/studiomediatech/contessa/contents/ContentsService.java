@@ -39,4 +39,7 @@ public interface ContentsService {
      * @return  the media entry object found, may be empty but never {@code null}
      */
     Optional<Entry> getMediaContentForName(String name);
+
+
+    long getMediaContentCount();
 }

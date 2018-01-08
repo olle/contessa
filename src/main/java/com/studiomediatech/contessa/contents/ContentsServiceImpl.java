@@ -79,4 +79,11 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         System.arraycopy(payload, 0, excerpt, 0, len);
         logger().debug("Data payload begins {}...", excerpt);
     }
+
+
+    @Override
+    public long getMediaContentCount() {
+
+        return storage.count();
+    }
 }

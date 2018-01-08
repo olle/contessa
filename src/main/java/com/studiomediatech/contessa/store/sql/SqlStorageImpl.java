@@ -37,4 +37,11 @@ public class SqlStorageImpl implements Storage, Loggable {
 
         return entry.map(SqlEntry::asEntry);
     }
+
+
+    @Override
+    public long count() {
+
+        return repo.count();
+    }
 }

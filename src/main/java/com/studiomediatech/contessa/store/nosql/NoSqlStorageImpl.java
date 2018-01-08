@@ -35,4 +35,11 @@ public class NoSqlStorageImpl implements Storage, Loggable {
 
         return entry.map(NoSqlEntry::asEntry);
     }
+
+
+    @Override
+    public long count() {
+
+        return repo.count();
+    }
 }

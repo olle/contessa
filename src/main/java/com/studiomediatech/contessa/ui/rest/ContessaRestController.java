@@ -7,6 +7,7 @@ import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.ui.ContentRequest;
 import com.studiomediatech.contessa.ui.HttpValidator;
+import com.studiomediatech.contessa.ui.InfoRequest;
 import com.studiomediatech.contessa.ui.UiHandler;
 import com.studiomediatech.contessa.ui.UnknownContentEntryException;
 import com.studiomediatech.contessa.ui.UploadRequest;
@@ -37,6 +38,13 @@ public class ContessaRestController implements Loggable {
         this.validator = validator;
         this.handler = handler;
     }
+
+    @GetMapping(path = "/api/v1")
+    public Map<String, Object> info() {
+
+        return handler.handle(InfoRequest.createNew());
+    }
+
 
     @PostMapping(path = "/api/v1/{name:.+}", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<String> handleContentUploadOctetStream(@PathVariable("name") String filename,

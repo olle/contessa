@@ -15,4 +15,10 @@ public interface Storage extends Loggable {
 
 
     Optional<Entry> retrieve(String identifier);
+
+
+    default long count() {
+
+        return 0L;
+    }
 }
