@@ -1,7 +1,5 @@
 package com.studiomediatech.contessa.app.autoconfigure;
 
-import com.studiomediatech.contessa.app.config.ContessaStorageConfigurationProperties;
-import com.studiomediatech.contessa.app.config.ContessaUIConfigurationProperties;
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
@@ -34,12 +32,7 @@ import org.springframework.context.annotation.Configuration;
  * activate each of the more specific configurations. Just follow the marker types.</p>
  */
 @Configuration
-@EnableConfigurationProperties(
-    {
-        ContessaStorageConfigurationProperties.class, // NOSONAR
-        ContessaUIConfigurationProperties.class // NOSONAR
-    }
-)
+@EnableConfigurationProperties(ContessaProperties.class)
 public class ContessaAutoConfiguration implements Loggable {
 
     @Bean
@@ -59,7 +52,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "NONE")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "NONE")
     @ComponentScan(basePackageClasses = ContessaNone.class)
     public static class NoneStorageAutoConfiguration implements Loggable {
 
@@ -67,7 +60,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "LOCAL")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "LOCAL")
     @ComponentScan(basePackageClasses = ContessaLocal.class)
     public static class LocalStorageAutoConfiguration {
 
@@ -75,7 +68,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "NOSQL")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "NOSQL")
     @ComponentScan(basePackageClasses = ContessaNoSql.class)
     public static class NoSqlStorageAutoConfiguration {
 
@@ -83,7 +76,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.storage.type", havingValue = "SQL")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "SQL")
     @ComponentScan(basePackageClasses = ContessaSql.class)
     public static class SqlStorageAutoConfiguration {
 

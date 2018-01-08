@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 
+import org.springframework.context.annotation.AdviceMode;
+
 import org.springframework.scheduling.annotation.EnableAsync;
 
 
@@ -27,7 +29,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
         HibernateJpaAutoConfiguration.class // NOSONAR
     }
 )
-@EnableAsync
+@EnableAsync(mode = AdviceMode.PROXY, proxyTargetClass = true)
 public class ContessaApplication {
 
     public static void main(String[] args) {

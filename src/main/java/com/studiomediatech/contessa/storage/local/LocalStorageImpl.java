@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.storage.local;
 
-import com.studiomediatech.contessa.app.config.ContessaStorageConfigurationProperties;
+import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.storage.Storage;
@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class LocalStorageImpl implements Storage, Loggable {
 
-    private final ContessaStorageConfigurationProperties config;
+    private final ContessaProperties config;
 
-    public LocalStorageImpl(ContessaStorageConfigurationProperties config) {
+    public LocalStorageImpl(ContessaProperties config) {
 
         this.config = config;
     }

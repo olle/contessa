@@ -2,25 +2,24 @@
 ### Default Contessa configuration properties.
 ### ---------------------------------------------
 contessa:
-  storage:
-    ### -----------------------------------------
-    ### The storage type to use. Supports a small
-    ### set of types:
-    ###
-    ### `SQL`   - (default) storing assets into
-    ###           an SQL database.
-    ###
-    ### `NOSQL` - storing assets into a NoSQL
-    ###           database.
-    ###
-    ### `LOCAL` - file based storage type, saving
-    ###           content assets to a local file
-    ###           system.
-    ###
-    ### `NONE`  - disables the storage; used only
-    ###           for testing and development.
-    ### -----------------------------------------
-    type: SQL
+  ### -----------------------------------------
+  ### The storage type to use. Supports a small
+  ### set of types:
+  ###
+  ### `SQL`   - (default) storing assets into
+  ###           an SQL database.
+  ###
+  ### `NOSQL` - storing assets into a NoSQL
+  ###           database.
+  ###
+  ### `LOCAL` - file based storage type, saving
+  ###           content assets to a local file
+  ###           system.
+  ###
+  ### `NONE`  - disables the storage; used only
+  ###           for testing and development.
+  ### -----------------------------------------
+  store: SQL
   ui:    
     ### -----------------------------------------
     ### Enables the simple web interface, allowing

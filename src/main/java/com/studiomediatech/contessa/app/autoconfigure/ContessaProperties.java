@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.app.config;
+package com.studiomediatech.contessa.app.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -7,12 +7,9 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 
 
-/**
- * The storage configuration to use for the Contessa service.
- */
 @Validated
-@ConfigurationProperties(prefix = "contessa.storage")
-public class ContessaStorageConfigurationProperties {
+@ConfigurationProperties(prefix = "contessa")
+public class ContessaProperties {
 
     public enum StorageType {
 
@@ -26,22 +23,22 @@ public class ContessaStorageConfigurationProperties {
      * The storage type to use, may not be empty.
      */
     @NotNull
-    private StorageType type;
+    private StorageType store;
 
     /**
      * The base directory used by the {@link StorageType#LOCAL local} storage type.
      */
     private String baseDir;
 
-    public StorageType getType() {
+    public StorageType getStore() {
 
-        return type;
+        return store;
     }
 
 
-    public void setType(StorageType type) {
+    public void setStore(StorageType store) {
 
-        this.type = type;
+        this.store = store;
     }
 
 
