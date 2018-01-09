@@ -31,7 +31,7 @@ public class ContessaProperties {
     /**
      * The base directory used by the {@link StorageType#LOCAL local} storage type.
      */
-    private String baseDir;
+    private String baseDir = "";
 
     /**
      * Optional list of cookies (names) that are required in any request.

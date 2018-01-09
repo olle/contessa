@@ -7,6 +7,8 @@ import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 
 import java.nio.file.Path;
@@ -15,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 
+@Component
 public class LocalStorageImpl implements Storage, Loggable {
 
     private final ContessaProperties props;
