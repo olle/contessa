@@ -5,7 +5,6 @@ public class Entry {
     private String id;
     private String suffix;
     private String type;
-
     private byte[] data;
 
     public String getId() {

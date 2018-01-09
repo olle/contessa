@@ -1,11 +1,14 @@
 package com.studiomediatech.contessa.store.local;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
 
-import java.nio.file.Files;
+import java.io.IOException;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -14,39 +17,49 @@ import java.util.Optional;
 
 public class LocalStorageImpl implements Storage, Loggable {
 
-    private final ContessaProperties config;
+    private final ContessaProperties props;
+    private final ObjectMapper objectMapper;
 
-    public LocalStorageImpl(ContessaProperties config) {
+    public LocalStorageImpl(ContessaProperties props, ObjectMapper objectMapper) {
 
-        this.config = config;
+        this.props = props;
+        this.objectMapper = objectMapper;
     }
-
-    String getFileName(String id, String suffix) {
-
-        return String.format("%s.%s", id, suffix);
-    }
-
 
     @Override
     public void store(Entry entry) {
 
-        String path = config.getBaseDir();
-        String name = getFileName(entry.getId(), entry.getSuffix());
+        String filename = String.format("%s.json", entry.getId());
+        Path path = Paths.get(props.getBaseDir(), filename);
+
+        LocalEntry e = toLocalentry(entry);
 
         try {
-            Path p = Paths.get(path, name);
-            Files.write(p, entry.getData());
-        } catch (Throwable e) {
-            logger().error("Could not store entry", e);
+            objectMapper.writeValue(path.toFile(), e);
+        } catch (IOException ex) {
+            throw new LocalStoreFailedException("Unable to store entry: " + filename, ex);
         }
+    }
+
+
+    private LocalEntry toLocalentry(Entry entry) {
+
+        return LocalEntry.valueOf(entry);
     }
 
 
     @Override
     public Optional<Entry> retrieve(String identifier) {
 
-        logger().warn("Not retrieving anything!");
+        String filename = String.format("%s.json", identifier);
+        Path path = Paths.get(props.getBaseDir(), filename);
 
-        return Optional.empty();
+        try {
+            LocalEntry entry = objectMapper.readValue(path.toFile(), LocalEntry.class);
+
+            return Optional.of(entry).map(LocalEntry::asEntry);
+        } catch (IOException ex) {
+            throw new LocalStoreFailedException("Unable to retrieve entry: " + filename, ex);
+        }
     }
 }
