@@ -1,16 +1,16 @@
-package com.studiomediatech.contessa.store.local;
+package com.studiomediatech.contessa.store.files;
 
 import com.studiomediatech.contessa.domain.Entry;
 
 
-class LocalEntry {
+class FileEntry {
 
     public final String identifier;
     public final String suffix;
     public final String mimeType;
     public final byte[] data;
 
-    private LocalEntry(String identifier, String suffix, String mimeType, byte[] data) {
+    private FileEntry(String identifier, String suffix, String mimeType, byte[] data) {
 
         this.identifier = identifier;
         this.suffix = suffix;
@@ -18,9 +18,9 @@ class LocalEntry {
         this.data = data;
     }
 
-    public static LocalEntry valueOf(Entry entry) {
+    public static FileEntry valueOf(Entry entry) {
 
-        return new LocalEntry(entry.getId(), entry.getSuffix(), entry.getType(), entry.getData());
+        return new FileEntry(entry.getId(), entry.getSuffix(), entry.getType(), entry.getData());
     }
 
 

@@ -17,7 +17,7 @@ public class ContessaProperties {
     public enum StorageType {
 
         NONE,
-        LOCAL,
+        FILES,
         SQL,
         NOSQL;
     }
@@ -27,11 +27,6 @@ public class ContessaProperties {
      */
     @NotNull
     private StorageType store;
-
-    /**
-     * The base directory used by the {@link StorageType#LOCAL local} storage type.
-     */
-    private String baseDir = "";
 
     /**
      * Optional list of cookies (names) that are required in any request.
@@ -47,18 +42,6 @@ public class ContessaProperties {
     public void setStore(StorageType store) {
 
         this.store = store;
-    }
-
-
-    public String getBaseDir() {
-
-        return baseDir;
-    }
-
-
-    public void setBaseDir(String baseDir) {
-
-        this.baseDir = baseDir;
     }
 
 

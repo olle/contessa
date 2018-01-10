@@ -1,8 +1,7 @@
-package com.studiomediatech.contessa.store.local;
+package com.studiomediatech.contessa.store.files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 
 import org.junit.Test;
@@ -14,7 +13,7 @@ import java.nio.file.Path;
 import static org.junit.Assert.assertTrue;
 
 
-public class LocalStorageImplTest {
+public class FileStorageImplTest {
 
     @Test
     public void ensureStoresIndexAndContentFiles() throws Exception {
@@ -23,10 +22,10 @@ public class LocalStorageImplTest {
         Path contentFile = basePath.resolve("some-id.json");
 
         try {
-            ContessaProperties props = new ContessaProperties();
+            ContessaFilesProperties props = new ContessaFilesProperties();
             props.setBaseDir(basePath.toString());
 
-            LocalStorageImpl sut = new LocalStorageImpl(props, new ObjectMapper());
+            FileStorageImpl sut = new FileStorageImpl(props, new ObjectMapper());
 
             Entry entry = new Entry();
 

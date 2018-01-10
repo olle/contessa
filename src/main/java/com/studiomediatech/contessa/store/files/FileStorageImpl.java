@@ -1,8 +1,7 @@
-package com.studiomediatech.contessa.store.local;
+package com.studiomediatech.contessa.store.files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
@@ -18,12 +17,12 @@ import java.util.Optional;
 
 
 @Component
-public class LocalStorageImpl implements Storage, Loggable {
+public class FileStorageImpl implements Storage, Loggable {
 
-    private final ContessaProperties props;
+    private final ContessaFilesProperties props;
     private final ObjectMapper objectMapper;
 
-    public LocalStorageImpl(ContessaProperties props, ObjectMapper objectMapper) {
+    public FileStorageImpl(ContessaFilesProperties props, ObjectMapper objectMapper) {
 
         this.props = props;
         this.objectMapper = objectMapper;
@@ -35,19 +34,19 @@ public class LocalStorageImpl implements Storage, Loggable {
         String filename = String.format("%s.json", entry.getId());
         Path path = Paths.get(props.getBaseDir(), filename);
 
-        LocalEntry e = toLocalentry(entry);
+        FileEntry e = toLocalentry(entry);
 
         try {
             objectMapper.writeValue(path.toFile(), e);
         } catch (IOException ex) {
-            throw new LocalStoreFailedException("Unable to store entry: " + filename, ex);
+            throw new FileStoreFailedException("Unable to store entry: " + filename, ex);
         }
     }
 
 
-    private LocalEntry toLocalentry(Entry entry) {
+    private FileEntry toLocalentry(Entry entry) {
 
-        return LocalEntry.valueOf(entry);
+        return FileEntry.valueOf(entry);
     }
 
 
@@ -58,11 +57,11 @@ public class LocalStorageImpl implements Storage, Loggable {
         Path path = Paths.get(props.getBaseDir(), filename);
 
         try {
-            LocalEntry entry = objectMapper.readValue(path.toFile(), LocalEntry.class);
+            FileEntry entry = objectMapper.readValue(path.toFile(), FileEntry.class);
 
-            return Optional.of(entry).map(LocalEntry::asEntry);
+            return Optional.of(entry).map(FileEntry::asEntry);
         } catch (IOException ex) {
-            throw new LocalStoreFailedException("Unable to retrieve entry: " + filename, ex);
+            throw new FileStoreFailedException("Unable to retrieve entry: " + filename, ex);
         }
     }
 }

@@ -12,8 +12,8 @@ contessa:
   ### `NOSQL` - storing assets into a NoSQL
   ###           database.
   ###
-  ### `LOCAL` - file based storage type, saving
-  ###           content assets to a local file
+  ### `FILES` - file based storage type, saving
+  ###           content assets to the file
   ###           system.
   ###
   ### `NONE`  - disables the storage; used only
@@ -21,9 +21,9 @@ contessa:
   ### -----------------------------------------
   store: SQL  
   ### =========================================
-  ### Toggles the enabled UIs on/off, allowing
+  ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
-  ### upload and download.
+  ### through "upload" and "download".
   ###
   ### `web`  - simple GET/POST for upload and
   ###          direct media access.
@@ -33,10 +33,10 @@ contessa:
   ###
   ### `amqp` - message broker based upload and
   ###          query/response support for
-  ###          content.
+  ###          content entries.
   ###
   ### `file` - file based drop-folder or polling
-  ###          interface.
+  ###          interface, for upload only.
   ### -----------------------------------------
   web.enabled: true
   rest.enabled: true
