@@ -2,6 +2,7 @@ package com.studiomediatech.contessa.store.files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class FileStorageImplTest {
         Path contentFile = basePath.resolve("some-id.json");
 
         try {
-            ContessaFilesProperties props = new ContessaFilesProperties();
+            ContessaProperties props = new ContessaProperties();
             props.setBaseDir(basePath.toString());
 
             FileStorageImpl sut = new FileStorageImpl(props, new ObjectMapper());

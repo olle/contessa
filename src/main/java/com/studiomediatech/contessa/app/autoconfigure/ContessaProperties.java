@@ -26,6 +26,12 @@ public class ContessaProperties {
     }
 
     /**
+     * The base directory for Contessa file system use, such as file storage or drop-boxes.
+     */
+    @NotNull
+    private String baseDir = "";
+
+    /**
      * The storage type to use, may not be empty.
      */
     @NotNull
@@ -43,6 +49,18 @@ public class ContessaProperties {
      */
     @Range(min = 0L, max = 31536000L)
     private long maxAge = 8640000;
+
+    public String getBaseDir() {
+
+        return baseDir;
+    }
+
+
+    public void setBaseDir(String baseDir) {
+
+        this.baseDir = baseDir;
+    }
+
 
     public StorageType getStore() {
 

@@ -3,6 +3,12 @@
 ### ---------------------------------------------
 contessa:
   ###
+  ### The base dir path for any file system use
+  ### in Contessa. For example file storage or
+  ### content drop-boxes.
+  ###
+  #base-dir: 
+  ###
   ### The storage type to use. Supports a small
   ### set of types:
   ###
@@ -37,13 +43,13 @@ contessa:
   ###          query/response support for
   ###          content entries.
   ###
-  ### `file` - file based drop-folder or polling
-  ###          interface, for upload only.
+  ### `dir`  - directory, file or drop-folder based
+  ###          interface.
   ###
   web.enabled: true
   rest.enabled: true
   #amqp.enabled: true
-  #file.enabled: true
+  dir.enabled: true
   ### 
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.

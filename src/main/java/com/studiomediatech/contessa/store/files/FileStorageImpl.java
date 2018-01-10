@@ -2,6 +2,7 @@ package com.studiomediatech.contessa.store.files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
@@ -19,10 +20,12 @@ import java.util.Optional;
 @Component
 public class FileStorageImpl implements Storage, Loggable {
 
-    private final ContessaFilesProperties props;
+    private static final String STORAGE_DIR = "storage";
+
+    private final ContessaProperties props;
     private final ObjectMapper objectMapper;
 
-    public FileStorageImpl(ContessaFilesProperties props, ObjectMapper objectMapper) {
+    public FileStorageImpl(ContessaProperties props, ObjectMapper objectMapper) {
 
         this.props = props;
         this.objectMapper = objectMapper;
@@ -32,7 +35,7 @@ public class FileStorageImpl implements Storage, Loggable {
     public void store(Entry entry) {
 
         String filename = String.format("%s.json", entry.getId());
-        Path path = Paths.get(props.getBaseDir(), filename);
+        Path path = getStoragePath().resolve(filename);
 
         FileEntry e = toLocalentry(entry);
 
@@ -41,6 +44,12 @@ public class FileStorageImpl implements Storage, Loggable {
         } catch (IOException ex) {
             throw new FileStoreFailedException("Unable to store entry: " + filename, ex);
         }
+    }
+
+
+    private Path getStoragePath() {
+
+        return Paths.get(props.getBaseDir(), STORAGE_DIR);
     }
 
 
@@ -54,7 +63,7 @@ public class FileStorageImpl implements Storage, Loggable {
     public Optional<Entry> retrieve(String identifier) {
 
         String filename = String.format("%s.json", identifier);
-        Path path = Paths.get(props.getBaseDir(), filename);
+        Path path = getStoragePath().resolve(filename);
 
         try {
             FileEntry entry = objectMapper.readValue(path.toFile(), FileEntry.class);

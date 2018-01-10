@@ -10,6 +10,7 @@ import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
+import com.studiomediatech.contessa.ui.dir.ContessaDir;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
 import com.studiomediatech.contessa.ui.web.ContessaWeb;
 import com.studiomediatech.contessa.validation.ValidationService;
@@ -117,8 +118,9 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.file.enabled", havingValue = "true")
-    public static class FileUiAutoConfiguration implements Loggable {
+    @ConditionalOnProperty(name = "contessa.dir.enabled", havingValue = "true")
+    @ComponentScan(basePackageClasses = ContessaDir.class)
+    public static class DirUiAutoConfiguration implements Loggable {
 
         // TODO
     }

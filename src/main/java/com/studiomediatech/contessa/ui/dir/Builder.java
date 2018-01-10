@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.ui.file;
+package com.studiomediatech.contessa.ui.dir;
 
 import java.io.File;
 
