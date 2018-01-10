@@ -2,7 +2,7 @@
 ### Default Contessa configuration properties.
 ### ---------------------------------------------
 contessa:
-  ### =========================================
+  ###
   ### The storage type to use. Supports a small
   ### set of types:
   ###
@@ -21,10 +21,8 @@ contessa:
   ###
   ### `NONE`  - disables the storage; used only
   ###           for testing and development.
-  ###
-  ### -----------------------------------------
   store: SQL  
-  ### =========================================
+  ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
   ### through "upload" and "download".
@@ -41,12 +39,11 @@ contessa:
   ###
   ### `file` - file based drop-folder or polling
   ###          interface, for upload only.
-  ### -----------------------------------------
+  ###
   web.enabled: true
   rest.enabled: true
   #amqp.enabled: true
   #file.enabled: true
-  ### =========================================
   ### 
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.
@@ -54,11 +51,16 @@ contessa:
   #required-cookies:
   #  - required.cookie.foo
   #  - required.cookie.bar
-  ### -----------------------------------------
-  
+  ###
+  ### The cache-control max-age directive, in
+  ### seconds. Valid range is up to 365 days,
+  ### or 0-31536000. 
+  ###
+  #max-age: 8640000 # 100 days (default).
+
 ### ---------------------------------------------
-### Customized configuration properties for the
-### Contessa application.
+### Customized Spring Boot configuration
+### properties for the Contessa application.
 ### ---------------------------------------------
 spring:
   application:
@@ -71,11 +73,12 @@ spring:
       ddl-auto: create
   h2:
     console:
-      enabled: true      
+      enabled: true
   rabbitmq:
-    ## Common defaults for RabbitMQ docker
+    ## Better defaults for RabbitMQ docker/default
     username: guest
     password: guest   
+  ## Disabling some noisy features
   mvc:
     favicon.enabled: false
   resources:

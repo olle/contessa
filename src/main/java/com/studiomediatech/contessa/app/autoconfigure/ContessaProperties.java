@@ -1,5 +1,7 @@
 package com.studiomediatech.contessa.app.autoconfigure;
 
+import org.hibernate.validator.constraints.Range;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +36,14 @@ public class ContessaProperties {
      */
     private List<String> requiredCookies = new ArrayList<>();
 
+    /**
+     * The content max-age cache control directive, in seconds. Default is 100 days.
+     *
+     * <p>Currently the valid range is 0 to 365 days.</p>
+     */
+    @Range(min = 0L, max = 31536000L)
+    private long maxAge = 8640000;
+
     public StorageType getStore() {
 
         return store;
@@ -55,5 +65,17 @@ public class ContessaProperties {
     public void setRequiredCookies(List<String> requiredCookies) {
 
         this.requiredCookies = requiredCookies;
+    }
+
+
+    public long getMaxAge() {
+
+        return maxAge;
+    }
+
+
+    public void setMaxAge(long maxAge) {
+
+        this.maxAge = maxAge;
     }
 }

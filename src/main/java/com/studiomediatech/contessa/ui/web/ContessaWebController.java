@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.ui.web;
 
+import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.ContentRequest;
 import com.studiomediatech.contessa.ui.HttpValidator;
@@ -32,11 +33,13 @@ public class ContessaWebController {
 
     private final HttpValidator validator;
     private final UiHandler handler;
+    private final ContessaProperties props;
 
-    public ContessaWebController(HttpValidator validator, UiHandler handler) {
+    public ContessaWebController(HttpValidator validator, UiHandler handler, ContessaProperties props) {
 
         this.validator = validator;
         this.handler = handler;
+        this.props = props;
     }
 
     @GetMapping(path = "/")
@@ -89,7 +92,7 @@ public class ContessaWebController {
             .contentLength(entry.getData().length)
             .eTag(entry.getId())
             .lastModified(42L)
-            .header("Cache-Control", "max-age=8640000, public, immutable")
+            .header("Cache-Control", String.format("max-age=%d, public, immutable", props.getMaxAge()))
             .body(entry.getData());
     }
 }
