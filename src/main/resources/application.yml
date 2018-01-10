@@ -16,8 +16,12 @@ contessa:
   ###           content assets to the file
   ###           system.
   ###
+  ### `RAM`   - in memory, ephemeral storage,
+  ###           holding entries in a local map.
+  ###
   ### `NONE`  - disables the storage; used only
   ###           for testing and development.
+  ###
   ### -----------------------------------------
   store: SQL  
   ### =========================================

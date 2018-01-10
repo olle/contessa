@@ -7,6 +7,7 @@ import com.studiomediatech.contessa.store.Storage;
 import com.studiomediatech.contessa.store.files.ContessaFiles;
 import com.studiomediatech.contessa.store.none.ContessaNone;
 import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
+import com.studiomediatech.contessa.store.ram.ContessaRam;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
@@ -79,6 +80,14 @@ public class ContessaAutoConfiguration implements Loggable {
     @ConditionalOnProperty(name = "contessa.store", havingValue = "SQL")
     @ComponentScan(basePackageClasses = ContessaSql.class)
     public static class SqlStorageAutoConfiguration {
+
+        // OK
+    }
+
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "RAM")
+    @ComponentScan(basePackageClasses = ContessaRam.class)
+    public static class RamStorageAutoConfiguration {
 
         // OK
     }
