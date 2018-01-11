@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+
 
 @Component
 public class SqlStorageImpl implements Storage, Loggable {
@@ -20,6 +23,7 @@ public class SqlStorageImpl implements Storage, Loggable {
     }
 
     @Override
+    @Transactional(TxType.REQUIRES_NEW)
     public void store(Entry entry) {
 
         SqlEntry e = SqlEntry.valueOf(entry);

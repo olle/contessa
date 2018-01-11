@@ -53,4 +53,11 @@ public class Entry {
 
         this.data = data;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Entry [id=" + id + ", suffix=" + suffix + ", type=" + type + ", data.length=" + data.length + "]";
+    }
 }

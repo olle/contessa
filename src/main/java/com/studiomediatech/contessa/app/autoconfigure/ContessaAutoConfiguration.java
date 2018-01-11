@@ -56,7 +56,7 @@ public class ContessaAutoConfiguration implements Loggable {
     @Configuration
     @ConditionalOnProperty(name = "contessa.store", havingValue = "NONE")
     @ComponentScan(basePackageClasses = ContessaNone.class)
-    public static class NoneStorageAutoConfiguration implements Loggable {
+    public static class NoneStorageAutoConfiguration {
 
         // OK
     }
@@ -112,7 +112,7 @@ public class ContessaAutoConfiguration implements Loggable {
     @Configuration
     @ConditionalOnProperty(name = "contessa.amqp.enabled", havingValue = "true")
     @ComponentScan(basePackageClasses = ContessaAmqp.class)
-    public static class AmqpUiAutoConfiguration implements Loggable {
+    public static class AmqpUiAutoConfiguration {
 
         // OK
     }
@@ -120,7 +120,7 @@ public class ContessaAutoConfiguration implements Loggable {
     @Configuration
     @ConditionalOnProperty(name = "contessa.dir.enabled", havingValue = "true")
     @ComponentScan(basePackageClasses = ContessaDir.class)
-    public static class DirUiAutoConfiguration implements Loggable {
+    public static class DirUiAutoConfiguration {
 
         // TODO
     }

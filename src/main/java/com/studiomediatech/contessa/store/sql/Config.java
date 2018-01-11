@@ -10,10 +10,13 @@ import org.springframework.context.annotation.Import;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 @Configuration("SQL")
 @EnableJpaRepositories(basePackageClasses = ContessaSql.class)
 @EntityScan(basePackageClasses = ContessaSql.class)
+@EnableTransactionManagement(proxyTargetClass = true)
 @Import(
     {
         DataSourceAutoConfiguration.class, // NOSONAR
