@@ -49,7 +49,13 @@ public class FileStorageImpl implements Storage, Loggable {
 
     private Path getStoragePath() {
 
-        return Paths.get(props.getBaseDir(), STORAGE_DIR);
+        Path dir = Paths.get(props.getBaseDir(), STORAGE_DIR);
+
+        if (!dir.toFile().exists()) {
+            dir.toFile().mkdirs();
+        }
+
+        return dir;
     }
 
 
