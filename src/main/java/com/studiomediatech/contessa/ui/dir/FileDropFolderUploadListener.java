@@ -1,10 +1,7 @@
 package com.studiomediatech.contessa.ui.dir;
 
 import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
-import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.ui.UiHandler;
-import com.studiomediatech.contessa.ui.UploadRequest;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -35,13 +32,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class FileDropFolderUploadListener implements Loggable {
 
     private final ContessaProperties props;
-    private final AtomicReference<WatchService> watcher = new AtomicReference<>(null);
-    private final UiHandler handler;
+    private final DirController controller;
 
-    public FileDropFolderUploadListener(ContessaProperties props, UiHandler handler) {
+    private final AtomicReference<WatchService> watcher = new AtomicReference<>(null);
+
+    public FileDropFolderUploadListener(ContessaProperties props, DirController controller) {
 
         this.props = props;
-        this.handler = handler;
+        this.controller = controller;
     }
 
     @Scheduled(fixedDelay = 3000)
@@ -81,10 +79,7 @@ public class FileDropFolderUploadListener implements Loggable {
             Path path = getDropboxPath().resolve(file);
 
             byte[] payload = Files.readAllBytes(path);
-            Entry entry = handler.handle(UploadRequest.valueOf(filename, payload));
-
-            System.out.println("Handled file: " + entry);
-            path.toFile().delete();
+            controller.handleContentDropped(filename, payload);
         }
 
         if (!take.reset()) {
