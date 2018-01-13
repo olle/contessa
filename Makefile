@@ -7,4 +7,5 @@ start:
 	@mvn clean spring-boot:run -Dcontessa.base-dir=target/
 
 debug:
-	@mvnDebug clean spring-boot:run -Ddebug=true
+	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=target/
+

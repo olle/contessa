@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+import java.nio.file.ClosedWatchServiceException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -57,6 +58,10 @@ public class FileDropFolderUploadListener implements Loggable {
         try {
             take = watcher.get().poll(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
+            return;
+        } catch (ClosedWatchServiceException ce) {
+            logger().warn("Drop-box watching failed " + watcher.getAndSet(null), ce);
+
             return;
         }
 
