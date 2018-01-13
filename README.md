@@ -11,22 +11,20 @@ situation where a real [CDN][1] may not (yet) be a viable solution.
 Quickstart
 ----------
 
-Contessa is packaged as a fat-jar, and can be started by simply executing it:
+Contessa is packaged as a fat-jar, and can be started by simply running it. The
+minimal required configuration is to set the `base-dir` property, which is
+required, and string won't be possible without it.
 
 ```
   $ java -Dcontessa.base-dir=data/ -jar contessa.jar
 ```
 
-The `base-dir` configuration property is required, and starting up won't be
-possible without setting it.
-
-You can now browse  `http://localhost:8080` and you should see some information
-about Contessa, the version, and commit as well as the current content entry
-count.
+You can now browse  `http://localhost:8080` and you should see some application
+information.
 
 There are two main user interfaces on top of HTTP; a straight-forward web, and
-the a REST-ful API mapped to `http://localhost:8080/api/v1`. The REST-ful API
-does not serve the actual content, but rather provides content entries as
+a REST-ful API mapped to `http://localhost:8080/api/v1`. The REST-ful API does
+not serve the actual content, but rather provides content entries as
 `application/json` resources.
 
 All content entry data is served from the web UI.
@@ -48,7 +46,7 @@ The returned URI is calculated to be unique, both with regards to the data as
 well as the name.
 
 If we request the URI we can see that Contessa will return a cache-control
-header, which by default uses a `max-age` property of 100 days.
+header, which by default uses a `max-age` of 100 days.
 
 ```
   $ curl -I http://localhost:8080/ede542cb-f8ec1d4.gif
@@ -60,6 +58,33 @@ header, which by default uses a `max-age` property of 100 days.
   Content-Length: 27566
   Date: Sat, 13 Jan 2018 15:34:21 GMT
 ```
+
+### Adding content via the REST interface
+
+Submitting some content to the REST-ful interface, also requires the user to
+`POST` some content with a specified name.
+
+```
+  $ curl --request POST \
+         --header "content-type: application/octet-stream" \
+         --data-binary "@some.gif" \
+         http://localhost:8080/api/v1/some.gif
+  {"identifier":"ede542cb-f8ec1d4","length":27566,"type":"image/gif","suffix":"gif","uri":"http://localhost:8080/ede542cb-f8ec1d4.gif"}
+```
+
+The response is a small JSON object, which provides the user with information
+about the content entry.
+
+Content entry resources can also be queried on the REST-ful API, by using the
+`identifier`.
+
+```
+  $ curl http://localhost:8080/api/v1/ede542cb-f8ec1d4
+  {"identifier":"ede542cb-f8ec1d4","length":27566,"type":"image/gif","suffix":"gif","uri":"http://localhost:8080/ede542cb-f8ec1d4.gif"}
+```
+
+The content entry resource property `uri` can then be used to access the actual
+data.
 
 Design &amp; Idea
 -----------------
