@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
@@ -25,7 +24,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
         MongoDataAutoConfiguration.class, // NOSONAR
         MongoAutoConfiguration.class, // NOSONAR
         DataSourceAutoConfiguration.class, // NOSONAR
-        DataSourceTransactionManagerAutoConfiguration.class, // NOSONAR
         HibernateJpaAutoConfiguration.class // NOSONAR
     }
 )
