@@ -79,4 +79,11 @@ public class FileStorageImpl implements Storage, Loggable {
             throw new FileStoreFailedException("Unable to retrieve entry: " + filename, ex);
         }
     }
+
+
+    @Override
+    public long count() {
+
+        return getStoragePath().toFile().list((dir, name) -> name.contains(".json")).length;
+    }
 }
