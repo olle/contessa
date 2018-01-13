@@ -5,29 +5,32 @@ contessa:
   ###
   ### The base dir path for any file system use
   ### in Contessa. For example file storage or
-  ### content drop-boxes.
+  ### content drop-boxes. Empty by default which
+  ### implies that operators **must** set this
+  ###  property.
   ###
   #base-dir:
   ###
   ### The storage type to use. Supports a small
   ### set of types:
   ###
-  ### `SQL`   - (default) storing assets into
+  ### `SQL`   - (default) Storing assets into
   ###           an SQL database.
   ###
-  ### `NOSQL` - storing assets into a NoSQL
+  ### `NOSQL` - Storing assets into a NoSQL
   ###           database.
   ###
-  ### `FILES` - file based storage type, saving
+  ### `FILES` - File based storage type, saving
   ###           content assets to the file
   ###           system.
   ###
-  ### `RAM`   - in memory, ephemeral storage,
+  ### `RAM`   - In-memory, ephemeral storage,
   ###           holding entries in a local map.
   ###
-  ### `NONE`  - disables the storage; used only
+  ### `NONE`  - Disables the storage; used only
   ###           for testing and development.
-  store: RAM
+  ###
+  store: SQL
   ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
@@ -39,20 +42,22 @@ contessa:
   ### `rest` - with support for application/json
   ###          responses.
   ###
+  ### `dir`  - directory, file or drop-folder based
+  ###          interface.
+  ###
   ### `amqp` - message broker based upload and
   ###          query/response support for
   ###          content entries.
   ###
-  ### `dir`  - directory, file or drop-folder based
-  ###          interface.
-  ###
   web.enabled: true
   rest.enabled: true
-  #amqp.enabled: true
   dir.enabled: true
+  #amqp.enabled: true
   ###
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.
+  ### The actual content of the cookies is not
+  ### checked, only for existence.
   ###
   #required-cookies:
   #  - required.cookie.foo

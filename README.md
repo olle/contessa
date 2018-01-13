@@ -8,6 +8,29 @@ situation where a real [CDN][1] may not (yet) be a viable solution.
   [1]: https://en.wikipedia.org/wiki/Content_delivery_network
 
 
+Quickstart
+----------
+
+Contessa is packaged as a fat-jar, and can be started by simply executing it:
+
+```
+  $ java -Dcontessa.base-dir=data/ -jar contessa.jar
+```
+
+The `base-dir` configuration property is required, and starting up won't be
+possible without setting it.
+
+You can now browse  `http://localhost:8080` and you should see some information
+about Contessa, the version, and commit as well as the current content entry
+count.
+
+There are two main user interfaces on top of HTTP; a straight-forward web, and
+the a REST-ful API mapped to `http://localhost:8080/api/v1`. The REST-ful API
+does not serve the actual content, but rather provides content entries as
+`application/json` resources.
+
+All content entry data is served from the web UI.
+
 Design &amp; Idea
 -----------------
 
