@@ -11,6 +11,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.util.Objects;
+
 import static org.junit.Assert.assertTrue;
 
 
@@ -20,7 +22,8 @@ public class FileStorageImplTest {
     public void ensureStoresIndexAndContentFiles() throws Exception {
 
         Path basePath = FileSystems.getDefault().getPath("target/").toAbsolutePath();
-        Path contentFile = basePath.resolve("some-id.json");
+
+        Path contentFile = null;
 
         try {
             ContessaProperties props = new ContessaProperties();
@@ -37,9 +40,12 @@ public class FileStorageImplTest {
 
             sut.store(entry);
 
+            contentFile = basePath.resolve("storage").resolve("some-id.json");
             assertTrue("Missing content file: " + contentFile, Files.exists(contentFile));
         } finally {
-            Files.deleteIfExists(contentFile);
+            if (Objects.nonNull(contentFile)) {
+                Files.deleteIfExists(contentFile);
+            }
         }
     }
 }
