@@ -26,10 +26,10 @@ public class ContessaProperties {
     }
 
     /**
-     * The base directory for Contessa file system use, such as file storage or drop-boxes.
+     * The required base directory for Contessa file system use, such as file storage or drop-boxes.
      */
     @NotNull
-    private String baseDir = "";
+    private String baseDir;
 
     /**
      * The storage type to use, may not be empty.

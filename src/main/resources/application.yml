@@ -27,7 +27,7 @@ contessa:
   ###
   ### `NONE`  - disables the storage; used only
   ###           for testing and development.
-  store: FILES  
+  store: RAM
   ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
