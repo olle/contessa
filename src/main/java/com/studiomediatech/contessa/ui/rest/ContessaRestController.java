@@ -2,6 +2,7 @@ package com.studiomediatech.contessa.ui.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
@@ -33,11 +34,13 @@ public class ContessaRestController implements Loggable {
 
     private final HttpValidator validator;
     private final UiHandler handler;
+    private final ObjectMapper objectMapper;
 
-    public ContessaRestController(HttpValidator validator, UiHandler handler) {
+    public ContessaRestController(HttpValidator validator, UiHandler handler, ObjectMapper objectMapper) {
 
         this.validator = validator;
         this.handler = handler;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping(path = "/api/v1")
@@ -97,7 +100,11 @@ public class ContessaRestController implements Loggable {
     private ResponseEntity<String> toJsonResponse(Map<String, Object> result) {
 
         try {
-            String json = new ObjectMapper().writeValueAsString(result);
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+            String json = objectMapper.writeValueAsString(result);
+
+            objectMapper.disable(SerializationFeature.INDENT_OUTPUT);
 
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(json);
         } catch (JsonProcessingException e) {

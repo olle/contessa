@@ -86,6 +86,37 @@ Content entry resources can also be queried on the REST-ful API, by using the
 The content entry resource property `uri` can then be used to access the actual
 data.
 
+### Adding content in the drop-box
+
+Directly under the Contessa `base-dir`, the folder `dropbox` is created, in
+order to provide support to manually add content.
+
+By giving users access to this directory, they may drop in content files and
+have Contessa repond with information about the added entry.
+
+```
+  $ ls -la data/dropbox/
+  .
+  ..
+  $ cp some.gif data/dropbox/
+  $ ls -la data/dropbox/
+  .
+  ..
+  some.gif
+
+(some seconds later)
+
+  $ ls -la data/dropbox/
+  .
+  ..
+  [some.gif]ede542cb-f8ec1d4.gif
+  $ mv data/dropbox/[some.gif]ede542cb-f8ec1d4.gif .
+```
+
+The _dropped_ file will be picked up by Contessa and handled. The response is
+then written back as a marker-file, which the user must take care of, and clean
+out manually.
+
 Design &amp; Idea
 -----------------
 
