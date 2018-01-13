@@ -31,6 +31,36 @@ does not serve the actual content, but rather provides content entries as
 
 All content entry data is served from the web UI.
 
+### Adding content via the web UI
+
+Users will typically upload some named content, and capture the response, which
+will be the unique content entry URI.
+
+```
+  $ curl --request POST \
+         --header "content-type: application/octet-stream" \
+         --data-binary "@some.gif" \
+         http://localhost:8080/some.gif
+  http://localhost:8080/ede542cb-f8ec1d4.gif
+```
+
+The returned URI is calculated to be unique, both with regards to the data as
+well as the name.
+
+If we request the URI we can see that Contessa will return a cache-control
+header, which by default uses a `max-age` property of 100 days.
+
+```
+  $ curl -I http://localhost:8080/ede542cb-f8ec1d4.gif
+  HTTP/1.1 200
+  X-Application-Context: contessa
+  ETag: "ede542cb-f8ec1d4"
+  Cache-Control: max-age=8640000, public, immutable
+  Content-Type: image/gif
+  Content-Length: 27566
+  Date: Sat, 13 Jan 2018 15:34:21 GMT
+```
+
 Design &amp; Idea
 -----------------
 
