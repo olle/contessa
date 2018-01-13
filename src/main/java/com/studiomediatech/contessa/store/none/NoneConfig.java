@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-@Configuration("NONE")
-public class Config implements Loggable {
+@Configuration
+public class NoneConfig implements Loggable {
 
     @Bean
     public Storage contessaNoneStorage() {

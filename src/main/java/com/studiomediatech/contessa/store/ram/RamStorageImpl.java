@@ -6,16 +6,16 @@ import com.studiomediatech.contessa.store.Storage;
 
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
 public class RamStorageImpl implements Storage, Loggable {
 
-    // Entries are read-only, so thread safety is less important here.
-    private static final Map<String, Entry> storage = new HashMap<>();
+    // Initial high load-factory to avoid early resize-costs.
+    private static final Map<String, Entry> storage = new ConcurrentHashMap<>(65536);
 
     @Override
     public void store(Entry entry) {

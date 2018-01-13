@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@Configuration("SQL")
+@Configuration
 @EnableJpaRepositories(basePackageClasses = ContessaSql.class)
 @EntityScan(basePackageClasses = ContessaSql.class)
 @EnableTransactionManagement(proxyTargetClass = true)
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         HibernateJpaAutoConfiguration.class // NOSONAR
     }
 )
-public class Config {
+public class SqlConfig {
 
     // OK
 }

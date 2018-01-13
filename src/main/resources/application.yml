@@ -7,7 +7,7 @@ contessa:
   ### in Contessa. For example file storage or
   ### content drop-boxes.
   ###
-  #base-dir: 
+  #base-dir:
   ###
   ### The storage type to use. Supports a small
   ### set of types:
@@ -27,7 +27,7 @@ contessa:
   ###
   ### `NONE`  - disables the storage; used only
   ###           for testing and development.
-  store: SQL  
+  store: FILES  
   ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
@@ -35,7 +35,7 @@ contessa:
   ###
   ### `web`  - simple GET/POST for upload and
   ###          direct media access.
-  ### 
+  ###
   ### `rest` - with support for application/json
   ###          responses.
   ###
@@ -50,7 +50,7 @@ contessa:
   rest.enabled: true
   #amqp.enabled: true
   dir.enabled: true
-  ### 
+  ###
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.
   ###
@@ -60,7 +60,7 @@ contessa:
   ###
   ### The cache-control max-age directive, in
   ### seconds. Valid range is up to 365 days,
-  ### or 0-31536000. 
+  ### or 0-31536000.
   ###
   #max-age: 8640000 # 100 days (default).
 
@@ -73,7 +73,7 @@ spring:
     name: contessa
   datasource:
     ## Default is an embedded database
-    url: jdbc:h2:mem:contessa;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE    
+    url: jdbc:h2:mem:contessa;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
   jpa:
     hibernate:
       ddl-auto: create
@@ -83,12 +83,12 @@ spring:
   rabbitmq:
     ## Better defaults for RabbitMQ docker/default
     username: guest
-    password: guest   
+    password: guest
   ## Disabling some noisy features
   mvc:
     favicon.enabled: false
   resources:
-    add-mappings: false    
+    add-mappings: false
 ### ---------------------------------------------
 ### Enables full management features, best used during
 ### development, in order to view and audit anything

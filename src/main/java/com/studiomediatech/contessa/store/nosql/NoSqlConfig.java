@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 
-@Configuration("NOSQL")
+@Configuration
 @EnableMongoRepositories(basePackageClasses = ContessaNoSql.class)
 @Import(
     {
@@ -17,7 +17,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
         MongoDataAutoConfiguration.class // NOSONAR
     }
 )
-public class Config {
+public class NoSqlConfig {
 
     // OK
 }
