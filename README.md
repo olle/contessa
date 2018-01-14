@@ -121,12 +121,11 @@ have Contessa repond with information about the added entry.
   .
   ..
   [some.gif]ede542cb-f8ec1d4.gif
-  $ mv data/dropbox/[some.gif]ede542cb-f8ec1d4.gif .
 ```
 
-The _dropped_ file will be picked up by Contessa and handled. The response is
+The dropped file will be picked up by Contessa and handled. The response is
 then written back as a marker-file, which the user must take care of, and clean
-out manually.
+out manually. Any response marker-files will of course be ignored by Contessa.
 
 Design &amp; Idea
 -----------------
