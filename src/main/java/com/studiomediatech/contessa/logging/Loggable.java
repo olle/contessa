@@ -26,7 +26,7 @@ public interface Loggable {
 
     default <T> T log_returns(T obj) {
 
-        logger().info("Returns {}", obj);
+        logger().debug("Returns {}", obj);
 
         return obj;
     }

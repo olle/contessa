@@ -51,7 +51,6 @@ header, which by default uses a `max-age` of 100 days.
 ```
   $ curl -I http://localhost:8080/ede542cb-f8ec1d4.gif
   HTTP/1.1 200
-  X-Application-Context: contessa
   ETag: "ede542cb-f8ec1d4"
   Cache-Control: max-age=8640000, public, immutable
   Content-Type: image/gif
@@ -69,7 +68,13 @@ Submitting some content to the REST-ful interface, also requires the user to
          --header "content-type: application/octet-stream" \
          --data-binary "@some.gif" \
          http://localhost:8080/api/v1/some.gif
-  {"identifier":"ede542cb-f8ec1d4","length":27566,"type":"image/gif","suffix":"gif","uri":"http://localhost:8080/ede542cb-f8ec1d4.gif"}
+  {
+    "identifier" : "ede542cb-f8ec1d4",
+    "length" : 27566,
+    "type" : "image/gif",
+    "suffix" : "gif",
+    "uri" : "http://localhost:8080/ede542cb-f8ec1d4.gif"
+  }
 ```
 
 The response is a small JSON object, which provides the user with information
@@ -80,7 +85,13 @@ Content entry resources can also be queried on the REST-ful API, by using the
 
 ```
   $ curl http://localhost:8080/api/v1/ede542cb-f8ec1d4
-  {"identifier":"ede542cb-f8ec1d4","length":27566,"type":"image/gif","suffix":"gif","uri":"http://localhost:8080/ede542cb-f8ec1d4.gif"}
+  {
+    "identifier" : "ede542cb-f8ec1d4",
+    "length" : 27566,
+    "type" : "image/gif",
+    "suffix" : "gif",
+    "uri" : "http://localhost:8080/ede542cb-f8ec1d4.gif"
+  }
 ```
 
 The content entry resource property `uri` can then be used to access the actual

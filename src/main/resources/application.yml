@@ -30,7 +30,7 @@ contessa:
   ### `NONE`  - Disables the storage; used only
   ###           for testing and development.
   ###
-  store: SQL
+  store: RAM
   ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
@@ -81,49 +81,22 @@ spring:
     url: jdbc:h2:mem:contessa;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
   jpa:
     hibernate:
-      ddl-auto: create
-  h2:
-    console:
-      enabled: true
+      ddl-auto: none
+  ### - Development only!
+  #h2:
+  #  console:
+  #    enabled: true
   rabbitmq:
     ## Better defaults for RabbitMQ docker/default
     username: guest
     password: guest
-  ## Disabling some noisy features
-  mvc:
-    favicon.enabled: false
-  resources:
-    add-mappings: false
-### ---------------------------------------------
-### Enables full management features, best used during
-### development, in order to view and audit anything
-### in the runtime application context.
 ### ---------------------------------------------
 management:
-  context-path: /management
+  add-application-context-header: false
+  ## Faster startup if disabled
   security.enabled: false
-  health:
-    ## None of the health-endpoints works by default, since we are
-    ## custom enabling/disabling the modules.
-    #rabbit.enabled: false
-    #mongo.enabled: false
 endpoints:
-#  auditevents.enabled: true
-#  autoconfig.enabled: true
-#  configprops.enabled: true
-#  docs.enabled: true
-#  dump.enabled: true
-#  env.enabled: true
-#  health.enabled: true
-#  heapdump.enabled: true
-#  info.enabled: true
-   liquibase.enabled: true # If it applies
-#  logfile.enabled: true
-#  loggers.enabled: true
-#  mappings.enabled: true
-#  metrics.enabled: true
-#  shutdown.enabled: true
-#  trace.enabled: true
+  enabled: false
 logging:
   level:
     #root: ERROR

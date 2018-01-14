@@ -45,8 +45,6 @@ public class FileDropFolderUploadListener implements Loggable {
     @Scheduled(fixedDelay = 3000)
     public void checkForFileUploaded() throws IOException {
 
-        logger().debug("Polling for new files...");
-
         if (watcher.compareAndSet(null, FileSystems.getDefault().newWatchService())) {
             getDropboxPath().register(watcher.get(), StandardWatchEventKinds.ENTRY_CREATE);
         }
@@ -73,7 +71,7 @@ public class FileDropFolderUploadListener implements Loggable {
             }
 
             Path file = (Path) event.context();
-            logger().info("I found a new file: {}", file);
+            logger().info("New file found in the drop-box: {}", file);
 
             String filename = file.toString();
             Path path = getDropboxPath().resolve(file);
