@@ -1,6 +1,6 @@
 package com.studiomediatech.contessa.contents;
 
-import com.studiomediatech.contessa.contents.media.ByteArrayMimeTypeParser;
+import com.studiomediatech.contessa.contents.media.MimeTypeParser;
 import com.studiomediatech.contessa.contents.media.HashCodePrefixGenerator;
 import com.studiomediatech.contessa.contents.media.RegExSuffixParser;
 import com.studiomediatech.contessa.domain.Entry;
@@ -20,7 +20,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
     private final RegExSuffixParser parser;
     private final HashCodePrefixGenerator prefixGenerator;
     private final Storage storage;
-    private final ByteArrayMimeTypeParser mimeTypeParser;
+    private final MimeTypeParser mimeTypeParser;
 
     @Autowired
     public ContentsServiceImpl(Storage storage) {
@@ -28,7 +28,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
         this.storage = storage;
         this.prefixGenerator = new HashCodePrefixGenerator();
         this.parser = new RegExSuffixParser();
-        this.mimeTypeParser = new ByteArrayMimeTypeParser();
+        this.mimeTypeParser = new MimeTypeParser();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ContentsServiceImpl implements ContentsService, Loggable {
 
         String prefix = prefixGenerator.getPrefix(name, payload);
         String suffix = parser.parseSuffix(name);
-        String mimeType = mimeTypeParser.parseMimeType(payload);
+        String mimeType = mimeTypeParser.parseMimeType(payload, suffix);
 
         logger().info("Delegating to storage: {}, {}, {}, {} and {} bytes of data", prefix, suffix, mimeType, name,
             payload.length);

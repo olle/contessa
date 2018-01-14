@@ -2,7 +2,6 @@ package com.studiomediatech.contessa.ui;
 
 import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.domain.Entry;
-import com.studiomediatech.contessa.ui.amqp.UploadEvent;
 
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
@@ -28,13 +27,6 @@ public class UiHandlerImpl implements UiHandler {
         this.buildProps = buildProps;
         this.gitProps = gitProps;
     }
-
-    @Override
-    public Entry handle(UploadEvent event) {
-
-        return log_returns(contentsService.addMediaContent(event.filename, event.payload));
-    }
-
 
     @Override
     public Entry handle(UploadRequest command) {

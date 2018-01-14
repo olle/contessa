@@ -30,7 +30,7 @@ contessa:
   ### `NONE`  - Disables the storage; used only
   ###           for testing and development.
   ###
-  store: RAM
+  store: SQL
   ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
@@ -52,7 +52,7 @@ contessa:
   web.enabled: true
   rest.enabled: true
   dir.enabled: true
-  #amqp.enabled: true
+  amqp.enabled: true
   ###
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.
@@ -102,7 +102,7 @@ logging:
     ### Ah... the sound of silence
     #root: ERROR
     ### Good for development
-    #com.studiomediatech.contessa: DEBUG
+    com.studiomediatech.contessa: DEBUG
     ### Enable lines below for Hibernate/Query logs
     #org.hibernate.SQL: DEBUG
     #org.hibernate.type.descriptor.sql.BasicBinder: TRACE

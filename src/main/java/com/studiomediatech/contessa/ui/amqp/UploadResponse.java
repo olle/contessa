@@ -4,6 +4,7 @@ import com.studiomediatech.contessa.domain.Entry;
 
 import org.springframework.amqp.core.Address;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
 
 
 /**
@@ -14,15 +15,23 @@ public class UploadResponse {
     public final Address address;
     public final Message message;
 
-    private UploadResponse(String replyTo) {
+    private UploadResponse(Address address, Message message) {
 
-        // TODO: Finish this!
-        this.address = new Address(replyTo);
-        this.message = null;
+        this.address = address;
+        this.message = message;
     }
 
     public static UploadResponse valueOf(UploadEvent event, Entry entry) {
 
-        return new UploadResponse(event.replyTo);
+        Address address = new Address(event.replyTo);
+
+        Message message = MessageBuilder.withBody(String.format("%s.%s", entry.getId(), entry.getSuffix()).getBytes())
+                .setContentEncoding("UTF-8")
+                .setHeader("identifier", entry.getId())
+                .setHeader("suffix", entry.getSuffix())
+                .setHeader("type", entry.getType())
+                .build();
+
+        return new UploadResponse(address, message);
     }
 }
