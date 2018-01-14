@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/olle/contessa.svg?branch=master)](https://travis-ci.org/olle/contessa)
+
 Contessa
 ========
 
