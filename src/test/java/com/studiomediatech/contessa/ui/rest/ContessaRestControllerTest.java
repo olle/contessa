@@ -1,5 +1,7 @@
 package com.studiomediatech.contessa.ui.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.ContentRequest;
 import com.studiomediatech.contessa.ui.HttpValidator;
@@ -13,7 +15,6 @@ import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import org.mockito.runners.MockitoJUnitRunner;
@@ -43,15 +44,13 @@ public class ContessaRestControllerTest {
     @Mock
     UiHandler handler;
 
-    @InjectMocks
-    ContessaRestController sut;
-
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
 
-        mockMvc = MockMvcBuilders.standaloneSetup(sut).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new ContessaRestController(validator, handler, new ObjectMapper()))
+                .build();
     }
 
 
