@@ -54,10 +54,10 @@ header, which by default uses a `max-age` of 100 days.
   $ curl -I http://localhost:8080/ede542cb-f8ec1d4.gif
   HTTP/1.1 200
   ETag: "ede542cb-f8ec1d4"
-  Cache-Control: max-age=8640000, public, immutable
+  Cache-Control: max-age=8640000, public
   Content-Type: image/gif
   Content-Length: 27566
-  Date: Sat, 13 Jan 2018 15:34:21 GMT
+  Date: Sun, 14 Jan 2018 21:15:48 GMT
 ```
 
 ### Adding content via the REST interface

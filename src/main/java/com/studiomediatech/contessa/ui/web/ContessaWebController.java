@@ -9,6 +9,7 @@ import com.studiomediatech.contessa.ui.UiHandler;
 import com.studiomediatech.contessa.ui.UnknownContentEntryException;
 import com.studiomediatech.contessa.ui.UploadRequest;
 
+import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,8 +93,7 @@ public class ContessaWebController {
             .contentType(MediaType.valueOf(entry.getType()))
             .contentLength(entry.getData().length)
             .eTag(entry.getId())
-            .lastModified(42L)
-            .header("Cache-Control", String.format("max-age=%d, public, immutable", props.getMaxAge()))
+            .cacheControl(CacheControl.maxAge(props.getMaxAge(), TimeUnit.SECONDS).cachePublic())
             .body(entry.getData());
     }
 }
