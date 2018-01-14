@@ -40,7 +40,9 @@ public class ContessaRestController implements Loggable {
 
         this.validator = validator;
         this.handler = handler;
+
         this.objectMapper = objectMapper;
+        this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     @GetMapping(path = "/api/v1")
@@ -100,13 +102,9 @@ public class ContessaRestController implements Loggable {
     private ResponseEntity<String> toJsonResponse(Map<String, Object> result) {
 
         try {
-            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
             String json = objectMapper.writeValueAsString(result);
 
-            objectMapper.disable(SerializationFeature.INDENT_OUTPUT);
-
-            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(json);
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(json + System.lineSeparator());
         } catch (JsonProcessingException e) {
             throw new ContentConversionException(e);
         }
