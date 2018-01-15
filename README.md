@@ -129,6 +129,36 @@ The dropped file will be picked up by Contessa and handled. The response is
 then written back as a marker-file, which the user must take care of, and clean
 out manually. Any response marker-files will of course be ignored by Contessa.
 
+### Adding content over AMQP
+
+If Contessa is started and the `contessa.amqp.enabled=true` property is set, it
+will start and connect to a [RabbitMQ][1].
+
+To add content entries over the message broker we need to publish a message with
+the `upload` routing key, naming the file with the header `filename`. We provide
+a `reply_to` for the response and add the content to the message body.
+
+![Sending the message][1-sending]
+
+In the overview we now see that our queue `me` has received one message.
+
+![Received response][2-queues]
+
+The response returned contains header fields with `identifier`, `suffix` and
+the media `type`. The body payload consists of the created media entity name.
+
+![Response content][3-received]
+
+In this small example we can now query the media over HTTP, either using the
+web or REST endpoints.
+
+![Request content][4-request]
+
+  [1-sending]: ./docs/img/1-send.png
+  [2-queues]: ./docs/img/2-queues.png
+  [3-received]: ./docs/img/3-received.png
+  [4-request]: ./docs/img/4-request.png
+
 Design &amp; Idea
 -----------------
 

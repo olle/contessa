@@ -20,6 +20,5 @@ public class AmqpValidatorImpl implements AmqpValidator {
         validationService.validReplyTo(message);
         validationService.validFilename(message);
         validationService.validFilename((String) message.getMessageProperties().getHeaders().get("filename"));
-        validationService.validPayload(message.getBody());
     }
 }
