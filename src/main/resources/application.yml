@@ -106,3 +106,9 @@ logging:
     ### Enable lines below for Hibernate/Query logs
     #org.hibernate.SQL: DEBUG
     #org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+---
+spring:
+  profiles: mariadb
+  datasource:
+    url: jdbc:mysql://localhost:3306/contessa
+    username: root
