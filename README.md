@@ -15,7 +15,7 @@ Quickstart
 
 Contessa is packaged as a fat-jar, and can be started by simply running it. The
 minimal required configuration is to set the `base-dir` property, which is
-required, and string won't be possible without it.
+required, and starting won't be possible without it.
 
 ```
   $ java -Dcontessa.base-dir=data/ -jar contessa.jar
