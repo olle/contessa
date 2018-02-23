@@ -15,8 +15,8 @@ public class DirFilterImpl implements DirFilter, Loggable {
 
         logger().debug("Filter checking if we reject {}", filename);
 
-        if (filename.matches("^\\[.+\\].*")) {
-            cause.accept("response files, starting with '[...]...', are ignored.");
+        if (filename.matches("^.+___.*")) {
+            cause.accept("response files, matching '{filename}___{identifier}', are ignored.");
 
             return true;
         }

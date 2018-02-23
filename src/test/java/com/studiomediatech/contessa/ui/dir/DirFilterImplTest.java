@@ -11,7 +11,7 @@ public class DirFilterImplTest {
     @Test
     public void ensureRejectsResultsMarkerFile() {
 
-        assertTrue(new DirFilterImpl().reject("[original.gif]ede542cb-f8ec1d4.gif", System.out::println));
+        assertTrue(new DirFilterImpl().reject("original.gif___ede542cb-f8ec1d4.gif", System.out::println));
     }
 
 

@@ -25,7 +25,7 @@ public class DirSinkImpl implements DirSink, Loggable {
     public void writeContentDroppedResponse(String filename, String identifier, String suffix) throws IOException {
 
         try {
-            String response = String.format("[%s]%s.%s", filename, identifier, suffix);
+            String response = String.format("%s___%s.%s", filename, identifier, suffix);
             logger().info("Writing response marker-file: {}", response);
             getDropboxPath().resolve(response).toAbsolutePath().toFile().createNewFile();
         } finally {

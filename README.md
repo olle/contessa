@@ -122,7 +122,7 @@ have Contessa repond with information about the added entry.
   $ ls -la data/dropbox/
   .
   ..
-  [some.gif]ede542cb-f8ec1d4.gif
+  some.gif___ede542cb-f8ec1d4.gif
 ```
 
 The dropped file will be picked up by Contessa and handled. The response is
