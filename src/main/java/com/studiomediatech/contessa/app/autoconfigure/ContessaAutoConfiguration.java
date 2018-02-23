@@ -5,6 +5,7 @@ import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
 import com.studiomediatech.contessa.store.files.ContessaFiles;
+import com.studiomediatech.contessa.store.minio.ContessaMinio;
 import com.studiomediatech.contessa.store.none.ContessaNone;
 import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
@@ -89,6 +90,14 @@ public class ContessaAutoConfiguration implements Loggable {
     @ConditionalOnProperty(name = "contessa.store", havingValue = "RAM")
     @ComponentScan(basePackageClasses = ContessaRam.class)
     public static class RamStorageAutoConfiguration {
+
+        // OK
+    }
+
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "MINIO")
+    @ComponentScan(basePackageClasses = ContessaMinio.class)
+    public static class MinioStorageAutoConfiguration {
 
         // OK
     }

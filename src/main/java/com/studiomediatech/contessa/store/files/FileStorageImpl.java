@@ -36,8 +36,7 @@ public class FileStorageImpl implements Storage, Loggable {
 
         String filename = String.format("%s.json", entry.getId());
         Path path = getStoragePath().resolve(filename);
-
-        FileEntry e = toLocalentry(entry);
+        FileEntry e = FileEntry.valueOf(entry);
 
         try {
             objectMapper.writeValue(path.toFile(), e);
@@ -56,12 +55,6 @@ public class FileStorageImpl implements Storage, Loggable {
         }
 
         return dir;
-    }
-
-
-    private FileEntry toLocalentry(Entry entry) {
-
-        return FileEntry.valueOf(entry);
     }
 
 

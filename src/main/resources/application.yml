@@ -30,6 +30,10 @@ contessa:
   ### `NONE`  - Disables the storage; used only
   ###           for testing and development.
   ###
+  ### `MINIO` - Integration to the minio.io object
+  ###           storage, acting as a conduit for
+  ###           S3 (and compatible) stores.
+  ###
   store: SQL
   ###
   ### Toggles the available UIs on/off, allowing
@@ -68,6 +72,19 @@ contessa:
   ### or 0-31536000.
   ###
   #max-age: 8640000 # 100 days (default).
+
+### =============================================
+### Minio.io - storage properties
+###
+### https://docs.minio.io/docs/java-client-quickstart-guide
+### ---------------------------------------------
+minio:
+  ## URL to object storage service.
+  endpoint:
+  ## Access key is like user ID that uniquely identifies your account.
+  access-key:
+  ## Secret key is the password to your account.
+  secret-key:
 
 ### ---------------------------------------------
 ### Customized Spring Boot configuration
@@ -112,3 +129,10 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/contessa
     username: root
+---
+spring:
+  profiles: minio
+minio:
+  endpoint: http://localhost:9000
+  access-key: AKIAIOSFODNN7EXAMPLE
+  secret-key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
