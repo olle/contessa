@@ -22,7 +22,8 @@ public class ContessaProperties {
         FILES,
         SQL,
         NOSQL,
-        RAM;
+        RAM,
+        MINIO;
     }
 
     /**

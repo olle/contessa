@@ -11,6 +11,8 @@ import io.minio.MinioClient;
 
 import io.minio.errors.MinioException;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 import org.springframework.stereotype.Component;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -26,6 +28,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 
+@EnableConfigurationProperties(ContessaMinioProperties.class)
 @Component
 public class MinioStorageImpl implements Storage {
 

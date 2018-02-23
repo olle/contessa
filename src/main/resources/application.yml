@@ -55,8 +55,8 @@ contessa:
   ###
   web.enabled: true
   rest.enabled: true
-  dir.enabled: true
-  amqp.enabled: true
+  dir.enabled: false
+  amqp.enabled: false
   ###
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.
@@ -132,6 +132,8 @@ spring:
 ---
 spring:
   profiles: minio
+contessa:
+  store: MINIO
 minio:
   endpoint: http://localhost:9000
   access-key: AKIAIOSFODNN7EXAMPLE
