@@ -66,8 +66,11 @@ public class MinioStorageImpl implements Storage {
             String filename = String.format("%s.json", entry.getId());
             MinioEntry m = MinioEntry.valueOf(entry);
 
-            ByteArrayInputStream bain = new ByteArrayInputStream(objectMapper.writeValueAsBytes(m));
-            minioClient.putObject(BUCKET, filename, bain, "application/json");
+            byte[] bytes = objectMapper.writeValueAsBytes(m);
+            ByteArrayInputStream bain = new ByteArrayInputStream(bytes);
+
+            minioClient.putObject(BUCKET, filename, bain, "application/octet-stream");
+
             bain.close();
         } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException | IOException | XmlPullParserException e) {
             throw new RuntimeException("Failed to write entry to Minio storage", e);
