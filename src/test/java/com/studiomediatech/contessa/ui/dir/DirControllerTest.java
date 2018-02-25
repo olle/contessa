@@ -3,6 +3,10 @@ package com.studiomediatech.contessa.ui.dir;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.ui.UiHandler;
 import com.studiomediatech.contessa.ui.UploadRequest;
+import com.studiomediatech.contessa.ui.dropbox.DirController;
+import com.studiomediatech.contessa.ui.dropbox.DirFilter;
+import com.studiomediatech.contessa.ui.dropbox.DirSink;
+import com.studiomediatech.contessa.ui.dropbox.DirValidator;
 
 import org.junit.Test;
 

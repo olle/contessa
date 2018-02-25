@@ -15,4 +15,7 @@ public interface HttpValidator {
 
 
     void validateCookies(HttpServletRequest request);
+
+
+    void validateRemoteAddress(HttpServletRequest request);
 }

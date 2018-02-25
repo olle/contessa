@@ -12,7 +12,7 @@ import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
-import com.studiomediatech.contessa.ui.dir.ContessaDir;
+import com.studiomediatech.contessa.ui.dropbox.ContessaDir;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
 import com.studiomediatech.contessa.ui.web.ContessaWeb;
 import com.studiomediatech.contessa.validation.ValidationService;

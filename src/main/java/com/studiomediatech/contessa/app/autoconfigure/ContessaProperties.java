@@ -52,6 +52,11 @@ public class ContessaProperties {
     @Range(min = 0L, max = 31536000L)
     private long maxAge = 8640000;
 
+    /**
+     * Optional IP address whitelist, for content upload to the REST and WEB user interfaces.
+     */
+    private List<String> allowedAddresses = new ArrayList<>();
+
     public String getBaseDir() {
 
         return baseDir;
@@ -97,5 +102,17 @@ public class ContessaProperties {
     public void setMaxAge(long maxAge) {
 
         this.maxAge = maxAge;
+    }
+
+
+    public List<String> getAllowedAddresses() {
+
+        return allowedAddresses;
+    }
+
+
+    public void setAllowedAddresses(List<String> allowedAddresses) {
+
+        this.allowedAddresses = allowedAddresses;
     }
 }

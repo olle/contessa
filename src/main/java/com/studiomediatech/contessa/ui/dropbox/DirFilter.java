@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.ui.dir;
+package com.studiomediatech.contessa.ui.dropbox;
 
 import java.util.function.Consumer;
 

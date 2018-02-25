@@ -67,6 +67,7 @@ public class ContessaWebController {
         @RequestBody byte[] payload, HttpServletRequest request) {
 
         validator.validateCookies(request);
+        validator.validateRemoteAddress(request);
         validator.validateForUpload(filename, payload);
 
         Entry content = handler.handle(UploadRequest.valueOf(filename, payload));

@@ -64,4 +64,19 @@ public class HttpValidatorImpl implements HttpValidator {
             throw new MissingCookiesRequestException(cookies);
         }
     }
+
+
+    @Override
+    public void validateRemoteAddress(HttpServletRequest request) {
+
+        List<String> allowed = Optional.ofNullable(props.getAllowedAddresses()).orElse(Collections.emptyList());
+
+        if (allowed.isEmpty()) {
+            return;
+        }
+
+        if (!allowed.contains(request.getRemoteAddr())) {
+            throw new AddressNotAllowedRequestException(request.getRemoteAddr());
+        }
+    }
 }

@@ -2,6 +2,8 @@ package com.studiomediatech.contessa.ui.dir;
 
 import org.junit.Test;
 
+import com.studiomediatech.contessa.ui.dropbox.DirFilterImpl;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

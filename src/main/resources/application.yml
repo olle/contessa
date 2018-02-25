@@ -46,20 +46,31 @@ contessa:
   dir.enabled: false
   amqp.enabled: false
   ###
+  ### ===========================================
   ### An optional list of cookie names, that are
   ### required to be set at all for any request.
   ### The actual content of the cookies is not
   ### checked, only for existence.
   ###
   #required-cookies:
-  #  - required.cookie.foo
-  #  - required.cookie.bar
+  #    - required.cookie.foo
+  #    - required.cookie.bar
   ###
   ### The cache-control max-age directive, in
   ### seconds. Valid range is up to 365 days,
   ### or 0-31536000.
   ###
   #max-age: 8640000 # 100 days (default).
+  ###
+  ### ===========================================
+  ### Optional list of IP addresses, that are
+  ### allowed to submit new content - a whitelist.
+  ### All other clients will be denied upload over
+  ### the REST or WEB user interface.
+  ###
+  #allowed-addresses:
+  #  - 192.168.0.1
+  #  - 127.0.0.1
 
 ### =============================================
 ### Minio.io - storage properties
