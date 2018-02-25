@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
@@ -35,7 +36,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
         MongoAutoConfiguration.class, // NOSONAR
         DataSourceAutoConfiguration.class, // NOSONAR
         HibernateJpaAutoConfiguration.class, // NOSONAR
-        CassandraDataAutoConfiguration.class // NOSONAR
+        CassandraDataAutoConfiguration.class, // NOSONAR
+        RedisAutoConfiguration.class // NOSONAR
     }
 )
 @EnableAsync(mode = AdviceMode.PROXY, proxyTargetClass = true)

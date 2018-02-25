@@ -10,6 +10,7 @@ import com.studiomediatech.contessa.store.minio.ContessaMinio;
 import com.studiomediatech.contessa.store.none.ContessaNone;
 import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
+import com.studiomediatech.contessa.store.redis.ContessaRedis;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.dropbox.ContessaDir;
@@ -107,6 +108,14 @@ public class ContessaAutoConfiguration implements Loggable {
     @ConditionalOnProperty(name = "contessa.store", havingValue = "CASSANDRA")
     @ComponentScan(basePackageClasses = ContessaCassandra.class)
     public static class CassandraStorageAutoConfiguration {
+
+        // OK
+    }
+
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.store", havingValue = "REDIS")
+    @ComponentScan(basePackageClasses = ContessaRedis.class)
+    public static class RedisStorageAutoConfiguration {
 
         // OK
     }

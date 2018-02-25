@@ -18,13 +18,14 @@ public class ContessaProperties {
 
     public enum StorageType {
 
-        NONE,
-        FILES,
         SQL,
-        NOSQL,
         RAM,
+        FILES,
+        NOSQL,
         MINIO,
-        CASSANDRA;
+        CASSANDRA,
+        REDIS,
+        NONE;
     }
 
     /**

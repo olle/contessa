@@ -15,5 +15,8 @@ start-minio:
 start-cassandra:
 	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=cassandra
 
+start-redis:
+	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=redis
+
 debug:
 	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=target/

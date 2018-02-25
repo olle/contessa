@@ -16,11 +16,7 @@ import java.util.List;
 
 @Configuration
 @EnableCassandraRepositories(basePackageClasses = ContessaCassandra.class)
-@Import(
-    {
-        CassandraDataAutoConfiguration.class // NOSONAR
-    }
-)
+@Import(CassandraDataAutoConfiguration.class)
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
     private CassandraProperties props;
