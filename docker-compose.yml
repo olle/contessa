@@ -45,3 +45,7 @@ services:
         - ./target/cassandra:/var/lib/cassandra
     environment:
         - "CASSANDRA_CLUSTER_NAME=contessa"
+  'redis':
+    image: redis
+    ports:
+        - "6379:6379"
