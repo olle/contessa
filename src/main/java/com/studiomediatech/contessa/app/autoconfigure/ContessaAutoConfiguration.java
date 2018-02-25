@@ -140,6 +140,6 @@ public class ContessaAutoConfiguration implements Loggable {
     @ComponentScan(basePackageClasses = ContessaDir.class)
     public static class DirUiAutoConfiguration {
 
-        // TODO
+        // OK
     }
 }
