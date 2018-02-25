@@ -11,7 +11,10 @@ import io.minio.MinioClient;
 
 import io.minio.errors.MinioException;
 
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import org.springframework.context.event.EventListener;
 
 import org.springframework.stereotype.Component;
 
@@ -25,6 +28,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 
@@ -33,8 +37,11 @@ import java.util.function.Supplier;
 public class MinioStorageImpl implements Storage {
 
     private static final String BUCKET = "contessa";
+    private static final String META_OBJECT = "meta";
 
     private final ObjectMapper objectMapper;
+
+    private final AtomicLong count = new AtomicLong();
 
     @VisibleForTesting
     Supplier<MinioClient> client;
@@ -53,25 +60,72 @@ public class MinioStorageImpl implements Storage {
         };
     }
 
+    @EventListener
+    public void on(ApplicationReadyEvent _event) {
+
+        ensureBucketIsCreated();
+        loadObjectsCount();
+        updateObjectsCount();
+    }
+
+
+    private void ensureBucketIsCreated() {
+
+        try {
+            if (!client.get().bucketExists(BUCKET)) {
+                client.get().makeBucket(BUCKET);
+            }
+        } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException | IOException | XmlPullParserException e) {
+            throw new RuntimeException("Failed to initialize 'contessa' bucket to Minio storage", e);
+        }
+    }
+
+
+    private void loadObjectsCount() {
+
+        try {
+            client.get().statObject(BUCKET, META_OBJECT);
+
+            InputStream in = client.get().getObject(BUCKET, META_OBJECT);
+            MetaEntry entry = objectMapper.readValue(in, MetaEntry.class);
+            this.count.set(Optional.ofNullable(entry.count).orElse(0L));
+            in.close();
+        } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException | IOException | XmlPullParserException e) {
+            logger().warn("No object count found, will be initialized to 0");
+        }
+    }
+
+
+    private void updateObjectsCount() {
+
+        try {
+            long currentCount = this.count.get();
+            MetaEntry entry = new MetaEntry();
+            entry.count = currentCount;
+
+            byte[] bytes = objectMapper.writeValueAsBytes(entry);
+            ByteArrayInputStream bain = new ByteArrayInputStream(bytes);
+            client.get().putObject(BUCKET, META_OBJECT, bain, "application/octet-stream");
+            bain.close();
+        } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException | IOException | XmlPullParserException e) {
+            throw new RuntimeException("Failed to write meta entry to Minio storage", e);
+        }
+    }
+
+
     @Override
     public void store(Entry entry) {
 
         try {
-            MinioClient minioClient = client.get();
-
-            if (!minioClient.bucketExists(BUCKET)) {
-                minioClient.makeBucket(BUCKET);
-            }
-
             String filename = String.format("%s.json", entry.getId());
             MinioEntry m = MinioEntry.valueOf(entry);
 
             byte[] bytes = objectMapper.writeValueAsBytes(m);
             ByteArrayInputStream bain = new ByteArrayInputStream(bytes);
-
-            minioClient.putObject(BUCKET, filename, bain, "application/octet-stream");
-
+            client.get().putObject(BUCKET, filename, bain, "application/octet-stream");
             bain.close();
+            this.count.incrementAndGet();
+            updateObjectsCount();
         } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException | IOException | XmlPullParserException e) {
             throw new RuntimeException("Failed to write entry to Minio storage", e);
         }
@@ -82,12 +136,10 @@ public class MinioStorageImpl implements Storage {
     public Optional<Entry> retrieve(String identifier) {
 
         try {
-            MinioClient minioClient = client.get();
             String filename = String.format("%s.json", identifier);
+            client.get().statObject(BUCKET, filename); // Or throws!
 
-            minioClient.statObject(BUCKET, filename); // Or throws!
-
-            InputStream in = minioClient.getObject(BUCKET, filename);
+            InputStream in = client.get().getObject(BUCKET, filename);
             MinioEntry entry = objectMapper.readValue(in, MinioEntry.class);
             in.close();
 
@@ -96,4 +148,16 @@ public class MinioStorageImpl implements Storage {
             return Optional.empty();
         }
     }
+
+
+    @Override
+    public long count() {
+
+        return this.count.get();
+    }
+}
+
+class MetaEntry {
+
+    public Long count;
 }
