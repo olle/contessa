@@ -23,7 +23,8 @@ public class ContessaProperties {
         SQL,
         NOSQL,
         RAM,
-        MINIO;
+        MINIO,
+        CASSANDRA;
     }
 
     /**

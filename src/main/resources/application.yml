@@ -14,25 +14,13 @@ contessa:
   ### The storage type to use. Supports a small
   ### set of types:
   ###
-  ### `SQL`   - (default) Storing assets into
-  ###           an SQL database.
-  ###
-  ### `NOSQL` - Storing assets into a NoSQL
-  ###           database.
-  ###
-  ### `FILES` - File based storage type, saving
-  ###           content assets to the file
-  ###           system.
-  ###
-  ### `RAM`   - In-memory, ephemeral storage,
-  ###           holding entries in a local map.
-  ###
-  ### `NONE`  - Disables the storage; used only
-  ###           for testing and development.
-  ###
-  ### `MINIO` - Integration to the minio.io object
-  ###           storage, acting as a conduit for
-  ###           S3 (and compatible) stores.
+  ### `SQL` ........ JDBC storage (default)
+  ### `NOSQL` ...... MongoDB storage
+  ### `FILES` ...... File system storage
+  ### `RAM` ........ In-memory storage, for dev/test
+  ### `NONE` ....... Disabled storage, for dev/test
+  ### `MINIO` ...... Minio.io S3 compatible storage
+  ### `CASSANDRA` .. Cassandra cluster storage
   ###
   store: SQL
   ###
@@ -138,3 +126,11 @@ minio:
   endpoint: http://localhost:9000
   access-key: AKIAIOSFODNN7EXAMPLE
   secret-key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+---
+spring:
+  profiles: cassandra
+  data:
+    cassandra:
+      keyspace-name: contessa
+contessa:
+  store: CASSANDRA

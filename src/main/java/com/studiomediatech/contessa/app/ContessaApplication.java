@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
@@ -21,7 +22,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * Application starter.
  *
  * <p>The big exclude-list is due to some extended custom configurations that we do, in order to enable modules
- * selectively by configuraiton properties.</p>
+ * selectively by configuration properties.</p>
  */
 @SpringBootApplication(
     exclude = {
@@ -33,7 +34,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
         MongoDataAutoConfiguration.class, // NOSONAR
         MongoAutoConfiguration.class, // NOSONAR
         DataSourceAutoConfiguration.class, // NOSONAR
-        HibernateJpaAutoConfiguration.class // NOSONAR
+        HibernateJpaAutoConfiguration.class, // NOSONAR
+        CassandraDataAutoConfiguration.class // NOSONAR
     }
 )
 @EnableAsync(mode = AdviceMode.PROXY, proxyTargetClass = true)
