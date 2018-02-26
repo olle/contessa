@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.app.autoconfigure;
+package com.studiomediatech.contessa.app.autoconfigure.hacks;
 
 /*
  * Copyright 2012-2017 the original author or authors.

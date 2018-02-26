@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.store.files;
+package com.studiomediatech.contessa.store.file;
 
 public class FileStoreFailedException extends RuntimeException {
 

@@ -21,7 +21,7 @@ required, and starting won't be possible without it.
   $ java -Dcontessa.base-dir=data/ -jar contessa.jar
 ```
 
-You can now browse  `http://localhost:8080` and you should see some application
+You can now browse `http://localhost:8080` and you should see some application
 information.
 
 There are two main user interfaces on top of HTTP; a straight-forward web, and
@@ -99,13 +99,14 @@ Content entry resources can also be queried on the REST-ful API, by using the
 The content entry resource property `uri` can then be used to access the actual
 data.
 
-### Adding content in the drop-box
+### Adding content through the drop-box
 
 Directly under the Contessa `base-dir`, the folder `dropbox` is created, in
 order to provide support to manually add content.
 
 By giving users access to this directory, they may drop in content files and
-have Contessa repond with information about the added entry.
+have Contessa repond with information about the added entry. We start Contessa
+with the property `-Dcontessa.base-dir=data/`.
 
 ```
   $ ls -la data/dropbox/

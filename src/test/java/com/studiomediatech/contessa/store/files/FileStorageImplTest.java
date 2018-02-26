@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
+import com.studiomediatech.contessa.store.file.FileStorageImpl;
 
 import org.junit.Test;
 

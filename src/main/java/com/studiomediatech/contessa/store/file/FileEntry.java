@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.store.files;
+package com.studiomediatech.contessa.store.file;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -5,7 +5,7 @@ import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
 import com.studiomediatech.contessa.store.cassandra.ContessaCassandra;
-import com.studiomediatech.contessa.store.files.ContessaFiles;
+import com.studiomediatech.contessa.store.file.ContessaFile;
 import com.studiomediatech.contessa.store.minio.ContessaMinio;
 import com.studiomediatech.contessa.store.mongo.ContessaMongo;
 import com.studiomediatech.contessa.store.none.ContessaNone;
@@ -68,9 +68,9 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.FILES)
-    @ComponentScan(basePackageClasses = ContessaFiles.class)
-    public static class FilesStorageAutoConfiguration {
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.FILE)
+    @ComponentScan(basePackageClasses = ContessaFile.class)
+    public static class FileStorageAutoConfiguration {
 
         // OK
     }

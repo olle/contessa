@@ -13,6 +13,11 @@ debug:
 	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/
 
 ##
+## Does not require any docker resource
+##
+start-file:
+	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/ -Dspring.profiles.active=file
+##
 ## Custom targets supported:
 ##   - mariadb
 ##   - minio

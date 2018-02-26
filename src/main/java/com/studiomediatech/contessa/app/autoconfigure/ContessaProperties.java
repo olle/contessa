@@ -10,15 +10,13 @@ import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 
 @Validated
 @ConfigurationProperties(prefix = "contessa")
 public class ContessaProperties {
 
     public static final String SQL = "SQL";
-    public static final String FILES = "FILES";
+    public static final String FILE = "FILE";
     public static final String MONGO = "MONGO";
     public static final String RAM = "RAM";
     public static final String MINIO = "MINIO";
@@ -29,7 +27,7 @@ public class ContessaProperties {
     /**
      * The required base directory for Contessa file system use, such as file storage or drop-boxes.
      */
-    @NotNull
+    @NotEmpty
     private String baseDir;
 
     /**

@@ -9,14 +9,15 @@ contessa:
   ### implies that operators **must** set this
   ###  property.
   ###
-  #base-dir:
+  base-dir:
+  ### ===========================================
   ###
   ### The storage type to use. Supports a small
   ### set of types:
   ###
   ### `SQL` ........ JDBC storage (default)
   ### `MONGO` ...... MongoDB storage
-  ### `FILES` ...... File system storage
+  ### `FILE` ....... File system storage
   ### `RAM` ........ In-memory storage, for dev/test
   ### `NONE` ....... Disabled storage, for dev/test
   ### `MINIO` ...... Minio.io S3 compatible storage
@@ -24,6 +25,7 @@ contessa:
   ### `REDIS` ...... Redis storage cluster
   ###
   store: SQL
+  ### ===========================================
   ###
   ### Toggles the available UIs on/off, allowing
   ### different types of access to media content
@@ -123,6 +125,12 @@ logging:
     ### Enable lines below for Hibernate/Query logs
     #org.hibernate.SQL: DEBUG
     #org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+---
+spring:
+  profiles: file
+contessa:
+  store: FILE
+  dir.enabled: true
 ---
 spring:
   profiles: mongodb
