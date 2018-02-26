@@ -1,27 +1,28 @@
-.PHONY: test start start-maria debug
+.PHONY: test start debug
 
 test:
 	@mvn clean verify
 
+##
+## Default targets for starting and debugging
 start:
 	@docker-compose up -d
-	@mvn spring-boot:run -Dcontessa.base-dir=target/
-
-start-maria:
-	@docker-compose up -d mariadb
-	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=mariadb
-
-start-minio:
-	@docker-compose up -d minio
-	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=minio
-
-start-cassandra:
-	@docker-compose up -d cassandra
-	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=cassandra
-
-start-redis:
-	@docker-compose up -d redis
-	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=redis
+	@mvn spring-boot:run -Dcontessa.base-dir=.var/
 
 debug:
-	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=target/
+	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/
+
+##
+## Custom targets supported:
+##   - mariadb
+##   - minio
+##   - cassandra
+##   - redis
+##
+start-%:
+	@docker-compose up -d $*
+	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/ -Dspring.profiles.active=$*
+
+debug-%:
+	@docker-compose up -d $*
+	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/ -Dspring.profiles.active=$*
