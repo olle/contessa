@@ -24,12 +24,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 
 /**
@@ -127,6 +130,8 @@ public class ContessaAutoConfiguration implements Loggable {
 
         @Configuration
         @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
+        @EnableRedisRepositories(basePackageClasses = ContessaRedis.class)
+        @EntityScan(basePackageClasses = ContessaRedis.class)
         @ComponentScan(basePackageClasses = ContessaRedis.class)
         public static class RedisStorageAutoConfiguration {
 

@@ -92,7 +92,7 @@
             <artifactId>minio</artifactId>
             <version>3.0.12</version>
         </dependency>
-
+        
         <!-- TEST DEPENDENCIES -->
 
         <dependency>

@@ -22,7 +22,8 @@ public class RedisStorageImpl implements Storage, Loggable {
     @Override
     public void store(Entry entry) {
 
-        RedisEntry stored = repo.save(RedisEntry.valueOf(entry));
+        RedisEntry e = RedisEntry.valueOf(entry);
+        RedisEntry stored = repo.save(e);
         logger().debug("Saved {}", stored);
     }
 
