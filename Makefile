@@ -16,6 +16,7 @@ start-cassandra:
 	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=cassandra
 
 start-redis:
+	@docker-compose up -d redis
 	@mvn spring-boot:run -Dcontessa.base-dir=target/ -Dspring.profiles.active=redis
 
 debug:
