@@ -24,23 +24,28 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * Application starter.
  *
  * <p>The big exclude-list is due to some extended custom configurations that we do, in order to enable modules
- * selectively by configuration properties.</p>
+ * selectively by configuration properties, instead of only by existing as a dependency.</p>
+ *
+ * <p><em>NOTE: Most Spring Boot dependencies are (by design) activated as they are added to the project
+ * POM-file.</em></p>
  */
 @SpringBootApplication(
+    //J-
     exclude = {
-        HttpEncodingAutoConfiguration.class, // NOSONAR
-        MetricFilterAutoConfiguration.class, // NOSONAR
-        ErrorMvcAutoConfiguration.class, // NOSONAR
-        WebMvcAutoConfiguration.class, // NOSONAR
-        RabbitAutoConfiguration.class, // NOSONAR
-        MongoDataAutoConfiguration.class, // NOSONAR
-        MongoAutoConfiguration.class, // NOSONAR
-        DataSourceAutoConfiguration.class, // NOSONAR
-        HibernateJpaAutoConfiguration.class, // NOSONAR
-        CassandraDataAutoConfiguration.class, // NOSONAR
-        RedisAutoConfiguration.class, // NOSONAR
-        RedisRepositoriesAutoConfiguration.class // NOSONAR
+        HttpEncodingAutoConfiguration.class,
+        MetricFilterAutoConfiguration.class,
+        ErrorMvcAutoConfiguration.class,
+        WebMvcAutoConfiguration.class,
+        RabbitAutoConfiguration.class,
+        MongoDataAutoConfiguration.class,
+        MongoAutoConfiguration.class,
+        DataSourceAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class,
+        CassandraDataAutoConfiguration.class,
+        RedisAutoConfiguration.class,
+        RedisRepositoriesAutoConfiguration.class
     }
+    //J+
 )
 @EnableAsync(mode = AdviceMode.PROXY, proxyTargetClass = true)
 public class ContessaApplication {

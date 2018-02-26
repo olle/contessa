@@ -15,7 +15,7 @@ contessa:
   ### set of types:
   ###
   ### `SQL` ........ JDBC storage (default)
-  ### `NOSQL` ...... MongoDB storage
+  ### `MONGO` ...... MongoDB storage
   ### `FILES` ...... File system storage
   ### `RAM` ........ In-memory storage, for dev/test
   ### `NONE` ....... Disabled storage, for dev/test
@@ -123,6 +123,11 @@ logging:
     ### Enable lines below for Hibernate/Query logs
     #org.hibernate.SQL: DEBUG
     #org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+---
+spring:
+  profiles: mongodb
+contessa:
+  store: MONGO
 ---
 spring:
   profiles: mariadb

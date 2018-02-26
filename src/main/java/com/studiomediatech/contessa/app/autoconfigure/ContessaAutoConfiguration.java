@@ -7,8 +7,8 @@ import com.studiomediatech.contessa.store.Storage;
 import com.studiomediatech.contessa.store.cassandra.ContessaCassandra;
 import com.studiomediatech.contessa.store.files.ContessaFiles;
 import com.studiomediatech.contessa.store.minio.ContessaMinio;
+import com.studiomediatech.contessa.store.mongo.ContessaMongo;
 import com.studiomediatech.contessa.store.none.ContessaNone;
-import com.studiomediatech.contessa.store.nosql.ContessaNoSql;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
 import com.studiomediatech.contessa.store.redis.ContessaRedis;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
@@ -60,7 +60,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "NONE")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.NONE)
     @ComponentScan(basePackageClasses = ContessaNone.class)
     public static class NoneStorageAutoConfiguration {
 
@@ -68,7 +68,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "FILES")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.FILES)
     @ComponentScan(basePackageClasses = ContessaFiles.class)
     public static class FilesStorageAutoConfiguration {
 
@@ -76,15 +76,15 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "NOSQL")
-    @ComponentScan(basePackageClasses = ContessaNoSql.class)
-    public static class NoSqlStorageAutoConfiguration {
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MONGO)
+    @ComponentScan(basePackageClasses = ContessaMongo.class)
+    public static class MongoDbStorageAutoConfiguration {
 
         // OK
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "SQL")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.SQL)
     @ComponentScan(basePackageClasses = ContessaSql.class)
     public static class SqlStorageAutoConfiguration {
 
@@ -92,7 +92,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "RAM")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.RAM)
     @ComponentScan(basePackageClasses = ContessaRam.class)
     public static class RamStorageAutoConfiguration {
 
@@ -100,7 +100,7 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "MINIO")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MINIO)
     @ComponentScan(basePackageClasses = ContessaMinio.class)
     public static class MinioStorageAutoConfiguration {
 
@@ -108,14 +108,14 @@ public class ContessaAutoConfiguration implements Loggable {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "CASSANDRA")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.CASSANDRA)
     @ComponentScan(basePackageClasses = ContessaCassandra.class)
     public static class CassandraStorageAutoConfiguration {
 
         // OK
     }
 
-    @ConditionalOnProperty(name = "contessa.store", havingValue = "REDIS")
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
     @Configuration
     @Import(
         {
@@ -126,7 +126,7 @@ public class ContessaAutoConfiguration implements Loggable {
     public static class RedisStorageAutoConfigurationWrapper {
 
         @Configuration
-        @ConditionalOnProperty(name = "contessa.store", havingValue = "REDIS")
+        @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
         @ComponentScan(basePackageClasses = ContessaRedis.class)
         public static class RedisStorageAutoConfiguration {
 

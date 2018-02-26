@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.app.autoconfigure;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,17 +17,14 @@ import javax.validation.constraints.NotNull;
 @ConfigurationProperties(prefix = "contessa")
 public class ContessaProperties {
 
-    public enum StorageType {
-
-        SQL,
-        RAM,
-        FILES,
-        NOSQL,
-        MINIO,
-        CASSANDRA,
-        REDIS,
-        NONE;
-    }
+    public static final String SQL = "SQL";
+    public static final String FILES = "FILES";
+    public static final String MONGO = "MONGO";
+    public static final String RAM = "RAM";
+    public static final String MINIO = "MINIO";
+    public static final String CASSANDRA = "CASSANDRA";
+    public static final String REDIS = "REDIS";
+    public static final String NONE = "NONE";
 
     /**
      * The required base directory for Contessa file system use, such as file storage or drop-boxes.
@@ -37,8 +35,8 @@ public class ContessaProperties {
     /**
      * The storage type to use, may not be empty.
      */
-    @NotNull
-    private StorageType store;
+    @NotEmpty
+    private String store;
 
     /**
      * Optional list of cookies (names) that are required in any request.
@@ -70,13 +68,13 @@ public class ContessaProperties {
     }
 
 
-    public StorageType getStore() {
+    public String getStore() {
 
         return store;
     }
 
 
-    public void setStore(StorageType store) {
+    public void setStore(String store) {
 
         this.store = store;
     }

@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.store.nosql;
+package com.studiomediatech.contessa.store.mongo;
 
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
@@ -10,14 +10,14 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 
 @Configuration
-@EnableMongoRepositories(basePackageClasses = ContessaNoSql.class)
+@EnableMongoRepositories(basePackageClasses = ContessaMongo.class)
 @Import(
     {
         MongoAutoConfiguration.class, // NOSONAR
         MongoDataAutoConfiguration.class // NOSONAR
     }
 )
-public class NoSqlConfig {
+public class MongoDbConfig {
 
     // OK
 }

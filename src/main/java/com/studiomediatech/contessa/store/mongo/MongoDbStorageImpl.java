@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.store.nosql;
+package com.studiomediatech.contessa.store.mongo;
 
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
@@ -10,11 +10,11 @@ import java.util.Optional;
 
 
 @Component
-public class NoSqlStorageImpl implements Storage, Loggable {
+public class MongoDbStorageImpl implements Storage, Loggable {
 
-    private final NoSqlEntryRepository repo;
+    private final MongoDbEntryRepository repo;
 
-    public NoSqlStorageImpl(NoSqlEntryRepository repo) {
+    public MongoDbStorageImpl(MongoDbEntryRepository repo) {
 
         this.repo = repo;
     }
@@ -22,7 +22,7 @@ public class NoSqlStorageImpl implements Storage, Loggable {
     @Override
     public void store(Entry entry) {
 
-        NoSqlEntry stored = repo.save(NoSqlEntry.valueOf(entry));
+        MongoDbEntry stored = repo.save(MongoDbEntry.valueOf(entry));
         logger().debug("Saved {}", stored);
     }
 
@@ -30,10 +30,10 @@ public class NoSqlStorageImpl implements Storage, Loggable {
     @Override
     public Optional<Entry> retrieve(String identifier) {
 
-        Optional<NoSqlEntry> entry = repo.findOneByIdentifier(identifier);
+        Optional<MongoDbEntry> entry = repo.findOneByIdentifier(identifier);
         logger().debug("Retrieved {} for identifier: {}", entry, identifier);
 
-        return entry.map(NoSqlEntry::asEntry);
+        return entry.map(MongoDbEntry::asEntry);
     }
 
 

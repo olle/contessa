@@ -1,11 +1,11 @@
-package com.studiomediatech.contessa.store.nosql;
+package com.studiomediatech.contessa.store.mongo;
 
 import com.studiomediatech.contessa.domain.Entry;
 
 import org.springframework.data.annotation.Id;
 
 
-public class NoSqlEntry {
+public class MongoDbEntry {
 
     @Id
     private String identifier;
@@ -61,9 +61,9 @@ public class NoSqlEntry {
     }
 
 
-    public static NoSqlEntry valueOf(Entry entry) {
+    public static MongoDbEntry valueOf(Entry entry) {
 
-        NoSqlEntry target = new NoSqlEntry();
+        MongoDbEntry target = new MongoDbEntry();
 
         target.setIdentifier(entry.getId());
         target.setSuffix(entry.getSuffix());
