@@ -27,7 +27,22 @@
             </snapshots>
         </repository>
     </repositories>
-
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>plugins-milestone</name>
+            <url>https://repo.spring.io/plugins-milestone</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>plugins-milestone</name>
+            <url>https://repo.spring.io/plugins-milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
