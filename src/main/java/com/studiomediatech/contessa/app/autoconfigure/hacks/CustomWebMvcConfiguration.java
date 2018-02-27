@@ -30,14 +30,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ConditionalOnEnabledResourceChain;
-import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties.Strategy;
-import org.springframework.boot.autoconfigure.web.WebMvcProperties;
-import org.springframework.boot.autoconfigure.web.WebMvcRegistrations;
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import org.springframework.context.annotation.Bean;
@@ -90,6 +90,8 @@ import org.springframework.web.servlet.resource.AppCacheManifestTransformer;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.ResourceResolver;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
+
+import java.time.Duration;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -161,10 +163,10 @@ public class CustomWebMvcConfiguration {
         @Override
         public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
 
-            Long timeout = this.mvcProperties.getAsync().getRequestTimeout();
+            Duration timeout = this.mvcProperties.getAsync().getRequestTimeout();
 
             if (timeout != null) {
-                configurer.setDefaultTimeout(timeout);
+                configurer.setDefaultTimeout(timeout.toMillis());
             }
         }
 
@@ -172,7 +174,7 @@ public class CustomWebMvcConfiguration {
         @Override
         public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 
-            Map<String, MediaType> mediaTypes = this.mvcProperties.getMediaTypes();
+            Map<String, MediaType> mediaTypes = this.mvcProperties.getContentnegotiation().getMediaTypes();
 
             for (Entry<String, MediaType> mediaType : mediaTypes.entrySet()) {
                 configurer.mediaType(mediaType.getKey(), mediaType.getValue());
