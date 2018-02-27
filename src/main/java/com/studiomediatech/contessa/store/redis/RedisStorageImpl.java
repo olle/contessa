@@ -31,7 +31,7 @@ public class RedisStorageImpl implements Storage, Loggable {
     @Override
     public Optional<Entry> retrieve(String identifier) {
 
-        Optional<RedisEntry> entry = Optional.ofNullable(repo.findOne(identifier));
+        Optional<RedisEntry> entry = repo.findById(identifier);
         logger().debug("Retrieved {} for identifier: {}", entry, identifier);
 
         return entry.map(RedisEntry::asEntry);
