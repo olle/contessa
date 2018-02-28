@@ -4,13 +4,10 @@ import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
-import com.studiomediatech.contessa.store.cassandra.ContessaCassandra;
 import com.studiomediatech.contessa.store.file.ContessaFile;
 import com.studiomediatech.contessa.store.minio.ContessaMinio;
-import com.studiomediatech.contessa.store.mongo.ContessaMongo;
 import com.studiomediatech.contessa.store.none.ContessaNone;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
-import com.studiomediatech.contessa.store.redis.ContessaRedis;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
 import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.dropbox.ContessaDir;
@@ -22,17 +19,11 @@ import com.studiomediatech.contessa.validation.ValidationServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 
 /**
@@ -78,13 +69,13 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-    @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MONGO)
-    @ComponentScan(basePackageClasses = ContessaMongo.class)
-    public static class MongoDbStorageAutoConfiguration {
-
-        // OK
-    }
+//    @Configuration
+//    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MONGO)
+//    @ComponentScan(basePackageClasses = ContessaMongo.class)
+//    public static class MongoDbStorageAutoConfiguration {
+//
+//        // OK
+//    }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.SQL)
@@ -110,34 +101,34 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-    @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.CASSANDRA)
-    @ComponentScan(basePackageClasses = ContessaCassandra.class)
-    public static class CassandraStorageAutoConfiguration {
+//    @Configuration
+//    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.CASSANDRA)
+//    @ComponentScan(basePackageClasses = ContessaCassandra.class)
+//    public static class CassandraStorageAutoConfiguration {
+//
+//        // OK
+//    }
 
-        // OK
-    }
-
-    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
-    @Configuration
-    @Import(
-        {
-            RedisAutoConfiguration.class, // NOSONAR
-            RedisRepositoriesAutoConfiguration.class // NOSONAR
-        }
-    )
-    public static class RedisStorageAutoConfigurationWrapper {
-
-        @Configuration
-        @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
-        @EnableRedisRepositories(basePackageClasses = ContessaRedis.class)
-        @EntityScan(basePackageClasses = ContessaRedis.class)
-        @ComponentScan(basePackageClasses = ContessaRedis.class)
-        public static class RedisStorageAutoConfiguration {
-
-            // OK
-        }
-    }
+//    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
+//    @Configuration
+//    @Import(
+//        {
+//            RedisAutoConfiguration.class, // NOSONAR
+//            RedisRepositoriesAutoConfiguration.class // NOSONAR
+//        }
+//    )
+//    public static class RedisStorageAutoConfigurationWrapper {
+//
+//        @Configuration
+//        @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
+//        @EnableRedisRepositories(basePackageClasses = ContessaRedis.class)
+//        @EntityScan(basePackageClasses = ContessaRedis.class)
+//        @ComponentScan(basePackageClasses = ContessaRedis.class)
+//        public static class RedisStorageAutoConfiguration {
+//
+//            // OK
+//        }
+//    }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.rest.enabled", havingValue = "true")
