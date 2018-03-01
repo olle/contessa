@@ -2,7 +2,6 @@ package com.studiomediatech.contessa.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
@@ -11,9 +10,6 @@ import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoCo
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
 import org.springframework.context.annotation.AdviceMode;
 
@@ -29,14 +25,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * <p><em>NOTE: Most Spring Boot dependencies are (by design) activated as they are added to the project
  * POM-file.</em></p>
  */
-@EnableAutoConfiguration
-@SpringBootApplication(
+@EnableAutoConfiguration(
     //J-
     exclude = {
-        HttpEncodingAutoConfiguration.class,
+        //HttpEncodingAutoConfiguration.class,
         //MetricFilterAutoConfiguration.class,
-        ErrorMvcAutoConfiguration.class,
-        WebMvcAutoConfiguration.class,
+        //ErrorMvcAutoConfiguration.class,
+        //WebMvcAutoConfiguration.class,
         RabbitAutoConfiguration.class,
         MongoDataAutoConfiguration.class,
         MongoAutoConfiguration.class,

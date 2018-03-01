@@ -7,7 +7,7 @@ test:
 ## Default targets for starting and debugging
 start:
 	@docker-compose up -d
-	@mvn spring-boot:run -Dcontessa.base-dir=.var/
+	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/
 
 debug:
 	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/
