@@ -8,6 +8,7 @@ import com.studiomediatech.contessa.store.file.ContessaFile;
 import com.studiomediatech.contessa.store.none.ContessaNone;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
+import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.dropbox.ContessaDir;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
 import com.studiomediatech.contessa.ui.web.ContessaWeb;
@@ -144,13 +145,13 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-//    @Configuration
-//    @ConditionalOnProperty(name = "contessa.amqp.enabled", havingValue = "true")
-//    @ComponentScan(basePackageClasses = ContessaAmqp.class)
-//    public static class AmqpUiAutoConfiguration {
-//
-//        // OK
-//    }
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.amqp.enabled", havingValue = "true")
+    @ComponentScan(basePackageClasses = ContessaAmqp.class)
+    public static class AmqpUiAutoConfiguration {
+
+        // OK
+    }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.dir.enabled", havingValue = "true")

@@ -47,7 +47,7 @@ contessa:
   web.enabled: true
   rest.enabled: true
   dir.enabled: false
-  amqp.enabled: false
+  amqp.enabled: true
   ###
   ### ===========================================
   ### An optional list of cookie names, that are
