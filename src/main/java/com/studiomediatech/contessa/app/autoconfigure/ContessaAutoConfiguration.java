@@ -4,6 +4,7 @@ import com.studiomediatech.contessa.contents.ContentsService;
 import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
+import com.studiomediatech.contessa.store.cassandra.ContessaCassandra;
 import com.studiomediatech.contessa.store.file.ContessaFile;
 import com.studiomediatech.contessa.store.minio.ContessaMinio;
 import com.studiomediatech.contessa.store.mongo.ContessaMongo;
@@ -102,13 +103,13 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-//    @Configuration
-//    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.CASSANDRA)
-//    @ComponentScan(basePackageClasses = ContessaCassandra.class)
-//    public static class CassandraStorageAutoConfiguration {
-//
-//        // OK
-//    }
+    @Configuration
+    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.CASSANDRA)
+    @ComponentScan(basePackageClasses = ContessaCassandra.class)
+    public static class CassandraStorageAutoConfiguration {
+
+        // OK
+    }
 
 //    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.REDIS)
 //    @Configuration
