@@ -5,6 +5,11 @@ import org.junit.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
 
+import com.studiomediatech.contessa.validation.amqp.MissingFilenameHeaderValidationError;
+import com.studiomediatech.contessa.validation.amqp.MissingFilenameSuffixValidationError;
+import com.studiomediatech.contessa.validation.amqp.MissingReplyToValidationError;
+import com.studiomediatech.contessa.validation.amqp.PayloadTooSmallValidationError;
+
 
 public class ValidationServiceImplTest {
 

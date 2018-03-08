@@ -5,12 +5,9 @@ import com.studiomediatech.contessa.contents.ContentsServiceImpl;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
 import com.studiomediatech.contessa.store.file.ContessaFile;
-import com.studiomediatech.contessa.store.minio.ContessaMinio;
-import com.studiomediatech.contessa.store.mongo.ContessaMongo;
 import com.studiomediatech.contessa.store.none.ContessaNone;
 import com.studiomediatech.contessa.store.ram.ContessaRam;
 import com.studiomediatech.contessa.store.sql.ContessaSql;
-import com.studiomediatech.contessa.ui.amqp.ContessaAmqp;
 import com.studiomediatech.contessa.ui.dropbox.ContessaDir;
 import com.studiomediatech.contessa.ui.rest.ContessaRest;
 import com.studiomediatech.contessa.ui.web.ContessaWeb;
@@ -70,13 +67,13 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-    @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MONGO)
-    @ComponentScan(basePackageClasses = ContessaMongo.class)
-    public static class MongoDbStorageAutoConfiguration {
-
-        // OK
-    }
+//    @Configuration
+//    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MONGO)
+//    @ComponentScan(basePackageClasses = ContessaMongo.class)
+//    public static class MongoDbStorageAutoConfiguration {
+//
+//        // OK
+//    }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.SQL)
@@ -94,13 +91,13 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-    @Configuration
-    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MINIO)
-    @ComponentScan(basePackageClasses = ContessaMinio.class)
-    public static class MinioStorageAutoConfiguration {
-
-        // OK
-    }
+//    @Configuration
+//    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.MINIO)
+//    @ComponentScan(basePackageClasses = ContessaMinio.class)
+//    public static class MinioStorageAutoConfiguration {
+//
+//        // OK
+//    }
 
 //    @Configuration
 //    @ConditionalOnProperty(name = "contessa.store", havingValue = ContessaProperties.CASSANDRA)
@@ -147,13 +144,13 @@ public class ContessaAutoConfiguration implements Loggable {
         // OK
     }
 
-    @Configuration
-    @ConditionalOnProperty(name = "contessa.amqp.enabled", havingValue = "true")
-    @ComponentScan(basePackageClasses = ContessaAmqp.class)
-    public static class AmqpUiAutoConfiguration {
-
-        // OK
-    }
+//    @Configuration
+//    @ConditionalOnProperty(name = "contessa.amqp.enabled", havingValue = "true")
+//    @ComponentScan(basePackageClasses = ContessaAmqp.class)
+//    public static class AmqpUiAutoConfiguration {
+//
+//        // OK
+//    }
 
     @Configuration
     @ConditionalOnProperty(name = "contessa.dir.enabled", havingValue = "true")

@@ -1,7 +1,7 @@
 package com.studiomediatech.contessa.app;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
@@ -25,7 +25,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * <p><em>NOTE: Most Spring Boot dependencies are (by design) activated as they are added to the project
  * POM-file.</em></p>
  */
-@EnableAutoConfiguration(
+@SpringBootApplication(
     //J-
     exclude = {
         //HttpEncodingAutoConfiguration.class,

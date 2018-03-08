@@ -1,6 +1,10 @@
 package com.studiomediatech.contessa.validation;
 
 import com.studiomediatech.contessa.logging.Loggable;
+import com.studiomediatech.contessa.validation.amqp.MissingFilenameHeaderValidationError;
+import com.studiomediatech.contessa.validation.amqp.MissingFilenameSuffixValidationError;
+import com.studiomediatech.contessa.validation.amqp.MissingReplyToValidationError;
+import com.studiomediatech.contessa.validation.amqp.PayloadTooSmallValidationError;
 
 import org.springframework.amqp.core.Message;
 
