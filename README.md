@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/olle/contessa.svg?branch=master)](https://travis-ci.org/olle/contessa)
 
-_Pssst! There's a branch for Spring Boot 2.x too. Check it out!_
-
 Contessa
 ========
 
