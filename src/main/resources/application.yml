@@ -95,27 +95,29 @@ minio:
 spring:
   application:
     name: contessa
+  resources:
+    add-mappings: false
+  mvc:
+    favicon:
+      enabled: false
   datasource:
     ## Default is an embedded database
     url: jdbc:h2:mem:contessa;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  ### - Development only!
+  h2:
+    console:
+      enabled: true
   jpa:
     hibernate:
       ddl-auto: none
-  ### - Development only!
-  #h2:
-  #  console:
-  #    enabled: true
   rabbitmq:
     ## Better defaults for RabbitMQ docker/default
     username: guest
     password: guest
 ### ---------------------------------------------
 management:
-  add-application-context-header: false
-  ## Faster startup if disabled
-  security.enabled: false
-endpoints:
-  enabled: false
+  server.add-application-context-header: false
+  endpoints.enabled-by-default: false
 logging:
   level:
     ### Ah... the sound of silence
@@ -142,6 +144,10 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/contessa
     username: root
+  ### - Development only!
+  h2:
+    console:
+      enabled: false
 ---
 spring:
   profiles: minio

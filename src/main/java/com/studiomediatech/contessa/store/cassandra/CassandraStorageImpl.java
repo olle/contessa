@@ -30,7 +30,7 @@ public class CassandraStorageImpl implements Storage, Loggable {
     @Override
     public Optional<Entry> retrieve(String identifier) {
 
-        Optional<CassandraEntry> entry = Optional.ofNullable(repo.findOne(identifier));
+        Optional<CassandraEntry> entry = repo.findById(identifier);
         logger().debug("Retrieved {} for identifier: {}", entry, identifier);
 
         return entry.map(CassandraEntry::asEntry);

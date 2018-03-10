@@ -1,4 +1,4 @@
-package com.studiomediatech.contessa.validation;
+package com.studiomediatech.contessa.validation.amqp;
 
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 
