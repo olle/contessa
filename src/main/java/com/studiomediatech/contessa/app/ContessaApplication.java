@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoCo
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
 import org.springframework.context.annotation.AdviceMode;
 
@@ -28,10 +31,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication(
     //J-
     exclude = {
-        //HttpEncodingAutoConfiguration.class,
-        //MetricFilterAutoConfiguration.class,
-        //ErrorMvcAutoConfiguration.class,
-        //WebMvcAutoConfiguration.class,
+        HttpEncodingAutoConfiguration.class,
+        ErrorMvcAutoConfiguration.class,
+        WebMvcAutoConfiguration.class,
         RabbitAutoConfiguration.class,
         MongoDataAutoConfiguration.class,
         MongoAutoConfiguration.class,
