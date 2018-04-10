@@ -144,10 +144,28 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/contessa
     username: root
-  ### - Development only!
   h2:
     console:
       enabled: false
+contessa:
+  store: SQL
+---
+spring:
+  profiles: postgres
+  jpa:
+    # Disable feature detection by this undocumented parameter. Check the org.hibernate.engine.jdbc.internal.JdbcServiceImpl.configure method for more details.
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    # Because detection is disabled you have to set correct dialect by hand.
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/contessa
+    username: sa
+    password: root
+  h2:
+    console:
+      enabled: false
+contessa:
+  store: SQL
 ---
 spring:
   profiles: minio

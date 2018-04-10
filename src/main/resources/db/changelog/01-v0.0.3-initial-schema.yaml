@@ -1,4 +1,12 @@
 databaseChangeLog:
+  - property:
+      name: blob_type
+      value: LONGBLOB
+      dbms: mysql
+  - property:
+      name: blob_type
+      value: BYTEA
+      dbms: postgresql
   - changeSet:
       id: initial-schema
       author: olle
@@ -23,4 +31,4 @@ databaseChangeLog:
                   type: VARCHAR(32)
               - column:
                   name: data
-                  type: LONGBLOB
+                  type: ${blob_type}

@@ -24,6 +24,17 @@ services:
         ## Development only!
         - MYSQL_ALLOW_EMPTY_PASSWORD=true
         - MYSQL_DATABASE=contessa
+  'postgres':
+    image: postgres
+    restart: always
+    ports:
+        - "5432:5432"
+    environment:
+        - POSTGRES_USER=sa
+        - POSTGRES_PASSWORD=root
+        - POSTGRES_DB=contessa
+    volumes:
+        - ".var/postgres:/var/lib/postgresql"
   'minio':
     image: minio/minio
     ports:
