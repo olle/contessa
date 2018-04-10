@@ -22,6 +22,8 @@ contessa:
   ### `NONE` ....... Disabled storage, for dev/test
   ### `MINIO` ...... Minio.io S3 compatible storage
   ### `CASSANDRA` .. Cassandra cluster storage
+  ##
+  ##   --[CURRENTLY NOT WORKING!]--
   ### `REDIS` ...... Redis storage cluster
   ###
   store: SQL
