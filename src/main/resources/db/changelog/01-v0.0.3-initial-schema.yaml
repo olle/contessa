@@ -2,7 +2,7 @@ databaseChangeLog:
   - property:
       name: blob_type
       value: LONGBLOB
-      dbms: mysql
+      dbms: mysql,h2
   - property:
       name: blob_type
       value: BYTEA
