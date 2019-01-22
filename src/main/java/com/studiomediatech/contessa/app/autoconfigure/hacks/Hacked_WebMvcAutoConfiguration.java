@@ -56,8 +56,8 @@ import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoC
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.filter.OrderedFormContentFilter;
 import org.springframework.boot.web.servlet.filter.OrderedHiddenHttpMethodFilter;
-import org.springframework.boot.web.servlet.filter.OrderedHttpPutFormContentFilter;
 import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ResourceLoaderAware;
@@ -93,7 +93,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -115,7 +114,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExc
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.resource.AppCacheManifestTransformer;
-import org.springframework.web.servlet.resource.GzipResourceResolver;
+import org.springframework.web.servlet.resource.EncodedResourceResolver;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 import org.springframework.web.servlet.resource.ResourceResolver;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
@@ -156,10 +155,10 @@ public class Hacked_WebMvcAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(HttpPutFormContentFilter.class)
+	@ConditionalOnMissingBean(OrderedFormContentFilter.class)
 	@ConditionalOnProperty(prefix = "spring.mvc.formcontent.putfilter", name = "enabled", matchIfMissing = true)
-	public OrderedHttpPutFormContentFilter httpPutFormContentFilter() {
-		return new OrderedHttpPutFormContentFilter();
+	public OrderedFormContentFilter orderedFormContentFilter() {
+		return new OrderedFormContentFilter();
 	}
 
 	// Defined as a nested config to ensure WebMvcConfigurer is not read when not
@@ -609,8 +608,8 @@ public class Hacked_WebMvcAutoConfiguration {
 			if (strategy.getFixed().isEnabled() || strategy.getContent().isEnabled()) {
 				chain.addResolver(getVersionResourceResolver(strategy));
 			}
-			if (properties.isGzipped()) {
-				chain.addResolver(new GzipResourceResolver());
+			if (properties.isCompressed()) {
+				chain.addResolver(new EncodedResourceResolver());
 			}
 			if (properties.isHtmlApplicationCache()) {
 				chain.addTransformer(new AppCacheManifestTransformer());
