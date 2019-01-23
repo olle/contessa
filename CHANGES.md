@@ -1,7 +1,11 @@
 Changelog
 =========
 
-## v0.13.x [WIP]
+## v0.14.x [WIP]
+
+* Bye bye Java, moving towards an implementation 100% in Go.
+
+## v0.13.x
 
 This is a new feature set in the pre-stable life cycle, with the goal to make
 the storage sub-system more strict. Previously each storage back-end was
