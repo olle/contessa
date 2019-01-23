@@ -19,15 +19,16 @@ var (
 )
 
 func main() {
+
 	log.Printf("Starting Contessa %s...", Version)
 
-	// Startup flags and parameters
+	// Startup flags and parameters, can be seen with `--help`.
 	flag.BoolVar(&showVersion, "version", false, "show current version")
 	flag.StringVar(&configFile, "config", "./config.yaml", "configuration file path")
 	flag.StringVar(&baseDir, "base-dir", "", "base working dir")
 	flag.Parse()
 
-	// Optional information output
+	// Optional version information output
 	if showVersion {
 		fmt.Println(Version)
 		os.Exit(0)
@@ -39,13 +40,15 @@ func main() {
 		panic(fmt.Errorf("fatal error config file: %s", err))
 	}
 
+	// A provided `--base-dir` parameter overrules the configuration
 	if baseDir == "" {
 		baseDir = viper.GetString("base-dir")
 	}
 
+	// Strict requirement, must be enforced
 	if baseDir == "" {
 		panic(fmt.Errorf("missing required configuration property `base-dir`"))
 	}
 
-	log.Printf("Configuration base-dir: %s", baseDir)
+	log.Printf("Read configuration, will use base-dir: %s", baseDir)
 }
