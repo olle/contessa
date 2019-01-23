@@ -23,3 +23,5 @@ dist/
 nbdist/
 .nb-gradle/npm-debug.log
 .var/
+contessa
+contessa.arm

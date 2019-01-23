@@ -1,33 +1,43 @@
-.PHONY: test start debug
+.PHONY: all clean
 
-test:
-	@mvn clean verify
+TARGET=contessa
 
-##
-## Default targets for starting and debugging
-start:
-	@docker-compose up -d
-	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/
+all: ${TARGET} ${TARGET}.arm
 
-debug:
-	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/
+${TARGET}: *.go
+	go build -o $@
 
-##
-## Does not require any docker resource
-##
-start-file:
-	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/ -Dspring-boot.run.profiles=file
-##
-## Custom targets supported:
-##   - mariadb
-##   - minio
-##   - cassandra
-##   - redis
-##
-start-%:
-	@docker-compose up -d $*
-	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/ -Dspring-boot.run.profiles=$*
+${TARGET}.arm: *.go
+	env GOOS=linux GOARCH=arm GOARM=5 go build -o $@
 
-debug-%:
-	@docker-compose up -d $*
-	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/ -Dspring-boot.run.profiles=$*
+clean:
+	rm ${TARGET} ${TARGET}.arm
+
+# ##
+# ## Default targets for starting and debugging
+# start:
+# 	@docker-compose up -d
+# 	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/
+
+# debug:
+# 	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/
+
+# ##
+# ## Does not require any docker resource
+# ##
+# start-file:
+# 	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/ -Dspring-boot.run.profiles=file
+# ##
+# ## Custom targets supported:
+# ##   - mariadb
+# ##   - minio
+# ##   - cassandra
+# ##   - redis
+# ##
+# start-%:
+# 	@docker-compose up -d $*
+# 	@mvn clean spring-boot:run -Dcontessa.base-dir=.var/ -Dspring-boot.run.profiles=$*
+
+# debug-%:
+# 	@docker-compose up -d $*
+# 	@mvnDebug clean spring-boot:run -Ddebug=true -Dcontessa.base-dir=.var/ -Dspring-boot.run.profiles=$*
