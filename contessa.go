@@ -6,31 +6,46 @@ import (
 	"log"
 	"os"
 
-	ini "github.com/vaughan0/go-ini"
+	"github.com/spf13/viper"
 )
 
-const version = "0.14.0"
+// Version of Contessa
+const Version = "v0.14.0"
 
 var (
-	config      ini.File
-	configPath  string
 	showVersion bool
+	configFile  string
+	baseDir     string
 )
 
 func main() {
-	log.Printf("Starting Contessa v%s...", version)
+	log.Printf("Starting Contessa %s...", Version)
 
+	// Startup flags and parameters
 	flag.BoolVar(&showVersion, "version", false, "show current version")
-	flag.StringVar(&configPath, "config", "./config.ini", "configuration file path")
+	flag.StringVar(&configFile, "config", "./config.yaml", "configuration file path")
+	flag.StringVar(&baseDir, "base-dir", "", "base working dir")
 	flag.Parse()
 
+	// Optional information output
 	if showVersion {
-		fmt.Println(version)
+		fmt.Println(Version)
 		os.Exit(0)
 	}
 
-	_, err := ini.LoadFile(configPath)
-	if err != nil {
-		panic(err)
+	// Begin setup and initialization
+	viper.SetConfigFile(configFile)
+	if err := viper.ReadInConfig(); err != nil {
+		panic(fmt.Errorf("fatal error config file: %s", err))
 	}
+
+	if baseDir == "" {
+		baseDir = viper.GetString("base-dir")
+	}
+
+	if baseDir == "" {
+		panic(fmt.Errorf("missing required configuration property `base-dir`"))
+	}
+
+	log.Printf("Configuration base-dir: %s", baseDir)
 }

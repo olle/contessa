@@ -1,81 +1,85 @@
 ### ---------------------------------------------
 ### Default Contessa configuration properties.
 ### ---------------------------------------------
-contessa:
-  ###
-  ### The base dir path for any file system use
-  ### in Contessa. For example file storage or
-  ### content drop-boxes. Empty by default which
-  ### implies that operators **must** set this
-  ###  property.
-  ###
-  base-dir:
-  ### ===========================================
-  ###
-  ### The storage type to use. Supports a small
-  ### set of types:
-  ###
-  ### `SQL` ........ JDBC storage (default)
-  ### `MONGO` ...... MongoDB storage
-  ### `FILE` ....... File system storage
-  ### `RAM` ........ In-memory storage, for dev/test
-  ### `NONE` ....... Disabled storage, for dev/test
-  ### `MINIO` ...... Minio.io S3 compatible storage
-  ### `CASSANDRA` .. Cassandra cluster storage
-  ##
-  ##   --[CURRENTLY NOT WORKING!]--
-  ### `REDIS` ...... Redis storage cluster
-  ###
-  store: SQL
-  ### ===========================================
-  ###
-  ### Toggles the available UIs on/off, allowing
-  ### different types of access to media content
-  ### through "upload" and "download".
-  ###
-  ### `web`  - simple GET/POST for upload and
-  ###          direct media access.
-  ###
-  ### `rest` - with support for application/json
-  ###          responses.
-  ###
-  ### `dir`  - directory, file or drop-folder based
-  ###          interface.
-  ###
-  ### `amqp` - message broker based upload and
-  ###          query/response support for
-  ###          content entries.
-  ###
-  web.enabled: true
-  rest.enabled: true
-  dir.enabled: false
-  amqp.enabled: false
-  ###
-  ### ===========================================
-  ### An optional list of cookie names, that are
-  ### required to be set at all for any request.
-  ### The actual content of the cookies is not
-  ### checked, only for existence.
-  ###
-  #required-cookies:
-  #    - required.cookie.foo
-  #    - required.cookie.bar
-  ###
-  ### The cache-control max-age directive, in
-  ### seconds. Valid range is up to 365 days,
-  ### or 0-31536000.
-  ###
-  #max-age: 8640000 # 100 days (default).
-  ###
-  ### ===========================================
-  ### Optional list of IP addresses, that are
-  ### allowed to submit new content - a whitelist.
-  ### All other clients will be denied upload over
-  ### the REST or WEB user interface.
-  ###
-  #allowed-addresses:
-  #  - 192.168.0.1
-  #  - 127.0.0.1
+###
+### The base dir path for any file system use
+### in Contessa. For example file storage or
+### content drop-boxes. REQUIRED! This property
+### **must** be set, but can alternatively be
+### provided via the `--base-dir` parameter.
+base-dir:
+### ===========================================
+
+##
+## EVERYTHING BELOW IS TBD!
+##
+
+
+###
+### The storage type to use. Supports a small
+### set of types:
+###
+### `SQL` ........ JDBC storage (default)
+### `MONGO` ...... MongoDB storage
+### `FILE` ....... File system storage
+### `RAM` ........ In-memory storage, for dev/test
+### `NONE` ....... Disabled storage, for dev/test
+### `MINIO` ...... Minio.io S3 compatible storage
+### `CASSANDRA` .. Cassandra cluster storage
+##
+##   --[CURRENTLY NOT WORKING!]--
+### `REDIS` ...... Redis storage cluster
+###
+store: SQL
+### ===========================================
+###
+### Toggles the available UIs on/off, allowing
+### different types of access to media content
+### through "upload" and "download".
+###
+### `web`  - simple GET/POST for upload and
+###          direct media access.
+###
+### `rest` - with support for application/json
+###          responses.
+###
+### `dir`  - directory, file or drop-folder based
+###          interface.
+###
+### `amqp` - message broker based upload and
+###          query/response support for
+###          content entries.
+###
+web.enabled: true
+rest.enabled: true
+dir.enabled: false
+amqp.enabled: false
+###
+### ===========================================
+### An optional list of cookie names, that are
+### required to be set at all for any request.
+### The actual content of the cookies is not
+### checked, only for existence.
+###
+#required-cookies:
+#    - required.cookie.foo
+#    - required.cookie.bar
+###
+### The cache-control max-age directive, in
+### seconds. Valid range is up to 365 days,
+### or 0-31536000.
+###
+#max-age: 8640000 # 100 days (default).
+###
+### ===========================================
+### Optional list of IP addresses, that are
+### allowed to submit new content - a whitelist.
+### All other clients will be denied upload over
+### the REST or WEB user interface.
+###
+#allowed-addresses:
+#  - 192.168.0.1
+#  - 127.0.0.1
 
 ### =============================================
 ### Minio.io - storage properties
