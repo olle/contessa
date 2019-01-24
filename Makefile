@@ -1,8 +1,13 @@
-.PHONY: all clean
+.PHONY: all test build clean
 
 TARGET=contessa
 
-all: ${TARGET} ${TARGET}.arm
+all: test build
+
+test:
+	go test
+
+build: ${TARGET} ${TARGET}.arm
 
 ${TARGET}: *.go
 	go build -o $@
