@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
 
 	"github.com/spf13/viper"
 )
@@ -51,4 +52,18 @@ func main() {
 	}
 
 	log.Printf("Read configuration, will use base-dir: %s", baseDir)
+
+	// Now we'll initialize storage backends
+	log.Printf("storage.file.enabled: %v", viper.GetBool("storage.file.enabled"))
+
+	waitUntilInterrupt()
+	log.Println("Shutting down...")
+
+	log.Println("Contessage gracefully shut down")
+}
+
+func waitUntilInterrupt() {
+	trap := make(chan os.Signal, 1)
+	signal.Notify(trap, os.Interrupt)
+	<-trap
 }
