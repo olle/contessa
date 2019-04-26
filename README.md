@@ -217,4 +217,20 @@ as starting the project using the shortcut in the `Makefile`:
 
 There will be more documentation evolving inside the `docs/` folder.
 
+### Minio as Storage
+
+If you want to use Min.io as Storage, you can easily start a Min.io Server with 
+the following docker command: 
+
+```
+docker run -p 9000:9000 --name minio1 -e "MINIO_ACCESS_KEY=admin" -e 
+"MINIO_SECRET_KEY=password" -v /home/youruser/.minio/data 
+-v /mnt/config:/home/youruser/.minio minio/minio server /data
+```
+If this ran smoothly you can reach Min.io Browser under localhost:9000
+with credentials "admin:password"
+
+Currently min.io is the default store, if you want to chance this, 
+edit application.yml to your needs
+
 Happy hacking!

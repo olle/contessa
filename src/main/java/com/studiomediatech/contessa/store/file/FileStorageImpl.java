@@ -6,6 +6,7 @@ import com.studiomediatech.contessa.app.autoconfigure.ContessaProperties;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
+import com.studiomediatech.contessa.store.ContessaException;
 
 import org.springframework.stereotype.Component;
 
@@ -78,5 +79,15 @@ public class FileStorageImpl implements Storage, Loggable {
     public long count() {
 
         return getStoragePath().toFile().list((dir, name) -> name.contains(".json")).length;
+    }
+
+    @Override
+    public boolean exists(Entry entry, String path) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(Entry entry, String hpat) throws ContessaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

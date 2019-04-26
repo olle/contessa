@@ -26,7 +26,7 @@ contessa:
   ##   --[CURRENTLY NOT WORKING!]--
   ### `REDIS` ...... Redis storage cluster
   ###
-  store: SQL
+  store: MINIO
   ### ===========================================
   ###
   ### Toggles the available UIs on/off, allowing
@@ -84,11 +84,11 @@ contessa:
 ### ---------------------------------------------
 minio:
   ## URL to object storage service.
-  endpoint:
+  endpoint: http://172.17.0.2:9000
   ## Access key is like user ID that uniquely identifies your account.
-  access-key:
+  access-key: admin
   ## Secret key is the password to your account.
-  secret-key:
+  secret-key: password
 
 ### ---------------------------------------------
 ### Customized Spring Boot configuration
