@@ -3,6 +3,7 @@ package com.studiomediatech.contessa.store.ram;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
+import com.studiomediatech.contessa.store.minio.ContessaException;
 
 import org.springframework.stereotype.Component;
 
@@ -35,5 +36,15 @@ public class RamStorageImpl implements Storage, Loggable {
     public long count() {
 
         return storage.size();
+    }
+
+    @Override
+    public boolean exists(Entry entry, String path) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(Entry entry, String hpat) throws ContessaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

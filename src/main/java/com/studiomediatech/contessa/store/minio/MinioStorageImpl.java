@@ -8,8 +8,14 @@ import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.store.Storage;
 
 import io.minio.MinioClient;
+import io.minio.errors.ErrorResponseException;
+import io.minio.errors.InsufficientDataException;
+import io.minio.errors.InternalException;
+import io.minio.errors.InvalidArgumentException;
+import io.minio.errors.InvalidBucketNameException;
 
 import io.minio.errors.MinioException;
+import io.minio.errors.NoResponseException;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,7 +36,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @EnableConfigurationProperties(ContessaMinioProperties.class)
 @Component
@@ -46,18 +53,24 @@ public class MinioStorageImpl implements Storage {
     @VisibleForTesting
     Supplier<MinioClient> client;
 
+    /**
+     * Default Impl for Min.io Servers.
+     *
+     * @param props configuration of our minio client to connect minio server.
+     * @param objectMapper
+     */
     public MinioStorageImpl(ContessaMinioProperties props, ObjectMapper objectMapper) {
 
         this.objectMapper = objectMapper;
 
-        this.client =
-            () -> {
-            try {
-                return new MinioClient(props.getEndpoint(), props.getAccessKey(), props.getSecretKey());
-            } catch (MinioException e) {
-                throw new RuntimeException("Failed to initialize Minio client.", e);
-            }
-        };
+        this.client
+                = () -> {
+                    try {
+                        return new MinioClient(props.getEndpoint(), props.getAccessKey(), props.getSecretKey());
+                    } catch (MinioException e) {
+                        throw new RuntimeException("Failed to initialize Minio client.", e);
+                    }
+                };
     }
 
     @EventListener
@@ -67,7 +80,6 @@ public class MinioStorageImpl implements Storage {
         loadObjectsCount();
         updateObjectsCount();
     }
-
 
     private void ensureBucketIsCreated() {
 
@@ -79,7 +91,6 @@ public class MinioStorageImpl implements Storage {
             throw new RuntimeException("Failed to initialize 'contessa' bucket to Minio storage", e);
         }
     }
-
 
     private void loadObjectsCount() {
 
@@ -94,7 +105,6 @@ public class MinioStorageImpl implements Storage {
             logger().warn("No object count found, will be initialized to 0");
         }
     }
-
 
     private void updateObjectsCount() {
 
@@ -112,10 +122,9 @@ public class MinioStorageImpl implements Storage {
         }
     }
 
-
     @Override
     public void store(Entry entry) {
-
+        ensureBucketIsCreated();
         try {
             String filename = String.format("%s.json", entry.getId());
             MinioEntry m = MinioEntry.valueOf(entry);
@@ -130,7 +139,6 @@ public class MinioStorageImpl implements Storage {
             throw new RuntimeException("Failed to write entry to Minio storage", e);
         }
     }
-
 
     @Override
     public Optional<Entry> retrieve(String identifier) {
@@ -149,11 +157,42 @@ public class MinioStorageImpl implements Storage {
         }
     }
 
-
     @Override
     public long count() {
 
         return this.count.get();
+    }
+
+    @Override
+    public boolean exists(Entry entry, String path) throws ContessaException {
+        logger().debug("called with path :" + path + " for entry with id: " + entry.getId());
+        InputStream stream = null;
+        String filename = String.format("%s.json", entry.getId());
+            
+        try {
+            if (path != null) {
+                stream = this.client.get().getObject(path, filename);
+            } else {
+                stream = this.client.get().getObject(BUCKET, filename);
+            }
+        } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException | IOException | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException | InternalException | InvalidArgumentException ex) {
+            throw new ContessaException(ex);
+        }
+
+        return stream != null;
+    }
+
+    @Override
+    public void remove(Entry entry, String path) throws ContessaException {
+        logger().debug("entry.toString() is being deleted now. Path is given: " + path);
+        String filename = String.format("%s.json", entry.getId());
+        
+        try {
+            this.client.get().removeObject(BUCKET, filename);
+        } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException | IOException | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException | InternalException | InvalidArgumentException ex) {
+            logger().error("Unable to remove object. Exception occured: ", ex);
+            throw new ContessaException(ex);
+        }
     }
 }
 
