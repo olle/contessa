@@ -3,7 +3,7 @@ package com.studiomediatech.contessa.store.cassandra;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
 import com.studiomediatech.contessa.store.Storage;
-import com.studiomediatech.contessa.store.minio.ContessaException;
+import com.studiomediatech.contessa.store.ContessaException;
 
 import org.springframework.stereotype.Component;
 

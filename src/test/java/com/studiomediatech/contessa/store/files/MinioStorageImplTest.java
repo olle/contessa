@@ -6,7 +6,7 @@ package com.studiomediatech.contessa.store.files;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.store.Storage;
-import com.studiomediatech.contessa.store.minio.ContessaException;
+import com.studiomediatech.contessa.store.ContessaException;
 import com.studiomediatech.contessa.store.minio.ContessaMinioProperties;
 import com.studiomediatech.contessa.store.minio.MinioStorageImpl;
 import org.junit.Test;

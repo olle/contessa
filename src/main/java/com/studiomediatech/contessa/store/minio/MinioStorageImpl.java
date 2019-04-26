@@ -1,5 +1,6 @@
 package com.studiomediatech.contessa.store.minio;
 
+import com.studiomediatech.contessa.store.ContessaException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.google.common.annotations.VisibleForTesting;

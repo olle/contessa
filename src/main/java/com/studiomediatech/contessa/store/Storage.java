@@ -2,7 +2,6 @@ package com.studiomediatech.contessa.store;
 
 import com.studiomediatech.contessa.domain.Entry;
 import com.studiomediatech.contessa.logging.Loggable;
-import com.studiomediatech.contessa.store.minio.ContessaException;
 
 import java.util.Optional;
 
