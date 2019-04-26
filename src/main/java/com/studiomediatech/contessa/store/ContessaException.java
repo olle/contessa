@@ -1,7 +1,7 @@
 /*
  * J.Arraszu
  */
-package com.studiomediatech.contessa.store.minio;
+package com.studiomediatech.contessa.store;
 
 /**
  * Wrapper for the concrete Exceptions of the underlying Storeimpls.
